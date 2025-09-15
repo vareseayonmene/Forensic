@@ -1,0 +1,88 @@
+\chapter{Fondements Théoriques de l'Investigation Numérique}
+\epigraph{"La théorie sans la pratique est vaine, la pratique sans la théorie est aveugle. L'investigation numérique exige les deux."}{- Adaptation d'Emmanuel Kant, \textit{Critique de la raison pure}}
+\section{Le Principe de Locard Numérique}
+Édmond Locard (1877-1966) a établi que "toute action laisse une trace". En investigation numérique, ce principe se décline en:
+
+\subsection{Traces Primaires}
+\begin{itemize}
+\item \textbf{Logs système}: Enregistrements horodatés des événements
+\item \textbf{Artefacts de registre}: Modifications dans les bases de registre
+\item \textbf{Fichiers temporaires}: Cache, swap, hibernation
+\end{itemize}
+
+\subsection{Traces Secondaires}
+\begin{itemize}
+\item \textbf{Métadonnées}: EXIF, timestamps, propriétés de fichiers
+\item \textbf{Corrélations réseau}: Flux NetFlow, captures PCAP
+\item \textbf{Empreintes comportementales}: Patterns d'utilisation
+\end{itemize}
+
+\section{Modèles Théoriques d'Investigation}
+\subsection{Le Modèle DFRWS (2001)}
+\textbf{Digital Forensic Research Workshop Framework}
+
+\begin{enumerate}
+\item \textbf{Identification}: Reconnaissance des incidents
+\item \textbf{Préservation}: Isolation et protection des preuves
+\item \textbf{Collection}: Acquisition méthodique
+\item \textbf{Examination}: Analyse détaillée
+\item \textbf{Analysis}: Corrélation et reconstruction
+\item \textbf{Presentation}: Rapport et témoignage
+\end{enumerate}
+
+\subsection{Le Modèle de Casey (2004)}
+\textbf{Enhanced Integrated Digital Investigation Process}
+
+\begin{itemize}
+\item Phase 1: Readiness (Préparation)
+\item Phase 2: Deployment (Déploiement)
+\item Phase 3: Physical Crime Scene (Scène physique)
+\item Phase 4: Digital Crime Scene (Scène numérique)
+\item Phase 5: Review (Révision)
+\end{itemize}
+
+\subsection{Le Modèle ISO/IEC 27037:2012}
+\textbf{Normes internationales pour la collecte de preuves}
+
+\begin{itemize}
+\item Identification
+\item Collection/Acquisition
+\item Préservation
+\item Documentation
+\end{itemize}
+
+\section{Théorie de l'Information Appliquée}
+\subsection{Entropie de Shannon}
+Application à l'investigation:
+
+\[ H(X) = -\sum p(x_i) \log_2 p(x_i) \]
+
+\begin{itemize}
+\item Détection d'anomalies par analyse entropique
+\item Identification de données chiffrées ou compressées
+\item Analyse de randomness pour détecter la stéganographie
+\end{itemize}
+
+\subsection{Distance de Hamming et Similarité}
+Utilisation pour:
+
+\begin{itemize}
+\item Détection de plagiat de code
+\item Identification de variantes de malware
+\item Analyse de similarité de documents
+\end{itemize}
+
+\section{Théorie des Graphes en Investigation}
+\subsection{Analyse de Réseaux Sociaux}
+\begin{itemize}
+\item \textbf{Centralité}: Identification des acteurs clés
+\item \textbf{Clustering}: Détection de communautés
+\item \textbf{Propagation}: Traçage de la diffusion d'information
+\end{itemize}
+
+\subsection{Analyse de Flux de Données}
+\begin{itemize}
+\item Modélisation des transferts de données
+\item Identification des chemins de fuite
+\item Reconstruction de chronologies
+\end{itemize}

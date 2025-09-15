@@ -1,0 +1,79 @@
+\chapter{Fondements de la Conception et de la Cryptanalyse}
+\label{chap:17}
+
+\epigraph{"La sécurité n'est pas un produit, mais un processus."}{- Bruce Schneier}
+
+\section{Philosophie de la Conception Sécurisée}
+\label{sec:17.1}
+
+La conception de protocoles cryptographiques dignes de confiance repose sur des principes fondamentaux qui anticipent délibérément la présence d'un adversaire.
+
+\subsection{Principes de Sécurité}
+\label{subsec:17.1.1}
+
+\begin{itemize}
+    \item \textbf{Devoir de Méfiance (Zero Trust)} : Ne faire confiance à aucun composant, message ou entité sans vérification préalable.
+    \item \textbf{Minimalisme} : Réduire la surface d'attaque au strict nécessaire. Tout code ou complexité supplémentaire est une opportunité pour l'attaquant.
+    \item \textbf{Défense en Profondeur} : Empiler plusieurs mécanismes de sécurité indépendants. La compromission d'une couche ne doit pas entraîner l'effondrement de tout le système.
+    \item \textbf{Fail-Safe Defaults} : Un système doit refuser l'accès par défaut, qui n'est accordé qu'explicitement après vérification.
+\end{itemize}
+
+\subsection{Le Trilemme CRO comme Boussole de Conception}
+\label{subsec:17.1.2}
+
+Le \textit{Trilemme CRO} (Confidentialité, Fiabilité, Opposabilité) formalise le compromis fondamental inhérent à toute construction cryptographique. Une conception sécurisée ne cherche pas à maximiser les trois axes simultanément – une impossibilité théorique – mais à trouver l'équilibre optimal pour un cas d'usage donné.
+
+La conception modulaire et hybride du protocole \textbf{ZK-NR} (cf. Chapitre~\ref{chap:13}) est une réponse architecturale directe à ce trilemme. Chaque couche (Merkle, STARK, BLS, Dilithium) apporte une propriété dominante, et leur combinaison permet d'approcher un optimum global pour des scénarios de non-répudiation à forte criticité.
+
+\section{Taxonomie des Failles Cryptographiques}
+\label{sec:17.2}
+
+Comprendre l'attaquant nécessite de catégoriser ses vecteurs d'attaque.
+
+\begin{table}[H]
+\centering
+\caption{Taxonomie des failles de sécurité}
+\label{tab:17.1}
+\begin{tabular}{|p{0.45\linewidth}|p{0.45\linewidth}|}
+\hline
+\textbf{Type de Faille} & \textbf{Description et Exemples} \\
+\hline
+\hline
+\textbf{Conceptuelle (Modèle)} & Faille dans la spécification formelle. L'attaquant respecte le protocole mais en exploite une faiblesse logique. \newline Ex: Rejeu de session, absence de \textit{replay protection}. \\
+\hline
+\textbf{D'implémentation} & Faille dans le code, malgré une spécification correcte. \newline Ex: Fuite de mémoire, gestion erronée des erreurs, \textit{timing attacks}. \\
+\hline
+\textbf{Passive (Écoute)} & L'adversaire observe uniquement. \newline Ex: Analyse de trafic, cryptanalyse de texte chiffré. \\
+\hline
+\textbf{Active (Modification)} & L'adversaire altère la communication. \newline Ex: \textit{Man-in-the-middle}, injection de messages. \\
+\hline
+\textbf{Contre les Primitives} & Attaque visant la mathématique de la primitive. \newline Ex: Algorithme de Shor contre RSA, attaque par canaux auxiliaires sur une implémentation ECC. \\
+\hline
+\textbf{Contre le Protocole} & Attaque exploitant l'interaction des primitives. \newline Ex: Attaque par interleaving, confusion des rôles. \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Introduction à la Cryptanalyse}
+\label{sec:17.3}
+
+La cryptanalyse est l'art et la science de briser les protections cryptographiques. Son objectif n'est pas uniquement malveillant ; elle est indispensable pour valider la solidité des constructions.
+
+\subsection{Approches Black-Box vs. White-Box}
+\label{subsec:17.3.1}
+
+\begin{description}
+    \item[Analyse Black-Box] L'attaquant ne dispose que des entrées et sorties du système. Il déduit les vulnérabilités par observation du comportement (ex: temps de réponse, consommation énergétique).
+    \item[Analyse White-Box] L'attaquant a un accès total à l'implémentation, au code source, voir aux données internes. C'est le pire scénario pour le défenseur et le standard pour évaluer les systèmes fortement exposés.
+\end{description}
+
+\subsection{L'Ère de la Cryptanalyse Post-Quantique}
+\label{subsec:17.3.2}
+
+L'avènement de l'informatique quantique change radicalement la donne. Une analyse moderne doit se projeter dans deux lignes du temps :
+\begin{enumerate}
+    \item \textbf{Aujourd'hui} : Résistance aux attaques classiques sur calculateurs existants.
+    \item \textbf{Demain} : Résistance aux attaques quantiques, notamment via les algorithmes de \textbf{Shor} (cassage de l'asymétrie) et de \textbf{Grover} (accélération quadratique de la recherche, réduisant de moitié la sécurité effective des clés symétriques).
+\end{enumerate}
+
+La stratégie "\textit{Harvest Now, Decrypt Later}" où un adversaire stocke du chiffrement aujourd'hui pour le déchiffrer demain avec un ordinateur quantique, rend la cryptanalyse prospective absolument critique pour la protection des secrets à long terme.

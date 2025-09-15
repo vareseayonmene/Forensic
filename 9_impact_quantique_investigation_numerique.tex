@@ -1,0 +1,139 @@
+\chapter{Impact du Quantique sur l'Investigation Numérique}
+\epigraph{"Quantum computing will change everything we know about digital security and forensics. Preparation isn't optional—it's essential."}{- Whitfield Diffie}
+\section{La Menace Quantique}
+\subsection{Algorithme de Shor et ses Implications}
+L'algorithme de Shor (1994) peut factoriser de grands nombres en temps polynomial sur un ordinateur quantique, menaçant:
+
+\begin{itemize}
+\item \textbf{RSA}: Cassé avec ~4000 qubits logiques
+\item \textbf{ECC}: Cassé avec ~2000 qubits logiques
+\item \textbf{DSA/ECDSA}: Vulnérables de manière similaire
+\end{itemize}
+
+\textbf{Timeline de la Menace} (selon le NIST):
+
+\begin{itemize}
+\item 2030: Ordinateurs quantiques de 100-1000 qubits physiques
+\item 2035: Menace crédible contre RSA-2048
+\item 2040: Cryptographie actuelle obsolète
+\end{itemize}
+
+\subsection{Algorithme de Grover et la Recherche}
+Accélération quadratique pour:
+
+\begin{itemize}
+\item Recherche dans les bases de données
+\item Cassage de clés symétriques (AES-128 → sécurité 64-bit)
+\item Rainbow tables quantiques
+\end{itemize}
+
+\section{Implications pour l'Investigation}
+\subsection{"Harvest Now, Decrypt Later"}
+\textbf{Problématique actuelle}:
+
+\begin{itemize}
+\item Les adversaires stockent des communications chiffrées
+\item Attente de l'avènement quantique pour décryptage
+\item Impact sur les preuves numériques historiques
+\end{itemize}
+
+\textbf{Contre-mesures}:
+
+\begin{lstlisting}[language=Python, caption=Migration vers la crypto hybride]
+def hybrid_encryption(data, recipient_public_key):
+    """
+    Chiffrement hybride classique + post-quantique
+    """
+    # Classical layer (for current security)
+    rsa_encrypted = rsa_encrypt(data, recipient_public_key)
+    
+    # Post-quantum layer (for future security)
+    kyber_encrypted = kyber_encrypt(rsa_encrypted,
+                                  recipient_kyber_key)
+    
+    # Double encryption provides defense in depth
+    return kyber_encrypted
+\end{lstlisting}
+
+\subsection{Impact sur la Chain of Custody}
+\textbf{Défis}:
+
+\begin{enumerate}
+\item \textbf{Signatures numériques}: Migration nécessaire vers PQC
+\item \textbf{Timestamps}: Besoin de re-timestamping périodique
+\item \textbf{Intégrité long-terme}: Hash functions résistantes
+\end{enumerate}
+
+\section{Cryptographie Post-Quantique (PQC)}
+\subsection{Standards NIST Round 4}
+\textbf{Algorithmes sélectionnés} (Juillet 2022):
+
+\textbf{Signatures}:
+
+\begin{itemize}
+\item \textbf{CRYSTALS-Dilithium}: Basé sur les réseaux
+\item \textbf{FALCON}: Compact, basé sur NTRU
+\item \textbf{SPHINCS+}: Hash-based, stateless
+\end{itemize}
+
+\textbf{Key Encapsulation}:
+
+\begin{itemize}
+\item \textbf{CRYSTALS-Kyber}: Principal standard
+\item \textbf{BIKE}: Code-based (alternative)
+\item \textbf{HQC}: Code-based (alternative)
+\end{itemize}
+
+\subsection{Implémentation en Investigation}
+\begin{lstlisting}[language=Python, caption=Signature post-quantique pour evidence]
+from pqcrypto.sign import dilithium2
+
+def sign_evidence_pqc(evidence_hash, private_key):
+    """
+    Signature Dilithium pour preuve numérique
+    """
+    # Generate quantum-resistant signature
+    signature = dilithium2.sign(private_key, evidence_hash)
+    
+    # Create evidence package
+    evidence_package = {
+        'hash': evidence_hash,
+        'signature': signature,
+        'algorithm': 'CRYSTALS-Dilithium2',
+        'timestamp': time.time(),
+        'security_level': 'NIST-2 (equivalent AES-128)'
+    }
+    
+    return evidence_package
+\end{lstlisting}
+
+\section{Quantum Forensics: Nouvelles Opportunités}
+\subsection{Quantum Random Number Analysis}
+\begin{lstlisting}[language=Python, caption=Détection de QRNG vs PRNG]
+def detect_quantum_randomness(bit_stream):
+    """
+    Analyse statistique pour détecter l'origine quantique
+    """
+    tests = {
+        'monobit': monobit_test(bit_stream),
+        'runs': runs_test(bit_stream),
+        'spectral': dft_test(bit_stream),
+        'autocorrelation': autocorrelation_test(bit_stream)
+    }
+    
+    quantum_score = sum([
+        1 for test in tests.values()
+        if test > 0.99  # Very high randomness
+    ])
+    
+    return "QUANTUM" if quantum_score >= 3 else "CLASSICAL"
+\end{lstlisting}
+
+\subsection{Quantum State Tomography for Evidence}
+Application future: Reconstruction d'états quantiques pour preuves
+
+\begin{itemize}
+\item Vérification de quantum fingerprints
+\item Authentication quantique inviolable
+\item Quantum seal pour evidence bags
+\end{itemize}

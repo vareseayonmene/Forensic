@@ -1,0 +1,101 @@
+\chapter{Cas Pratique : Analyse du Protocole ZK-NR et de BLS}
+\label{chap:19}
+
+\epigraph{"In theory, theory and practice are the same. In practice, they are not. The true test of any protocol is in its implementation."}{- Albert Einstein}
+
+\section{Analyse du Protocole ZK-NR}
+\label{sec:19.1}
+
+Cette analyse applique la méthodologie du Chapitre~\ref{chap:18} au protocole ZK-NR, servant de cobaye pour illustrer le processus complet.
+
+\subsection{Étape 1 : Compréhension}
+\label{subsec:19.1.1}
+Re-contextualisation de l'objectif de ZK-NR : fournir une \textbf{non-répudiation préservant la vie privée} avec des \textbf{garanties post-quantiques}. Le protocole est modulaire, combinant quatre couches indépendantes (Merkle, STARK, BLS, Dilithium) pour atteindre cet objectif ambitieux.
+
+\subsection{Étape 2 : Modélisation}
+\label{subsec:19.1.2}
+Le modèle Tamarin fourni (Annexe D.3) est un point de départ excellent. Il formalise les règles du protocole et les propriétés souhaitées. Notre analyse valide que les lemmes couvrent bien les aspects critiques du Trilemme CRO.
+
+\subsection{Étape 3 : Analyse Manuelle et Identification du "Attack Surface"}
+\label{subsec:19.1.3}
+
+L'analyse manuelle révèle les forces et points de vigilance du design.
+
+\subsubsection{Points Forts}
+\label{subsubsec:19.1.3.1}
+\begin{itemize}
+    \item \textbf{Modularité} : La défaillance d'une couche n'implique pas l'effondrement total.
+    \item \textbf{Défense en Profondeur} : Les couches BLS (court terme) et Dilithium (long terme) se protègent mutuellement.
+    \item \textbf{Transparence} : Les STARKs n'ont pas besoin de trusted setup.
+    \item \textbf{Confidentialité} : Les preuves ZK ne divulguent pas l'entrée.
+\end{itemize}
+
+\subsubsection{Points de Vigilance et Surface d'Attaque}
+\label{subsubsec:19.1.3.2}
+\begin{itemize}
+    \item \textbf{Couche BLS} : Consciemment vulnérable à Shor. C'est un \textbf{compromis assumé} pour l'opposabilité juridique immédiate dans un monde classique. La couche Dilithium est la réponse à long terme.
+    \item \textbf{Gestion des Clés} (Section 5.3) : L'absence de règles formelles pour la rotation et la révocation des clés est la \textbf{principale vulnérabilité identifiée}. Un adversaire qui compromet une clé de signataire BLS ou Dilithium peut générer de fausses attestations jusqu'à son expiration naturelle.
+    \item \textbf{Complexité} : L'orchestration de quatre couches cryptographiques est complexe. Un bug d'implémentation dans l'enchaînement des opérations est une menace crédible.
+    \item \textbf{Preuves interactives} : Le modèle actuel utilise le Fiat-Shamir pour la non-interactivité. Une mauvaise implémentation de l'heuristique pourrait être exploitée.
+\end{itemize}
+
+\subsection{Étape 4 : Analyse Automatisée avec Tamarin}
+\label{subsec:19.1.4}
+Le modèle Tamarin existant est un atout majeur. L'état "non prouvé" des lemmes n'invalide pas le protocole ; il reflète la difficulté pratique des preuves formelles pour des systèmes aussi complexes. Il mandate une \textbf{vérification manuelle approfondie} des preuves ou une simplification du modèle pour obtenir des preuves automatiques sur des sous-parties.
+
+\section{Analyse de la Signature BLS}
+\label{sec:19.2}
+
+La signature BLS est une brique cruciale de ZK-NR. Son analyse est indispensable.
+
+\subsection{Fonctionnement et Forces}
+\label{subsec:19.2.1}
+BLS offre des signatures courtes, agrégables et vérifiables efficacement grâce aux appariements sur des courbes comme BLS12-381. Ces propriétés en font un choix optimal pour les systèmes à seuil.
+
+\subsection{Cryptanalyse Classique et Quantique}
+\label{subsec:19.2.2}
+\begin{itemize}
+    \item \textbf{Classique} : La sécurité repose sur la difficulté du problème calculatoire de Diffie-Hellman (CDH) sur les courbes appariées. Aucune attaque efficace n'est connue sur BLS12-381.
+    \item \textbf{Quantique} : \textbf{Extrêmement vulnérable}. L'algorithme de Shor résout le problème CDH en temps polynomial, réduisant la sécurité de la signature à néant. C'est la \textbf{faiblesse critique} de BLS.
+\end{itemize}
+
+\subsection{Implications pour le Trilemme CRO}
+\label{subsec:19.2.3}
+Une signature purement BLS obtient un score CRO déséquilibré :
+\begin{itemize}
+    \item \textbf{Fiabilité (R)} : \textbf{Élevée} dans un contexte purement classique.
+    \item \textbf{Opposabilité (O)} : \textbf{Élevée} aujourd'hui, jurisprudence existante autour des signatures basées sur ECC.
+    \item \textbf{Confidentialité (C)} : \textbf{Faible}, la signature elle-même n'apporte aucune confidentialité.
+    \item \textbf{Score Post-Quantique} : \textbf{Effondrement} de R et O à moyen terme.
+\end{itemize}
+Ce déséquilibre justifie pleinement son couplage avec Dilithium dans ZK-NR.
+
+\section{Recommandations pour l'Investigateur}
+\label{sec:19.3}
+
+\subsection{Face à une Preuve ZK-NR}
+\label{subsec:19.3.1}
+\begin{enumerate}
+    \item Vérifier la preuve STARK associée au Merkle Root.
+    \item Vérifier les deux signatures (BLS \textit{et} Dilithium) sur le Merkle Root.
+    \item S'assurer de la validité des certificats des autorités de certification des clés publiques des signataires de seuil.
+    \item Consulter les logs des signataires de seuil pour vérifier la légitimité de la demande de signature.
+\end{enumerate}
+
+\subsection{Face à une Signature BLS (Isolée)}
+\label{subsec:19.3.2}
+\begin{itemize}
+    \item \textbf{Aujourd'hui} : La signature est une preuve forte d'authenticité et d'intégrité.
+    \item \textbf{Pour des preuves archivées} : Dans le cadre d'une stratégie "Harvest Now, Decrypt Later", considérer que la signature BLS pourrait être forgée dans le futur. \textbf{Il est impératif de rechercher une signature post-quantique complémentaire} (e.g., Dilithium) archivée en parallèle pour garantir l'opposabilité à long terme.
+\end{itemize}
+
+\subsection{Checklist d'Analyse d'un Protocole}
+\label{subsec:19.3.3}
+\begin{enumerate}
+    \item[$\square$] Identifier toutes les primitives cryptographiques utilisées.
+    \item[$\square$] Évaluer leur résistance classique et post-quantique (cf. Chapitre~\ref{chap:12}).
+    \item[$\square$] Cartographier les flux de messages et les états persistants.
+    \item[$\square$] Rechercher les vulnérabilités de composition et de rejeu.
+    \item[$\square$] Vérifier la présence de mécanismes de gestion de clés (rotation, révocation).
+    \item[$\square$] Consulter les preuves formelles disponibles ou modéliser le protocole dans Tamarin.
+\end{enumerate}

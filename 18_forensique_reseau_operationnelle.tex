@@ -1,0 +1,934 @@
+\chapter{Forensique Réseau Opérationnelle}
+
+\epigraph{« Le réseau ne ment jamais, mais il faut savoir l'écouter. Chaque paquet raconte une histoire, chaque flux révèle une intention. »}{- \hfill \textit\textipa{Mal\textepsilon tY\textopeno n}}
+
+\section{Introduction à la Forensique Réseau Moderne}
+
+La forensique réseau représente l'art de reconstituer les activités numériques à partir des traces laissées dans l'infrastructure de communication. Dans un contexte post-quantique, cette discipline évolue pour intégrer des considérations de confidentialité avancées tout en maintenant la fiabilité et l'opposabilité des preuves selon le Trilemme CRO.
+
+\subsection{Paradigmes de la Forensique Réseau}
+
+\begin{enumerate}
+\item \textbf{Forensique passive} : Analyse de captures existantes
+\item \textbf{Forensique active} : Collecte en temps réel
+\item \textbf{Forensique prédictive} : Anticipation basée sur l'IA
+\item \textbf{Forensique quantique} : Préparation aux communications quantiques
+\end{enumerate}
+
+\section{Capture et Analyse PCAP}
+
+\subsection{Architecture de Capture Haute Performance}
+
+\begin{lstlisting}[language=Python, caption=Système de capture PCAP avec validation d'intégrité]
+import dpkt
+import socket
+import hashlib
+import time
+from collections import defaultdict
+
+class AdvancedPCAPAnalyzer:
+    """
+    Analyseur PCAP avancé avec intégration CRO
+    """
+    
+    def __init__(self, pcap_file):
+        self.pcap_file = pcap_file
+        self.flows = defaultdict(list)
+        self.anomalies = []
+        self.quantum_indicators = []
+        
+    def analyze_pcap_with_cro_validation(self):
+        """
+        Analyse PCAP avec validation selon le Trilemme CRO
+        """
+        analysis_results = {
+            'flow_analysis': self.perform_flow_analysis(),
+            'protocol_analysis': self.perform_protocol_analysis(),
+            'behavioral_analysis': self.perform_behavioral_analysis(),
+            'quantum_readiness': self.assess_quantum_readiness(),
+            'cro_compliance': self.evaluate_cro_compliance()
+        }
+        
+        # Génération de preuves ZK-NR pour les flows critiques
+        critical_flows = self.identify_critical_flows(analysis_results['flow_analysis'])
+        
+        for flow in critical_flows:
+            zk_proof = self.generate_flow_integrity_proof(flow)
+            flow['zk_proof'] = zk_proof
+            
+        return analysis_results
+    
+    def perform_flow_analysis(self):
+        """
+        Analyse détaillée des flux réseau
+        """
+        with open(self.pcap_file, 'rb') as f:
+            pcap = dpkt.pcap.Reader(f)
+            
+            for timestamp, buf in pcap:
+                try:
+                    eth = dpkt.ethernet.Ethernet(buf)
+                    
+                    if isinstance(eth.data, dpkt.ip.IP):
+                        ip = eth.data
+                        
+                        # Identification du flux
+                        flow_key = self.create_flow_key(ip)
+                        
+                        # Analyse du payload
+                        payload_analysis = self.analyze_payload(ip.data)
+                        
+                        # Détection de patterns malveillants
+                        malicious_patterns = self.detect_malicious_patterns(ip.data)
+                        
+                        # Évaluation de l'entropie
+                        entropy_score = self.calculate_payload_entropy(ip.data)
+                        
+                        flow_info = {
+                            'timestamp': timestamp,
+                            'src_ip': socket.inet_ntoa(ip.src),
+                            'dst_ip': socket.inet_ntoa(ip.dst),
+                            'protocol': ip.p,
+                            'payload_size': len(ip.data),
+                            'payload_analysis': payload_analysis,
+                            'malicious_patterns': malicious_patterns,
+                            'entropy_score': entropy_score,
+                            'quantum_indicators': self.scan_quantum_indicators(ip.data)
+                        }
+                        
+                        self.flows[flow_key].append(flow_info)
+                        
+                except Exception as e:
+                    continue
+                    
+        return self.analyze_flow_patterns()
+    
+    def detect_covert_channels(self):
+        """
+        Détection de canaux cachés dans le trafic réseau
+        """
+        covert_channels = []
+        
+        # Analyse des timings inter-paquets
+        timing_analysis = self.analyze_inter_packet_timings()
+        
+        # Détection de stéganographie réseau
+        for flow_key, packets in self.flows.items():
+            # Analyse des champs non-utilisés
+            unused_fields = self.analyze_unused_fields(packets)
+            
+            # Analyse des patterns de taille
+            size_patterns = self.analyze_size_patterns(packets)
+            
+            # Test de randomness sur les payloads
+            randomness_test = self.test_payload_randomness(packets)
+            
+            # Analyse temporelle pour détection de modulation
+            temporal_modulation = self.detect_temporal_modulation(packets)
+            
+            if any([unused_fields['suspicious'], size_patterns['anomalous'], 
+                   randomness_test['potential_steganography'], 
+                   temporal_modulation['detected']]):
+                
+                covert_channel = {
+                    'flow': flow_key,
+                    'detection_methods': {
+                        'unused_fields': unused_fields,
+                        'size_patterns': size_patterns,
+                        'randomness': randomness_test,
+                        'temporal_modulation': temporal_modulation
+                    },
+                    'confidence_level': self.calculate_detection_confidence([
+                        unused_fields, size_patterns, randomness_test, temporal_modulation
+                    ]),
+                    'forensic_impact': self.assess_covert_channel_impact(flow_key)
+                }
+                
+                # Génération de preuve cryptographique de détection
+                covert_channel['cryptographic_proof'] = self.create_detection_proof(
+                    covert_channel
+                )
+                
+                covert_channels.append(covert_channel)
+                
+        return covert_channels
+    
+    def perform_deep_packet_inspection_ai(self):
+        """
+        DPI avec intelligence artificielle pour détection avancée
+        """
+        import tensorflow as tf
+        
+        # Modèle pré-entraîné pour classification de trafic
+        model = tf.keras.models.load_model('network_classifier_model.h5')
+        
+        classified_traffic = []
+        
+        for flow_key, packets in self.flows.items():
+            # Extraction de features pour le ML
+            features = self.extract_ml_features(packets)
+            
+            # Classification du trafic
+            classification = model.predict(features.reshape(1, -1))
+            
+            # Analyse de confiance
+            confidence = float(tf.nn.softmax(classification)[0].numpy().max())
+            
+            # Post-traitement pour validation forensique
+            if confidence > 0.8:  # Seuil de confiance élevé
+                forensic_validation = {
+                    'flow': flow_key,
+                    'ai_classification': self.interpret_classification(classification),
+                    'confidence': confidence,
+                    'features': features.tolist(),
+                    'validation_status': 'HIGH_CONFIDENCE',
+                    'legal_admissibility': self.assess_ai_evidence_admissibility(
+                        classification, confidence
+                    )
+                }
+                
+                # Application du protocole ZK-NR pour validation IA
+                zk_proof = self.create_ai_validation_proof(forensic_validation)
+                forensic_validation['zk_proof'] = zk_proof
+                
+                classified_traffic.append(forensic_validation)
+                
+        return classified_traffic
+\end{lstlisting}
+
+\subsection{Analyse de Protocoles Chiffrés}
+
+\subsubsection{TLS/SSL Traffic Analysis}
+
+\begin{lstlisting}[language=Python, caption=Analyseur de trafic TLS avec détection post-quantique]
+class TLSForensicAnalyzer:
+    """
+    Analyseur forensique du trafic TLS/SSL
+    """
+    
+    def __init__(self):
+        self.tls_flows = []
+        self.cipher_suites = {}
+        self.certificate_chains = []
+        
+    def analyze_tls_handshakes(self, pcap_data):
+        """
+        Analyse des handshakes TLS pour extraction de métadonnées
+        """
+        tls_analysis = {
+            'handshake_analysis': [],
+            'cipher_negotiation': [],
+            'certificate_validation': [],
+            'post_quantum_detection': []
+        }
+        
+        for packet in pcap_data:
+            if self.is_tls_packet(packet):
+                # Parse du handshake TLS
+                tls_info = self.parse_tls_handshake(packet)
+                
+                # Détection de cipher suites post-quantiques
+                pq_detection = self.detect_post_quantum_ciphers(tls_info)
+                
+                # Analyse de la chaîne de certificats
+                cert_analysis = self.analyze_certificate_chain(tls_info['certificates'])
+                
+                # Évaluation de la sécurité du handshake
+                security_assessment = {
+                    'protocol_version': tls_info['version'],
+                    'cipher_strength': self.assess_cipher_strength(tls_info['cipher_suite']),
+                    'perfect_forward_secrecy': self.check_pfs(tls_info['key_exchange']),
+                    'quantum_resistance': pq_detection['quantum_resistant'],
+                    'certificate_validity': cert_analysis['valid'],
+                    'forensic_metadata': self.extract_forensic_metadata(tls_info)
+                }
+                
+                # Application du Trilemme CRO
+                cro_evaluation = self.evaluate_tls_with_cro(security_assessment)
+                
+                tls_analysis['handshake_analysis'].append({
+                    'tls_info': tls_info,
+                    'security_assessment': security_assessment,
+                    'cro_evaluation': cro_evaluation,
+                    'pq_detection': pq_detection
+                })
+                
+        return tls_analysis
+    
+    def detect_tls_anomalies(self, tls_flows):
+        """
+        Détection d'anomalies dans les communications TLS
+        """
+        anomalies = []
+        
+        # Analyse statistique des cipher suites
+        cipher_distribution = self.analyze_cipher_distribution(tls_flows)
+        
+        # Détection de cipher suites obsolètes ou suspects
+        for flow in tls_flows:
+            anomaly_indicators = {
+                'weak_ciphers': self.detect_weak_ciphers(flow['cipher_suite']),
+                'certificate_anomalies': self.detect_cert_anomalies(flow['certificates']),
+                'timing_anomalies': self.detect_timing_anomalies(flow['handshake_timing']),
+                'size_anomalies': self.detect_size_anomalies(flow['packet_sizes']),
+                'behavioral_anomalies': self.detect_behavioral_anomalies(flow)
+            }
+            
+            # Score d'anomalie composite
+            anomaly_score = self.calculate_composite_anomaly_score(anomaly_indicators)
+            
+            if anomaly_score > 0.7:  # Seuil d'alerte
+                anomaly = {
+                    'flow': flow,
+                    'anomaly_indicators': anomaly_indicators,
+                    'anomaly_score': anomaly_score,
+                    'forensic_priority': self.calculate_forensic_priority(anomaly_score),
+                    'recommended_actions': self.generate_investigation_recommendations(
+                        anomaly_indicators
+                    )
+                }
+                
+                # Attestation ZK-NR de l'anomalie
+                anomaly['zk_attestation'] = self.create_anomaly_attestation(anomaly)
+                
+                anomalies.append(anomaly)
+                
+        return sorted(anomalies, key=lambda x: x['forensic_priority'], reverse=True)
+\end{lstlisting}
+
+\section{Log Analysis et SIEM}
+
+\subsection{Analyse Unifiée de Logs}
+
+\begin{lstlisting}[language=Python, caption=Analyseur unifié de logs avec corrélation intelligente]
+class UnifiedLogAnalyzer:
+    """
+    Analyseur unifié intégrant multiples sources de logs
+    """
+    
+    def __init__(self):
+        self.log_parsers = {
+            'syslog': self.parse_syslog,
+            'windows_event': self.parse_windows_events,
+            'apache': self.parse_apache_logs,
+            'nginx': self.parse_nginx_logs,
+            'firewall': self.parse_firewall_logs,
+            'ids': self.parse_ids_logs,
+            'database': self.parse_database_logs
+        }
+        self.correlation_engine = CorrelationEngine()
+        
+    def analyze_multi_source_logs(self, log_sources):
+        """
+        Analyse corrélée de sources multiples de logs
+        """
+        parsed_logs = {}
+        
+        # Parsing de chaque source
+        for source_name, source_path in log_sources.items():
+            if source_name in self.log_parsers:
+                parsed_logs[source_name] = self.log_parsers[source_name](source_path)
+                
+                # Enrichissement avec métadonnées forensiques
+                for log_entry in parsed_logs[source_name]:
+                    log_entry['source'] = source_name
+                    log_entry['forensic_value'] = self.assess_forensic_value(log_entry)
+                    log_entry['cro_metrics'] = self.calculate_log_cro_metrics(log_entry)
+                    
+        # Corrélation cross-source
+        correlations = self.correlation_engine.correlate_across_sources(parsed_logs)
+        
+        # Construction de la timeline maître
+        master_timeline = self.build_master_timeline(parsed_logs)
+        
+        # Détection de patterns d'attaque
+        attack_patterns = self.detect_attack_patterns(correlations, master_timeline)
+        
+        # Analyse de la chaîne d'attaque (Kill Chain)
+        kill_chain_analysis = self.analyze_kill_chain(attack_patterns)
+        
+        return {
+            'parsed_logs': parsed_logs,
+            'correlations': correlations,
+            'master_timeline': master_timeline,
+            'attack_patterns': attack_patterns,
+            'kill_chain_analysis': kill_chain_analysis,
+            'investigation_recommendations': self.generate_investigation_recommendations(
+                attack_patterns
+            )
+        }
+    
+    def detect_log_tampering(self, log_file):
+        """
+        Détection de manipulation de logs
+        """
+        tampering_indicators = {
+            'timestamp_anomalies': self.detect_timestamp_anomalies(log_file),
+            'missing_entries': self.detect_missing_log_entries(log_file),
+            'hash_validation': self.validate_log_hashes(log_file),
+            'sequence_validation': self.validate_log_sequence(log_file),
+            'format_anomalies': self.detect_format_anomalies(log_file)
+        }
+        
+        # Score de confiance dans l'intégrité
+        integrity_score = self.calculate_log_integrity_score(tampering_indicators)
+        
+        # Génération de rapport de tampering
+        tampering_report = {
+            'file': log_file,
+            'indicators': tampering_indicators,
+            'integrity_score': integrity_score,
+            'confidence_level': self.calculate_confidence_level(tampering_indicators),
+            'legal_implications': self.assess_legal_implications(integrity_score),
+            'remediation_recommendations': self.generate_remediation_recommendations(
+                tampering_indicators
+            )
+        }
+        
+        # Attestation ZK-NR de l'analyse d'intégrité
+        if integrity_score < 0.8:  # Suspicion de tampering
+            tampering_report['zk_attestation'] = self.create_tampering_attestation(
+                tampering_report
+            )
+            
+        return tampering_report
+    
+    def analyze_dns_forensics(self, dns_logs):
+        """
+        Analyse forensique DNS avancée
+        """
+        dns_analysis = {
+            'domain_analysis': self.analyze_domain_patterns(dns_logs),
+            'dga_detection': self.detect_domain_generation_algorithms(dns_logs),
+            'dns_tunneling': self.detect_dns_tunneling(dns_logs),
+            'c2_communication': self.detect_c2_dns_patterns(dns_logs),
+            'exfiltration_detection': self.detect_dns_exfiltration(dns_logs)
+        }
+        
+        # Analyse temporelle des requêtes DNS
+        temporal_analysis = self.analyze_dns_temporal_patterns(dns_logs)
+        
+        # Corrélation avec threat intelligence
+        ti_correlation = self.correlate_with_threat_intelligence(dns_analysis)
+        
+        # Évaluation selon CRO
+        for domain_info in dns_analysis['domain_analysis']:
+            domain_info['cro_assessment'] = self.assess_domain_cro_impact(domain_info)
+            
+        return {
+            'dns_analysis': dns_analysis,
+            'temporal_analysis': temporal_analysis,
+            'threat_intelligence': ti_correlation,
+            'forensic_conclusions': self.generate_dns_forensic_conclusions(dns_analysis)
+        }
+\end{lstlisting}
+
+\subsection{Détection Avancée d'Intrusions}
+
+\subsubsection{Corrélation Comportementale Multi-Source}
+
+\begin{lstlisting}[language=Python, caption=Moteur de corrélation comportementale]
+class BehavioralCorrelationEngine:
+    """
+    Moteur de corrélation comportementale pour détection d'intrusions
+    """
+    
+    def __init__(self):
+        self.behavior_baselines = {}
+        self.anomaly_thresholds = {
+            'network': 0.15,
+            'process': 0.10,
+            'file': 0.20,
+            'user': 0.25
+        }
+        
+    def establish_behavioral_baselines(self, historical_data):
+        """
+        Établissement de baselines comportementales
+        """
+        for data_type, data_samples in historical_data.items():
+            # Calcul des métriques statistiques
+            baseline_metrics = {
+                'mean_activity': np.mean([s['activity_level'] for s in data_samples]),
+                'std_deviation': np.std([s['activity_level'] for s in data_samples]),
+                'typical_patterns': self.extract_typical_patterns(data_samples),
+                'temporal_patterns': self.extract_temporal_patterns(data_samples),
+                'user_patterns': self.extract_user_patterns(data_samples)
+            }
+            
+            # Application de techniques d'apprentissage automatique
+            ml_baseline = self.create_ml_baseline(data_samples)
+            
+            self.behavior_baselines[data_type] = {
+                'statistical_baseline': baseline_metrics,
+                'ml_baseline': ml_baseline,
+                'confidence_interval': self.calculate_confidence_interval(data_samples),
+                'last_updated': time.time()
+            }
+            
+    def detect_behavioral_anomalies(self, current_data):
+        """
+        Détection d'anomalies comportementales en temps réel
+        """
+        anomalies = []
+        
+        for data_type, current_samples in current_data.items():
+            if data_type not in self.behavior_baselines:
+                continue
+                
+            baseline = self.behavior_baselines[data_type]
+            
+            # Comparaison statistique
+            statistical_deviation = self.calculate_statistical_deviation(
+                current_samples, baseline['statistical_baseline']
+            )
+            
+            # Prédiction ML
+            ml_anomaly_score = baseline['ml_baseline'].decision_function(
+                [self.extract_ml_features([current_samples])]
+            )[0]
+            
+            # Score composite d'anomalie
+            composite_score = self.calculate_composite_anomaly_score(
+                statistical_deviation, ml_anomaly_score
+            )
+            
+            if composite_score > self.anomaly_thresholds[data_type]:
+                anomaly = {
+                    'data_type': data_type,
+                    'anomaly_score': composite_score,
+                    'statistical_deviation': statistical_deviation,
+                    'ml_score': ml_anomaly_score,
+                    'contributing_factors': self.identify_contributing_factors(
+                        current_samples, baseline
+                    ),
+                    'forensic_significance': self.assess_forensic_significance(
+                        composite_score, data_type
+                    ),
+                    'investigation_priority': self.calculate_investigation_priority(
+                        composite_score, data_type
+                    )
+                }
+                
+                # Génération de preuve cryptographique d'anomalie
+                anomaly['cryptographic_proof'] = self.create_anomaly_proof(anomaly)
+                
+                anomalies.append(anomaly)
+                
+        return sorted(anomalies, key=lambda x: x['investigation_priority'], reverse=True)
+\end{lstlisting}
+
+\section{Threat Hunting sur Réseaux}
+
+\subsection{Hunting Proactif avec Intelligence Artificielle}
+
+\begin{lstlisting}[language=Python, caption=Système de threat hunting proactif]
+class ProactiveThreatHunter:
+    """
+    Système de threat hunting proactif pour environnements réseau
+    """
+    
+    def __init__(self, network_sensors):
+        self.sensors = network_sensors
+        self.hunting_hypotheses = []
+        self.iocs = []
+        self.behavioral_models = {}
+        
+    def generate_hunting_hypotheses(self, threat_intelligence):
+        """
+        Génération d'hypothèses de hunting basées sur la TI
+        """
+        hypotheses = []
+        
+        for threat in threat_intelligence['current_threats']:
+            # Analyse des TTPs (Tactics, Techniques, Procedures)
+            ttps = threat['mitre_attack_mapping']
+            
+            # Génération d'hypothèses spécifiques
+            for ttp in ttps:
+                hypothesis = {
+                    'id': f"HYP-{threat['id']}-{ttp['technique_id']}",
+                    'description': f"Recherche de {ttp['technique_name']} "
+                                 f"associé à {threat['actor_name']}",
+                    'detection_logic': self.create_detection_logic(ttp),
+                    'data_sources': self.identify_required_data_sources(ttp),
+                    'expected_indicators': self.generate_expected_indicators(ttp),
+                    'confidence_threshold': self.calculate_confidence_threshold(ttp),
+                    'false_positive_mitigation': self.create_fp_mitigation_strategy(ttp)
+                }
+                
+                hypotheses.append(hypothesis)
+                
+        return hypotheses
+    
+    def execute_hunting_campaign(self, hypotheses):
+        """
+        Exécution d'une campagne de threat hunting
+        """
+        hunting_results = []
+        
+        for hypothesis in hypotheses:
+            # Collecte de données selon l'hypothèse
+            relevant_data = self.collect_hypothesis_data(hypothesis)
+            
+            # Application de la logique de détection
+            detection_results = self.apply_detection_logic(
+                hypothesis['detection_logic'], relevant_data
+            )
+            
+            # Évaluation des résultats
+            for result in detection_results:
+                confidence_score = self.calculate_detection_confidence(
+                    result, hypothesis['confidence_threshold']
+                )
+                
+                if confidence_score > hypothesis['confidence_threshold']:
+                    # Analyse approfondie de la détection
+                    deep_analysis = self.perform_deep_analysis(result)
+                    
+                    # Application du Trilemme CRO
+                    cro_analysis = self.apply_cro_to_detection(result, deep_analysis)
+                    
+                    # Génération de preuve ZK-NR pour la détection
+                    zk_proof = self.create_detection_proof(result, deep_analysis)
+                    
+                    hunting_finding = {
+                        'hypothesis': hypothesis['id'],
+                        'detection_result': result,
+                        'confidence_score': confidence_score,
+                        'deep_analysis': deep_analysis,
+                        'cro_analysis': cro_analysis,
+                        'zk_proof': zk_proof,
+                        'next_actions': self.recommend_next_actions(result),
+                        'escalation_level': self.determine_escalation_level(confidence_score)
+                    }
+                    
+                    hunting_results.append(hunting_finding)
+                    
+        return self.prioritize_hunting_results(hunting_results)
+    
+    def analyze_lateral_movement_patterns(self, network_logs):
+        """
+        Analyse des patterns de mouvement latéral
+        """
+        movement_analysis = {
+            'credential_reuse': self.detect_credential_reuse(network_logs),
+            'authentication_patterns': self.analyze_auth_patterns(network_logs),
+            'privilege_escalation': self.detect_privilege_escalation(network_logs),
+            'persistence_mechanisms': self.detect_persistence_mechanisms(network_logs),
+            'c2_beaconing': self.detect_c2_beaconing(network_logs)
+        }
+        
+        # Construction de graphes de mouvement
+        movement_graph = self.build_movement_graph(movement_analysis)
+        
+        # Identification des chemins d'attaque
+        attack_paths = self.identify_attack_paths(movement_graph)
+        
+        # Évaluation de l'impact
+        impact_assessment = self.assess_lateral_movement_impact(attack_paths)
+        
+        return {
+            'movement_analysis': movement_analysis,
+            'movement_graph': movement_graph,
+            'attack_paths': attack_paths,
+            'impact_assessment': impact_assessment,
+            'mitigation_recommendations': self.generate_mitigation_recommendations(
+                attack_paths
+            )
+        }
+\end{lstlisting}
+
+\section{Attribution Technique d'Attaques}
+
+\subsection{Méthodologie d'Attribution Multi-Dimensionnelle}
+
+L'attribution d'attaques constitue l'un des défis les plus complexes de la forensique réseau, nécessitant une approche multi-dimensionnelle intégrant techniques traditionnelles et innovations post-quantiques.
+
+\begin{lstlisting}[language=Python, caption=Système d'attribution multi-dimensionnel]
+class MultiDimensionalAttributionSystem:
+    """
+    Système d'attribution d'attaques multi-dimensionnel
+    """
+    
+    def __init__(self):
+        self.attribution_dimensions = {
+            'technical': TechnicalAttributionEngine(),
+            'behavioral': BehavioralAttributionEngine(),
+            'linguistic': LinguisticAttributionEngine(),
+            'temporal': TemporalAttributionEngine(),
+            'operational': OperationalAttributionEngine()
+        }
+        self.threat_actors_db = ThreatActorsDatabase()
+        
+    def perform_comprehensive_attribution(self, attack_data):
+        """
+        Attribution complète multi-dimensionnelle
+        """
+        attribution_results = {}
+        
+        # Analyse par dimension
+        for dimension_name, engine in self.attribution_dimensions.items():
+            dimension_analysis = engine.analyze(attack_data)
+            
+            # Validation de la fiabilité de l'analyse
+            reliability_score = self.validate_analysis_reliability(
+                dimension_analysis, dimension_name
+            )
+            
+            # Application du Trilemme CRO
+            cro_assessment = self.assess_dimension_cro_impact(
+                dimension_analysis, dimension_name
+            )
+            
+            attribution_results[dimension_name] = {
+                'analysis': dimension_analysis,
+                'reliability_score': reliability_score,
+                'cro_assessment': cro_assessment,
+                'weight': self.calculate_dimension_weight(
+                    dimension_name, reliability_score
+                )
+            }
+            
+        # Fusion des analyses
+        fused_attribution = self.fuse_attribution_analyses(attribution_results)
+        
+        # Comparaison avec base de connaissances
+        similarity_scores = self.compare_with_known_actors(fused_attribution)
+        
+        # Génération de rapport d'attribution
+        attribution_report = self.generate_attribution_report(
+            fused_attribution, similarity_scores
+        )
+        
+        # Validation cryptographique avec ZK-NR
+        attribution_report['cryptographic_validation'] = self.create_attribution_proof(
+            attribution_report
+        )
+        
+        return attribution_report
+    
+    def analyze_infrastructure_attribution(self, network_indicators):
+        """
+        Attribution basée sur l'analyse d'infrastructure
+        """
+        infrastructure_analysis = {
+            'ip_analysis': self.analyze_ip_infrastructure(network_indicators['ips']),
+            'domain_analysis': self.analyze_domain_infrastructure(network_indicators['domains']),
+            'certificate_analysis': self.analyze_certificate_infrastructure(
+                network_indicators['certificates']
+            ),
+            'hosting_analysis': self.analyze_hosting_patterns(network_indicators),
+            'registration_analysis': self.analyze_registration_patterns(network_indicators)
+        }
+        
+        # Analyse des patterns de réutilisation d'infrastructure
+        reuse_patterns = self.analyze_infrastructure_reuse(infrastructure_analysis)
+        
+        # Corrélation avec attaques connues
+        known_attacks_correlation = self.correlate_with_known_infrastructure(
+            infrastructure_analysis
+        )
+        
+        # Scoring de confiance
+        confidence_scores = {}
+        for aspect, analysis in infrastructure_analysis.items():
+            confidence_scores[aspect] = self.calculate_infrastructure_confidence(
+                analysis, known_attacks_correlation
+            )
+            
+        return {
+            'infrastructure_analysis': infrastructure_analysis,
+            'reuse_patterns': reuse_patterns,
+            'correlations': known_attacks_correlation,
+            'confidence_scores': confidence_scores,
+            'attribution_candidates': self.identify_attribution_candidates(
+                infrastructure_analysis, confidence_scores
+            )
+        }
+\end{lstlisting}
+
+\subsection{Analyse Géospatiale et Temporelle}
+
+\begin{lstlisting}[language=Python, caption=Analyseur géospatial pour attribution]
+class GeospatialTemporalAnalyzer:
+    """
+    Analyseur géospatial et temporel pour attribution d'attaques
+    """
+    
+    def __init__(self):
+        self.geolocation_db = GeolocationDatabase()
+        self.timezone_analyzer = TimezoneAnalyzer()
+        
+    def analyze_geographic_patterns(self, network_activity):
+        """
+        Analyse des patterns géographiques d'activité
+        """
+        geographic_analysis = {}
+        
+        # Géolocalisation des adresses IP
+        geolocated_ips = []
+        for ip in network_activity['source_ips']:
+            geolocation = self.geolocation_db.lookup(ip)
+            
+            if geolocation:
+                geolocated_ips.append({
+                    'ip': ip,
+                    'country': geolocation['country'],
+                    'region': geolocation['region'],
+                    'city': geolocation['city'],
+                    'coordinates': geolocation['coordinates'],
+                    'accuracy': geolocation['accuracy'],
+                    'activity_times': self.extract_activity_times(ip, network_activity)
+                })
+                
+        # Analyse des clusters géographiques
+        geographic_clusters = self.identify_geographic_clusters(geolocated_ips)
+        
+        # Analyse de la distribution temporelle par région
+        temporal_distribution = self.analyze_temporal_distribution_by_region(
+            geolocated_ips
+        )
+        
+        # Détection de patterns d'infrastructure partagée
+        shared_infrastructure = self.detect_shared_infrastructure_patterns(
+            geolocated_ips
+        )
+        
+        # Corrélation avec fuseaux horaires
+        timezone_correlation = self.correlate_with_working_hours(temporal_distribution)
+        
+        return {
+            'geolocated_activity': geolocated_ips,
+            'geographic_clusters': geographic_clusters,
+            'temporal_distribution': temporal_distribution,
+            'shared_infrastructure': shared_infrastructure,
+            'timezone_correlation': timezone_correlation,
+            'attribution_confidence': self.calculate_geographic_attribution_confidence(
+                geographic_clusters, timezone_correlation
+            )
+        }
+    
+    def perform_traffic_flow_analysis(self, netflow_data):
+        """
+        Analyse des flux de trafic pour détection d'activités suspectes
+        """
+        flow_analysis = {
+            'volume_analysis': self.analyze_traffic_volumes(netflow_data),
+            'pattern_analysis': self.analyze_flow_patterns(netflow_data),
+            'anomaly_detection': self.detect_flow_anomalies(netflow_data),
+            'beaconing_detection': self.detect_beaconing_patterns(netflow_data),
+            'exfiltration_detection': self.detect_data_exfiltration(netflow_data)
+        }
+        
+        # Clustering des flows par similarité
+        flow_clusters = self.cluster_similar_flows(netflow_data)
+        
+        # Analyse des patterns temporels
+        temporal_patterns = self.analyze_flow_temporal_patterns(netflow_data)
+        
+        # Machine Learning pour classification de flows
+        ml_classification = self.classify_flows_with_ml(netflow_data)
+        
+        # Évaluation forensique des résultats
+        forensic_evaluation = self.evaluate_flows_forensically(
+            flow_analysis, flow_clusters, ml_classification
+        )
+        
+        return {
+            'flow_analysis': flow_analysis,
+            'flow_clusters': flow_clusters,
+            'temporal_patterns': temporal_patterns,
+            'ml_classification': ml_classification,
+            'forensic_evaluation': forensic_evaluation,
+            'investigation_leads': self.generate_investigation_leads(forensic_evaluation)
+        }
+\end{lstlisting}
+
+\section{Forensique de Protocoles Émergents}
+
+\subsection{Analyse des Communications 5G/6G}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Protocole 5G} & \textbf{Défi Forensique} & \textbf{Solution CRO} & \textbf{Maturité} \\
+\hline
+Network Slicing & Isolation forensique & Q2CSI layering & Émergente \\
+Edge Computing & Distributed evidence & ZK-NR aggregation & En développement \\
+Massive IoT & Volume et hétérogénéité & AI-driven triage & Recherche \\
+Ultra-Low Latency & Captures haute fréquence & Streaming analysis & Prototype \\
+\hline
+\end{tabular}
+\caption{Défis forensiques des protocoles 5G/6G}
+\end{table}
+
+\subsection{Forensique des Protocoles Post-Quantiques}
+
+\begin{lstlisting}[language=Python, caption=Analyseur de protocoles post-quantiques]
+class PostQuantumProtocolAnalyzer:
+    """
+    Analyseur spécialisé pour protocoles post-quantiques
+    """
+    
+    def __init__(self):
+        self.pqc_protocols = {
+            'quantum_key_distribution': QKDAnalyzer(),
+            'post_quantum_tls': PQTLSAnalyzer(),
+            'quantum_secured_vpn': QSVPNAnalyzer(),
+            'quantum_safe_messaging': QSMAnalyzer()
+        }
+        
+    def analyze_quantum_communication_patterns(self, network_capture):
+        """
+        Analyse des patterns de communication quantique
+        """
+        quantum_patterns = {
+            'qkd_sessions': self.detect_qkd_sessions(network_capture),
+            'quantum_entanglement_markers': self.detect_entanglement_markers(network_capture),
+            'post_quantum_handshakes': self.detect_pq_handshakes(network_capture),
+            'quantum_error_correction': self.detect_qec_patterns(network_capture)
+        }
+        
+        # Évaluation de la sécurité quantique
+        quantum_security_assessment = self.assess_quantum_security(quantum_patterns)
+        
+        # Impact sur l'investigation forensique
+        forensic_implications = self.assess_quantum_forensic_implications(
+            quantum_patterns, quantum_security_assessment
+        )
+        
+        return {
+            'quantum_patterns': quantum_patterns,
+            'security_assessment': quantum_security_assessment,
+            'forensic_implications': forensic_implications,
+            'investigation_adaptations': self.recommend_investigation_adaptations(
+                forensic_implications
+            )
+        }
+\end{lstlisting}
+
+\section{Conclusion et Perspectives d'Évolution}
+
+La forensique réseau opérationnelle évolue rapidement vers une discipline hautement spécialisée nécessitant :
+
+\begin{itemize}
+\item \textbf{Expertise multi-protocole} : Maîtrise des protocoles classiques et émergents
+\item \textbf{Intelligence artificielle} : Automatisation de la détection et de l'analyse
+\item \textbf{Cryptographie avancée} : Intégration des protocoles post-quantiques
+\item \textbf{Validation juridique} : Application systématique du framework ZK-NR
+\end{itemize}
+
+L'investigateur réseau moderne doit développer une vision systémique intégrant les aspects techniques, légaux et éthiques de son travail, tout en anticipant les évolutions technologiques futures.
+
+\subsection{Défis Futurs}
+
+\begin{enumerate}
+\item \textbf{Quantum Internet} : Préparation aux communications quantiques
+\item \textbf{AI-Generated Traffic} : Détection de trafic généré par IA
+\item \textbf{Homomorphic Communications} : Analyse sur données chiffrées
+\item \textbf{Blockchain Networks} : Forensique des réseaux décentralisés
+\end{enumerate}
+
+La maîtrise de ces domaines émergents déterminera l'efficacité des investigations réseau de demain.

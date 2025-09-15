@@ -1,0 +1,87 @@
+\chapter{Méthodologie d'Analyse Formelle de Protocoles}
+\label{chap:18}
+
+\epigraph{"Sans modélisation formelle, la sécurité n'est qu'une illusion de confiance."}{- Andrew Yao}
+
+\section{Modélisation des Menaces}
+\label{sec:18.1}
+
+Toute analyse commence par la définition précise de la puissance et des objectifs de l'adversaire.
+
+\subsection{Le Modèle Dolev-Yao}
+\label{subsec:18.1.1}
+
+C'est le modèle standard pour l'analyse des protocoles cryptographiques. Il suppose que l'attaquant :
+\begin{itemize}
+    \item Contrôle le réseau (écoute, bloque, injecte, modifie les messages).
+    \item Est un participant légitime (possède les clés publiques attendues).
+    \item \textbf{Ne peut pas} casser les primitives cryptographiques par force brute (modèle de l'oracle).
+\end{itemize}
+Ce modèle permet de se concentrer sur les failles logiques du protocole indépendamment de la cryptanalyse des primitives.
+
+\subsection{Formalisation des Propriétés de Sécurité}
+\label{subsec:18.1.2}
+
+Les propriétés doivent être exprimées de manière formelle et vérifiable. Pour le protocole \textbf{ZK-NR} (cf. Section~5.1), les lemmes Tamarin formalisent ces propriétés :
+\begin{itemize}
+    \item \texttt{lemma\_nonRep\_origin} $\rightarrow$ \textbf{Non-répudiation}
+    \item \texttt{lemma\_zeroKnowledge} $\rightarrow$ \textbf{Confidentialité}
+    \item \texttt{lemma\_blsUnforgeability} $\rightarrow$ \textbf{Authenticité}
+    \item \texttt{lemma\_binding} $\rightarrow$ \textbf{Intégrité}
+\end{itemize}
+
+\section{Outils d'Analyse Formelle}
+\label{sec:18.2}
+
+\subsection{Le Prover Tamarin}
+\label{subsec:18.2.1}
+
+Tamarin est l'outil de référence pour les preuves symboliques. Il modélise le protocole et les capacités de l'adversaire via des règles de réécriture et permet de vérifier automatiquement des propriétés de sécurité exprimées en logique temporelle.
+
+Son utilisation pour ZK-NR (Annexe D.3) est exemplaire : le modèle spécifie 8 règles symboliques (B.1) pour prouver 6 lemmes critiques (B.2). L'état "non prouvé" (Section 5.2) n'est pas une faille mais une limitation courante due à l'explosion de l'espace d'état ; il indique la nécessité de preuves manuelles complémentaires ou d'une simplification du modèle.
+
+\subsection{Panorama des Outils}
+\label{subsec:18.2.2}
+
+\begin{table}[H]
+\centering
+\caption{Comparatif des outils d'analyse formelle}
+\label{tab:18.1}
+\begin{tabular}{|p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}|}
+\hline
+\textbf{Outil} & \textbf{Type} & \textbf{Application Principale} \\
+\hline
+\hline
+\textbf{Tamarin} & Preuve symbolique & Protocoles complexes, propriétés temporelles \\
+\hline
+\textbf{ProVerif} & Vérification automatique & Protocoles plus simples, propriétés d'équivalence \\
+\hline
+\textbf{CryptoVerif} & Preuve computationnelle & Preuves dans le modèle standard \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Méthodologie d'Audit en 5 Étapes}
+\label{sec:18.3}
+
+Cette méthodologie systématique guide l'audit de tout protocole.
+
+\subsection{Étape 1 : Compréhension}
+\label{subsec:18.3.1}
+Analyse approfondie du \textit{whitepaper}, de la documentation et du code source. Identification des acteurs, des messages, des primitives cryptographiques et des objectifs annoncés.
+
+\subsection{Étape 2 : Modélisation}
+\label{subsec:18.3.2}
+Définition du modèle de menace (e.g., Dolev-Yao) et formalisation des propriétés de sécurité attendues (e.g., confidentialité, authenticité) sous forme de lemmes.
+
+\subsection{Étape 3 : Analyse Manuelle}
+\label{subsec:18.3.3}
+Recherche des vulnérabilités connues : rejeu de nonce, faiblesse du générateur aléatoire, mauvaise gestion de l'état des sessions, erreurs de composition des primitives.
+
+\subsection{Étape 4 : Analyse Automatisée}
+\label{subsec:18.3.4}
+Implémentation du modèle dans un outil comme Tamarin ou ProVerif pour une vérification exhaustive des propriétés contre un adversaire actif.
+
+\subsection{Étape 5 : Test d'Implémentation}
+\label{subsec:18.3.5}
+Si l'implémentation est disponible, tests pratiques : fuzzing des entrées, analyse dynamique, tests de performance sous charge, et analyse statique du code pour détecter les bugs.

@@ -1,0 +1,140 @@
+\chapter{Cadre Normatif Global}
+\epigraph{"La loi doit fournir un cadre sans entraver l'innovation, protéger sans étouffer, réguler sans paralyser."}{- Simone Veil}
+\section{ISO/IEC 27037:2012}
+\textbf{"Information technology --- Security techniques --- Guidelines for identification, collection, acquisition and preservation of digital evidence"}
+
+\subsection{Principes Fondamentaux:}
+\begin{enumerate}
+\item \textbf{Pertinence}: Collecte ciblée et justifiée
+\item \textbf{Fiabilité}: Méthodes reproductibles et vérifiables
+\item \textbf{Suffisance}: Collecte exhaustive dans le périmètre défini
+\item \textbf{Documentation}: Traçabilité complète
+\end{enumerate}
+
+\subsection{Application Pratique:}
+\begin{verbatim}
+Processus de Saisie selon ISO 27037:
+
+1. Identification préliminaire
+   - Type de dispositif
+   - État (allumé/éteint)
+   - Connexions actives
+
+2. Documentation photographique
+
+3. Isolation (mode avion, Faraday)
+
+4. Acquisition (write-blocker obligatoire)
+
+5. Vérification (hash SHA-256 minimum)
+
+6. Scellement et transport
+\end{verbatim}
+
+\section{ISO/IEC 27041:2015}
+\textbf{"Guidance on assuring suitability and adequacy of incident investigative method"}
+
+\subsection{Méthodes Validées:}
+\begin{itemize}
+\item \textbf{Live Forensics}: RFC 3227 compliant
+\item \textbf{Dead Forensics}: NIST SP 800-86 compliant
+\item \textbf{Network Forensics}: IETF standards
+\item \textbf{Mobile Forensics}: NIST SP 800-101
+\end{itemize}
+
+\section{ISO/IEC 27042:2015}
+\textbf{"Guidelines for the analysis and interpretation of digital evidence"}
+
+\subsection{Framework d'Analyse:}
+\begin{enumerate}
+\item \textbf{Préparation}: Environnement d'analyse isolé
+\item \textbf{Extraction}: Récupération de données
+\item \textbf{Analyse}: Application de techniques
+\item \textbf{Interprétation}: Contextualisation
+\item \textbf{Rapport}: Documentation des découvertes
+\end{enumerate}
+
+\section{ISO/IEC 27043:2015}
+\textbf{"Incident investigation principles and processes"}
+
+\subsection{Modèle de Processus:}
+\begin{verbatim}
+Readiness → Detection → Initial Response →
+Strategy → Collection → Analysis →
+Presentation → Post-Investigation
+\end{verbatim}
+
+\section{NIST SP 800-86}
+\textbf{"Guide to Integrating Forensic Techniques into Incident Response"}
+
+\subsection{Phases Détaillées:}
+\begin{enumerate}
+\item \textbf{Collection Phase}
+\begin{itemize}
+\item Data prioritization
+\item Evidence preservation
+\item Chain of custody
+\end{itemize}
+
+\item \textbf{Examination Phase}
+\begin{itemize}
+\item Data extraction
+\item Manual review
+\item Automated analysis
+\end{itemize}
+
+\item \textbf{Analysis Phase}
+\begin{itemize}
+\item Timeline reconstruction
+\item Correlation
+\item Attribution
+\end{itemize}
+
+\item \textbf{Reporting Phase}
+\begin{itemize}
+\item Executive summary
+\item Technical details
+\item Recommendations
+\end{itemize}
+\end{enumerate}
+
+\section{RFC 3227 (BCP 55)}
+\textbf{"Guidelines for Evidence Collection and Archiving"}
+
+\subsection{Ordre de Volatilité (Farmer \& Venema):}
+\begin{enumerate}
+\item Registres CPU, cache
+\item Mémoire système (RAM)
+\item État réseau (tables de routage, ARP)
+\item Processus en cours
+\item Disque dur
+\item Logs système distants
+\item Configuration physique
+\item Topologie réseau
+\end{enumerate}
+
+\section{ACPO Good Practice Guide}
+\textbf{"Association of Chief Police Officers - Digital Evidence Guidelines"}
+
+\subsection{Quatre Principes:}
+\begin{enumerate}
+\item \textbf{Principe 1}: Aucune action ne doit modifier les données
+\item \textbf{Principe 2}: Compétence requise si modification nécessaire
+\item \textbf{Principe 3}: Audit trail complet
+\item \textbf{Principe 4}: Responsabilité de conformité
+\end{enumerate}
+
+\section{Standards Émergents}
+\subsection{Cloud Forensics}
+\begin{itemize}
+\item \textbf{ISO/IEC 27050}: Electronic discovery
+\item \textbf{CSA Guidelines}: Cloud Security Alliance
+\item \textbf{NIST SP 800-201}: Cloud forensics challenges
+\end{itemize}
+
+\subsection{IoT Forensics}
+\begin{itemize}
+\item \textbf{IEEE P2933}: Trusted IoT Data
+\item \textbf{ETSI TR 103 939}: IoT testing methodology
+\item \textbf{ISO/IEC 30141}: IoT reference architecture
+\end{itemize}

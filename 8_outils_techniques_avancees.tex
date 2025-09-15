@@ -1,0 +1,186 @@
+\chapter{Outils et Techniques Avancées}
+\epigraph{"By approaching each case methodically, you can evaluate the evidence thoroughly and document the chain of evidence, or chain of custody..."}{- Amelia Phillips}
+\section{Arsenal de l'Investigateur Moderne}
+\subsection{Acquisition et Imagerie}
+\begin{lstlisting}[language=Python, caption=Script d'acquisition avec validation]
+#!/usr/bin/env python3
+import hashlib
+import subprocess
+import time
+
+def forensic_acquisition(source, destination):
+    """
+    Acquisition forensique avec validation d'intégrité
+    """
+    # Phase 1: Pre-acquisition hash
+    print("[*] Computing source hash...")
+    source_hash = compute_hash(source)
+    
+    # Phase 2: Acquisition with dd
+    print("[*] Starting acquisition...")
+    start_time = time.time()
+    cmd = f"dd if={source} of={destination} bs=65536 conv=noerror,sync"
+    subprocess.run(cmd, shell=True)
+    
+    # Phase 3: Post-acquisition validation
+    print("[*] Validating image...")
+    dest_hash = compute_hash(destination)
+    
+    # Phase 4: Report
+    elapsed = time.time() - start_time
+    print(f"[+] Acquisition complete in {elapsed:.2f} seconds")
+    print(f"[+] Source SHA-256: {source_hash}")
+    print(f"[+] Dest SHA-256: {dest_hash}")
+    print(f"[+] Integrity: {'VERIFIED' if source_hash == dest_hash else 'FAILED'}")
+
+def compute_hash(file_path):
+    sha256 = hashlib.sha256()
+    with open(file_path, 'rb') as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            sha256.update(chunk)
+    return sha256.hexdigest()
+\end{lstlisting}
+
+\subsection{Analyse de Mémoire Avancée}
+\begin{lstlisting}[language=Python, caption=Volatility 3 Plugin Custom]
+import volatility3.plugins.windows as windows
+from volatility3.framework import interfaces, renderers
+
+class SuspiciousProcessDetector(interfaces.plugins.PluginInterface):
+    """Détecte les processus suspects basés sur des heuristiques"""
+    
+    def run(self):
+        # Analyse heuristique
+        suspicious_indicators = [
+            "cmd.exe spawned by winword.exe",
+            "powershell.exe with encoded command",
+            "rundll32.exe without arguments",
+            "svchost.exe from wrong path"
+        ]
+        
+        for proc in self.list_processes():
+            if self.is_suspicious(proc, suspicious_indicators):
+                yield (proc.pid, proc.name, proc.ppid, "SUSPICIOUS")
+\end{lstlisting}
+
+\section{Techniques d'Anti-Anti-Forensique}
+\subsection{Contournement de Chiffrement}
+\textbf{Techniques légales uniquement avec autorisation judiciaire}
+
+\begin{enumerate}
+\item \textbf{Cold Boot Attack}
+\begin{itemize}
+\item Récupération de clés en mémoire
+\item Refroidissement RAM à -50°C
+\item Extraction dans les 10 minutes
+\end{itemize}
+
+\item \textbf{Evil Maid Attack}
+\begin{itemize}
+\item Installation de keylogger hardware
+\item Modification du bootloader
+\item Capture de passphrase
+\end{itemize}
+
+\item \textbf{DMA Attack}
+\begin{itemize}
+\item Utilisation Thunderbolt/FireWire
+\item Accès direct mémoire
+\item Bypass de l'OS
+\end{itemize}
+\end{enumerate}
+
+\subsection{Détection de Techniques d'Obfuscation}
+\begin{lstlisting}[language=Python, caption=Détection de stéganographie]
+import numpy as np
+from PIL import Image
+
+def detect_lsb_steganography(image_path):
+    """
+    Détecte la stéganographie LSB par analyse statistique
+    """
+    img = Image.open(image_path)
+    pixels = np.array(img)
+    
+    # Chi-square test on LSBs
+    lsb_plane = pixels & 1
+    expected_freq = len(lsb_plane.flatten()) / 2
+    ones = np.sum(lsb_plane)
+    zeros = len(lsb_plane.flatten()) - ones
+    
+    chi_square = ((ones - expected_freq)**2 +
+                 (zeros - expected_freq)**2) / expected_freq
+    
+    # Threshold for suspicion
+    if chi_square > 3.841:  # 95% confidence
+        return "STEGANOGRAPHY DETECTED"
+    return "CLEAN"
+\end{lstlisting}
+
+\section{Intelligence Artificielle en Investigation}
+\subsection{Machine Learning pour Classification de Malware}
+\begin{lstlisting}[language=Python, caption=Classificateur de malware]
+from sklearn.ensemble import RandomForestClassifier
+import pefile
+import numpy as np
+
+class MalwareClassifier:
+    """
+    Classificateur de malware basé sur les caractéristiques PE
+    """
+    
+    def __init__(self):
+        self.model = RandomForestClassifier(n_estimators=100)
+        self.features = []
+    
+    def extract_features(self, pe_file):
+        """Extraction de features depuis un PE"""
+        pe = pefile.PE(pe_file)
+        features = [
+            pe.FILE_HEADER.NumberOfSections,
+            pe.OPTIONAL_HEADER.SizeOfCode,
+            pe.OPTIONAL_HEADER.AddressOfEntryPoint,
+            len(pe.DIRECTORY_ENTRY_IMPORT) if hasattr(pe, 'DIRECTORY_ENTRY_IMPORT') else 0,
+            self.calculate_entropy(pe_file)
+        ]
+        return np.array(features)
+    
+    def calculate_entropy(self, file_path):
+        """Calcul d'entropie de Shannon"""
+        with open(file_path, 'rb') as f:
+            data = f.read()
+        entropy = 0
+        for i in range(256):
+            freq = data.count(bytes([i])) / len(data)
+            if freq > 0:
+                entropy -= freq * np.log2(freq)
+        return entropy
+\end{lstlisting}
+
+\subsection{Deep Learning pour Analyse Comportementale}
+\begin{lstlisting}[language=Python, caption=Modèle LSTM pour analyse comportementale]
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+def build_behavior_analysis_model():
+    """
+    Modèle LSTM pour analyse comportementale de processus
+    """
+    model = models.Sequential([
+        layers.LSTM(128, return_sequences=True, 
+                   input_shape=(None, 50)),  # 50 features
+        layers.LSTM(64, return_sequences=True),
+        layers.LSTM(32),
+        layers.Dense(16, activation='relu'),
+        layers.Dropout(0.2),
+        layers.Dense(1, activation='sigmoid')  # Malicious/Benign
+    ])
+    
+    model.compile(
+        optimizer='adam',
+        loss='binary_crossentropy',
+        metrics=['accuracy']
+    )
+    
+    return model
+\end{lstlisting}

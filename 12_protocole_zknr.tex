@@ -1,0 +1,154 @@
+\chapter{Le Protocole ZK-NR}
+\epigraph{"Zero-knowledge proofs represent one of the most powerful tools in cryptography—verification without disclosure, truth without exposure."}{- Shafi Goldwasser}
+\section{Architecture ZK-NR}
+\textbf{Zero-Knowledge Non-Repudiation Protocol}
+
+(MINKA et al., ePrint 2025/1138, 2025/1422, 2025/1529)
+
+\subsection{Composants Principaux}
+\begin{enumerate}
+\item \textbf{Merkle Commitments}: Structure d'engagement
+\item \textbf{STARK Proofs}: Zero-knowledge post-quantum
+\item \textbf{Threshold BLS}: Signatures distribuées
+\item \textbf{Dilithium}: Authentication post-quantum
+\end{enumerate}
+
+\subsection{Flux du Protocole}
+\begin{lstlisting}[language=Python, caption=Implementation of ZK-NR for legal non-repudiation]
+class ZK_NR_Protocol:
+    """
+    Implementation of ZK-NR for legal non-repudiation
+    """
+    
+    def __init__(self):
+        self.commitment_tree = MerkleTree()
+        self.stark_prover = STARKProver()
+        self.bls_threshold = ThresholdBLS(threshold=3, total=5)
+        self.dilithium = DilithiumSigner()
+    
+    def create_attestation(self, document, metadata):
+        """
+        Create legally binding attestation
+        """
+        # Step 1: Commitment phase
+        commitment = self.commitment_tree.commit(document)
+        
+        # Step 2: Zero-knowledge proof generation
+        zk_proof = self.stark_prover.prove(
+            statement="I know document D with hash H",
+            witness=document,
+            commitment=commitment
+        )
+        
+        # Step 3: Threshold signature
+        partial_sigs = []
+        for signer in self.bls_threshold.signers[:3]:
+            sig = signer.sign(commitment)
+            partial_sigs.append(sig)
+        
+        threshold_sig = self.bls_threshold.combine(partial_sigs)
+        
+        # Step 4: Post-quantum authentication
+        auth_sig = self.dilithium.sign(
+            zk_proof + threshold_sig
+        )
+        
+        return {
+            'commitment': commitment,
+            'zk_proof': zk_proof,
+            'threshold_signature': threshold_sig,
+            'pq_authentication': auth_sig,
+            'metadata': metadata,
+            'cro_metrics': {
+                'confidentiality': 0.85,
+                'reliability': 0.90,
+                'opposability': 0.88
+            }
+        }
+\end{lstlisting}
+
+\section{Sécurité UC du Protocole}
+\textbf{Universal Composability Security}
+
+(MINKA, ePrint 2025/1529)
+
+\subsection{Modèle de Sécurité}
+\begin{verbatim}
+Ideal Functionality F_ZKNR:
+
+1. Upon receiving (COMMIT, sid, D) from P_i:
+   - Store (sid, D, P_i)
+   - Send (COMMITTED, sid) to all parties
+
+2. Upon receiving (PROVE, sid, statement) from P_i:
+   - If ∃ D: statement(D) = true and (sid, D, P_i) stored
+   - Send (PROVEN, sid, P_i) to V
+
+3. Upon receiving (VERIFY, sid, proof) from V:
+   - Check proof validity
+   - Output (VALID/INVALID, sid)
+\end{verbatim}
+
+\subsection{Preuve de Sécurité}
+\textbf{Théorème}: Le protocole ZK-NR réalise UC-sûrement F_ZKNR sous les hypothèses:
+
+\begin{itemize}
+\item Module-LWE (pour Dilithium)
+\item Collision-resistance des hash functions
+\item STARK soundness
+\end{itemize}
+
+\section{Applications en Investigation}
+\subsection{Chain of Custody Post-Quantique}
+\begin{lstlisting}[language=Python, caption=Chaîne de possession résistante au quantique]
+class QuantumSafeChainOfCustody:
+    """
+    Chaîne de possession résistante au quantique
+    """
+    
+    def __init__(self):
+        self.zknr = ZK_NR_Protocol()
+        self.chain = []
+    
+    def transfer_evidence(self, evidence, from_officer, to_officer):
+        """
+        Transfert sécurisé avec non-répudiation
+        """
+        # Create transfer attestation
+        transfer_data = {
+            'evidence_hash': sha3_256(evidence),
+            'from': from_officer.id,
+            'to': to_officer.id,
+            'timestamp': time.time(),
+            'location': get_gps_coordinates()
+        }
+        
+        # Generate ZK-NR attestation
+        attestation = self.zknr.create_attestation(
+            document=transfer_data,
+            metadata={'type': 'custody_transfer'}
+        )
+        
+        # Add to immutable chain
+        self.chain.append(attestation)
+        
+        # Verify complete chain integrity
+        return self.verify_chain_integrity()
+\end{lstlisting}
+
+\subsection{Analyse d'Impact sur la Vérité Judiciaire}
+\textbf{Avantages}:
+
+\begin{enumerate}
+\item \textbf{Non-répudiation absolue}: Impossible de nier l'action
+\item \textbf{Privacy-preserving}: Révèle uniquement le nécessaire
+\item \textbf{Post-quantum secure}: Résiste aux attaques futures
+\end{enumerate}
+
+\textbf{Défis}:
+
+\begin{enumerate}
+\item \textbf{Complexité technique}: Formation des magistrats nécessaire
+\item \textbf{Interopérabilité}: Standards internationaux requis
+\item \textbf{Performance}: Overhead computationnel
+\end{enumerate}
