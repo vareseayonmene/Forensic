@@ -1,6 +1,6 @@
-# MalɛtYɔn - Investigation Numérique Post-Quantique
+# Théories et Pratiques de l'Investigation Numérique
 
-> **"Ton Enseignant" en Bassa - Une vision décolonisée du savoir numérique**
+> **MalɛtYɔn: "Ton Enseignant" en Bassa**
 
 ## 🌍 Positionnement et Vision du Répertoire
 
@@ -109,10 +109,12 @@ Consultez `CONTRIBUTING.md` pour les guidelines détaillées.
 
 ## 📜 License
 
-Ce travail est disponible sous licence Creative Commons Attribution-ShareAlike 4.0 International, permettant ainsi la libre circulation et adaptation du savoir, dans l'esprit Ubuntu.
+Ce travail est disponible sous licence Creative Commons Attribution-ShareAlike 4.0 International, permettant ainsi la libre circulation et adaptation du savoir, dans l'esprit Ubuntu et Adna.
+Contact: maletyon@proton.me
 
 ---
 
 **MalɛtYɔn** - *"Ton Enseignant"* - Incarne la conviction qu'un autre modèle éducatif est possible, ancré dans nos réalités mais ouvert sur le monde, respectueux de nos traditions mais résolument tourné vers l'avenir.
+
 
 > "La véritable éducation ne consiste pas à remplir des vases mais à allumer des feux" - Proverbe africain
