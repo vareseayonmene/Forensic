@@ -1,0 +1,745 @@
+\documentclass[11pt,a4paper,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tipa}
+\usepackage[french]{babel}
+\setlength{\emergencystretch}{3em} % Permettre des césures plus larges
+\usepackage{geometry}
+\geometry{inner=3cm, outer=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=1cm}
+
+% Packages essentiels
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{primary}{RGB}{0, 82, 155}
+\definecolor{accent}{RGB}{206, 17, 38}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=alphabetic,sorting=nyt]{biblatex}
+\usepackage{glossaries}
+\usepackage{imakeidx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{circuitikz}
+\usepackage{quantikz}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{siunitx}
+\usepackage{datetime}
+\usepackage{etoolbox}
+\usepackage{lipsum} % À supprimer en production
+\usepackage{fontspec} % Pour supporter l'Unicode
+\usepackage{newunicodechar}
+\usepackage{epigraph} % Pour la commande \epigraph
+
+
+% Définir les caractères Unicode problématiques
+\newunicodechar{ɛ}{\textit{ɛ}} 
+\newunicodechar{ɔ}{\textit{ɔ}}
+% Définir la commande \without
+\newcommand{\without}{\ensuremath{\setminus}}
+
+% Configuration des en-têtes et pieds de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Configuration des chapitres
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{primary}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+
+% Configuration des sections
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{primary}}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{accent}}{\thesubsection}{1em}{}
+
+% Configuration de la table des matières
+\dottedcontents{section}[1.5em]{\bfseries}{1.5em}{1pc}
+\dottedcontents{subsection}[3.8em]{\normalfont}{2.3em}{1pc}
+
+% Configuration des légendes
+\captionsetup{labelfont={bf,color=primary}, textfont=it}
+
+% Configuration des listes
+\setlist[itemize]{label=$\bullet$, leftmargin=*}
+\setlist[enumerate]{label=\arabic*., leftmargin=*}
+
+% Configuration du code
+\lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black}\itshape,
+    stringstyle=\color{red},
+    showstringspaces=false
+}
+
+% Configuration de glossaire et index
+\makeglossaries
+\makeindex
+
+% Configuration de la bibliographie
+\addbibresource{references.bib}
+
+% Métadonnées du document
+\title{Théories et Pratiques de l'Investigation Numérique\\\large{Pour les Ingénieurs et Chercheurs en Cybersécurité}}
+\author{\textit{MINKA MI NGUIDJOI Thierry Emmanuel}\\\small\textipa{Mal\textepsilon tY\textopeno n}}
+\date{\today}
+%Version 1: Septembre 2025
+
+% Commandes personnalisées
+\newcommand{\keyword}[1]{\textbf{\textcolor{accent}{#1}}}
+\newcommand{\code}[1]{\texttt{\textcolor{blue}{#1}}}
+\newcommand{\important}[1]{\begin{center}\colorbox{yellow!30}{\parbox{0.9\textwidth}{#1}}\end{center}}
+\newcommand{\note}[1]{\marginpar{\scriptsize\textcolor{gray}{#1}}}
+\newcommand{\trilemme}{\textsc{CRO}}
+\newcommand{\zknr}{\textsc{ZK-NR}}
+\newcommand{\qcsci}{\textsc{Q2CSI}}
+
+\let\cleardoublepage\clearpage
+\titleformat{\chapter}[block]  % Changement ici
+{\normalfont\huge\bfseries\color{primary}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}  % Ajustement de l'espace
+% Début du document
+\begin{document}
+
+    % Page de titre
+    \begin{titlepage}
+        \centering
+        \vspace*{1cm}
+        
+        \includegraphics[width=0.4\textwidth]{logos/logo_cours.png}\\
+        \vspace{1cm}
+        
+        {\Huge \textbf{Théories et Pratiques de l'Investigation Numérique}}\\
+        \vspace{0.5cm}
+        {\Large Pour les Ingénieurs et Chercheurs en Cybersécurité}\\
+        \vspace{6cm}
+        
+        %{\LARGE \textbf{\textit\textipa{Mal\textepsilon tY\textopeno n}}}\\
+        %\vspace{5cm}
+        {\large MINKA MI NGUIDJOI Thierry Emmanuel}\\
+        \vspace{1cm}
+        
+        %\includegraphics[width=0.3\textwidth]{logos/logo_limsi.png}\\
+        %\vspace{0.5cm}
+        
+        {\large Laboratoire d'Ingénierie Mathématique et Systèmes d'Information (LIMSI)}\\
+        \vspace{0.2cm}
+        {\large École Nationale Supérieure Polytechnique}\\
+        \vspace{0.2cm}
+        {\large Université de Yaoundé I, Cameroun}\\
+        \vspace{2.5cm}
+        
+        %{\large \today}\\
+        %\vspace{3cm}
+        
+        \includegraphics[width=0.1\textwidth]{logos/cc_license.png}\\
+        {\small Ce manuel est distribué sous licence Creative Commons CC-BY-SA 4.0.}\\
+        {\small\hfill\textit{\textipa{Mal\textepsilon tY\textopeno n} 2025. Théories et Pratiques de l'Investigation Numérique V0}}
+    \end{titlepage}
+
+
+
+\clearpage  % Termine la page courante et passe à une nouvelle page
+\thispagestyle{empty}  % Supprime l'en-tête et le pied de page pour cette page
+\vspace*{\stretch{1}}  % Ajoute un espace vertical flexible (pousse le contenu vers le centre)
+
+\begin{center}
+    \itshape  % Met le texte en italique
+    "To my wife Élisabeth NGONDOUM NDENGUE, \textbf{my backstop}, \\
+    whose discreet and steadfast presence allows me to aim for the stars \\
+    without fear of crashing if I fail." Thank you \textcolor{red}{\blackheartsuit}
+\end{center}
+
+\vspace*{\stretch{2}}  % Ajoute un espace vertical supplémentaire (pour centrer verticalement)
+\clearpage  % Termine cette page et passe à la suivante
+
+% Avant-propos
+    \frontmatter
+        \chapter*{Avant-propos}
+        \addcontentsline{toc}{chapter}{Avant-propos}
+            Ce manuel représente l'aboutissement de deux décennies de pratique et de recherche en cybersécurité, investigation numérique et domaines connexes. Il s'adresse aux ingénieurs en cybersécurité souhaitant se spécialiser dans l'investigation numérique post-quantique, avec une attention particulière portée aux défis juridiques et techniques de l'opposabilité des preuves numériques.
+            L'originalité de cet ouvrage réside dans l'introduction du \textbf{Trilemme CRO} (Confidentialité, Fiabilité, Opposabilité juridique), une contribution théorique majeure qui redéfinit les limites fondamentales de la preuve numérique dans un contexte post-quantique.
+        \vspace{0.5cm}
+        \noindent\textbf{Note sur la version actuelle :} Cette édition préliminaire du manuel est encore en cours d'élaboration et est destinée exclusivement à l'enseignement de l'investigation numérique à l'École Nationale Supérieure Polytechnique de Yaoundé et au Département de Mathématiques-Informatique de l'Université de Garoua. La version finale, révisée et complétée, sera diffusée en anglais pour une meilleure internationalisation. Toute faute, erreur ou inexactitude découverte dans cette version préliminaire est à signaler à l'adresse \texttt{maletyon@proton.me}.
+        \vspace{0.5cm}
+        \noindent\textbf{Note sur le matériel pédagogique complémentaire :}
+
+            \noindent Ce manuel s'accompagne d'une collection de ressources éducatives structurées, disponibles à l'adresse suivante : 
+            \url{https://github.com/MaletYon/Investigation_Numerique}.
+
+            \vspace{0.5cm}
+
+            \noindent\textbf{Architecture du dépôt pédagogique :}
+
+            \begin{itemize}
+                \item \textbf{1\_Cours\_Principal} - Cœur intellectuel du projet
+                \begin{itemize}
+                    \item Format PDF : Versions imprimables et accessibles.
+                    \item Format LaTeX : Sources pour modification et adaptation.
+                    \item Supports audio et vidéo : Multimodalité d'apprentissage.
+                    \item Ressources optimisées pour assistance IA.
+                \end{itemize}
+                
+                \item \textbf{2\_Travaux\_Pédagogiques} - Espace d'application pratique
+                \begin{itemize}
+                    \item Travaux demandés avec grilles d'évaluation.
+                    \item Dépôt des productions étudiantes.
+                    \item Archives des anciens sujets.
+                \end{itemize}
+                
+                \item \textbf{3\_Ressources\_Externes} - Base de connaissances étendue
+                \begin{itemize}
+                    \item Logiciels open source et guides d'implémentation.
+                    \textitem Textes légaux et normes techniques actualisés.
+                    \item Portail vers la communauté globale.
+                \end{itemize}
+                
+                \item \textbf{4\_Contributions\_Suggestions} - Espace démocratique du savoir
+                \begin{itemize}
+                    \item Processus structuré pour amélioration du cours.
+                    \item Mécanisme de contrôle qualité collaboratif.
+                    \item Incubateur de nouvelles approches pédagogiques.
+                \end{itemize}
+                
+                \item \textbf{5\_Évaluation\_Amélioration} - Boucle de feedback continue
+                \begin{itemize}
+                    \item Données pour optimiser l'efficacité pédagogique.
+                    \item Historique et roadmap de l'évolution du cours.
+                    \item Retours communautaires implémentés.
+                \end{itemize}
+            \end{itemize}
+
+            \vspace{0.5cm}
+
+            \noindent Cette structure reflète une approche pédagogique moderne, collaborative et adaptée aux différents styles d'apprentissage. Les contributions et suggestions sont les bienvenues à l'adresse \texttt{maletyon@proton.me}.
+            \hfill\textit{\textipa{Mal\textepsilon tY\textopeno n}}
+
+        \chapter*{Engagements: Contrat Déontologique de l'Investigator Numérique}
+        \epigraph{« La technique exige plus de sagesse qu'elle n'en donne. »}{- Hans Jonas}
+
+        \begin{center}
+        \fbox{
+        \parbox{0.9\textwidth}{
+        \centering
+        \textbf{AVERTISSEMENT SOLENNEL}\\
+        Les connaissances dispensées dans ce cours confèrent des pouvoirs techniques considérables.\\
+        Ce chapitre constitue un contrat moral entre vous, l'apprenant, et la communauté des investigateurs numériques.
+        }
+        }
+        \end{center}
+
+        \section*{Préambule: La Responsabilité du Savoir}
+        L'investigation numérique n'est pas une discipline technique neutre. Chaque outil maîtrisé, chaque technique acquise, chaque protocole compris vous confère un pouvoir sur les systèmes numériques et, par extension, sur les vies qui y sont connectées.
+
+        \subsection*{Le Pouvoir Technique et Son Contrepoint Éthique}
+        \begin{itemize}
+            \item \textbf{Savoir} implique \textbf{devoir}.
+            \item \textbf{Pouvoir} exige \textbf{contre-pouvoir}.
+            \item \textbf{Technique} réclame \textbf{sagesse}.
+        \end{itemize}
+
+        Ce chapitre formalise le contrat déontologique qui régit l'exercice de ces compétences.
+
+        \section*{Le Serment de l'Investigator Numérique}
+        Je soussigné, étudiant en investigation numérique post-quantique, m'engage solennellement à:
+
+        \subsection*{Engagements Fondamentaux}
+        \begin{enumerate}
+            \item \textbf{Utiliser mes connaissances exclusivement} à des fins légitimes, autorisées et éthiques.
+            \item \textbf{Respecter scrupuleusement} les cadres juridiques nationaux et internationaux.
+            \item \textbf{Préserver l'intégrité} des systèmes et données que j'analyse.
+            \item \textbf{Protéger la confidentialité} des informations auxquelles j'accède.
+            \item \textbf{Garantir la traçabilité} complète de mes actions investigatrices.
+        \end{enumerate}
+
+        \subsection*{Engagements Techniques}
+        \begin{itemize}
+        \item Je n'utiliserai jamais mes compétences pour:
+            \begin{itemize}
+                \item Porter atteinte à la vie privée sans mandat légitime.
+                \item Compromettre l'intégrité de systèmes sans autorisation.
+                \item Altérer ou détruire des preuves numériques.
+                \item Faciliter des activités illicites ou malveillantes.
+            \end{itemize}
+        \item Je m'engage à:
+            \begin{itemize}
+                \item Documenter intégralement mes méthodologies.
+                \item Maintenir mes compétences à jour face aux évolutions technologiques.
+                \item Partager mes connaissances au service de la communauté légitime.
+                \item Contribuer au développement éthique de la discipline.
+            \end{itemize}
+        \end{itemize}
+
+        \section*{Cadre Déontologique}
+            \subsection*{Les Quatre Piliers de la Pratique Éthique}
+                \begin{table}[H]
+                    \centering
+                    \begin{tabular}{p{3cm}p{9cm}}
+                        \hline
+                        \textbf{Pilier} & \textbf{Principes} \\
+                        \hline
+                        \textbf{Intégrité} & Véracité des conclusions, transparence des méthodes, reconnaissance des limites. \\
+                        \textbf{Proportionalité} & Adéquation des moyens aux fins, minimisation de l'intrusion, respect de la vie privée.\\
+                        \textbf{Responsabilité} & Acceptation des conséquences de ses actions, devoir de vigilance, obligation de formation. \\
+                        \textbf{Service} & Mise des compétences au service de la justice, de la vérité et de la protection des droits. \\
+                        \hline
+                    \end{tabular}
+                    \caption{Les piliers déontologiques de l'investigation numérique}
+                \end{table}
+
+            \subsection*{Les Dix Commandements de l'Investigator}
+                \begin{enumerate}
+                    \item Tu ne causeras pas de dommage aux systèmes que tu investigues.
+                    \item Tu respecteras la vie privée et la dignité des personnes.
+                    \item Tu maintiendras la chaîne de custody sans faille.
+                    \item Tu documenteras intégralement tes processus et décisions.
+                    \item Tu reconnaîtras les limites de tes compétences et connaissances.
+                    \item Tu résisteras aux pressions contraires à l'éthique.
+                    \item Tu protégeras les données sensibles dont tu as la garde.
+                    \item Tu témoigneras avec honnêteté et objectivité.
+                    \item Tu contribueras au développement de la discipline.
+                    \item Tu honoreras la confiance que la société place en toi.
+                \end{enumerate}
+
+        \section*{Engagements Spécifiques par Domaine}
+            \subsection*{Investigation Post-Quantique}
+                \begin{itemize}
+                    \item Je m'engage à anticiper les implications quantiques de mes investigations.
+                    \item Je développerai des compétences en cryptographie résistante aux quantiques.
+                    \item Je participerai à la transition vers des standards post-quantiques.
+                \end{itemize}
+
+            \subsection*{Protection des Données}
+                \begin{itemize}
+                    \item Je respecterai les principes de privacy by design et security by design.
+                    \item J'appliquerai le principe de minimisation des données collectées.
+                    \item Je garantirai l'exercice des droits des personnes concernées.
+                \end{itemize}
+
+            \subsection*{Recherche et Innovation}
+                \begin{itemize}
+                    \item Je n'utiliserai pas mes connaissances pour développer des outils malveillants.
+                    \item Je partagerai mes découvertes de vulnérabilités de manière responsable.
+                    \item Je contribuerai à la recherche éthique en sécurité numérique.                       
+                \end{itemize}
+
+        \section*{Mécanismes de Contrôle et de Responsabilisation}
+            \subsection{Auto-Évaluation Continue}
+                Je m'engage à me soumettre régulièrement à une auto-évaluation critique:
+                \begin{itemize}
+                    \item Mes méthodes respectent-elles l'éthique?
+                    \item Mes conclusions sont-elles fondées et proportionnées?
+                    \item Ma pratique évolue-t-elle avec les standards déontologiques?
+                \end{itemize}
+
+            \subsection*{Engagement de Formation Permanente}
+                Je m'engage à:
+                \begin{itemize}
+                    \item Me former continuellement aux aspects juridiques et éthiques.
+                    \item Participer à des communautés de pratique déontologique.
+                    \item Actualiser régulièrement mes engagements face aux nouvelles technologies.
+                \end{itemize}
+
+        \section*{Sanctions et Conséquences}
+            \subsection{Conséquences Professionnelles}
+                La violation des engagements peut entraîner:
+                \begin{itemize}
+                    \item La perte de crédibilité professionnelle.
+                    \item L'exclusion des communautés d'investigateurs.
+                    \item Des conséquences juridiques et disciplinaires.
+                    \item La nullité des preuves obtenues illicitement.
+                \end{itemize}
+
+            \subsection*{Conséquences Morales}
+                Au-delà des sanctions formelles, la violation des engagements engage:
+                \begin{itemize}
+                    \item La responsabilité morale vis-à-vis des personnes lésées.
+                    \item La trahison de la confiance sociale.
+                    \item L'atteinte à l'intégrité de la discipline toute entière.
+                \end{itemize}
+
+        \section*{Signature de l'Engagement}
+        Je, \underline{\hspace{8cm}}, ayant pris connaissance des engagements ci-dessus, m'engage solennellement à respecter cette charte déontologique dans l'exercice de mes fonctions d'investigator numérique.
+
+        \vspace{1cm}
+
+        \begin{tabular}{p{8cm}p{8cm}}
+        \hline
+        Fait à : \underline{\hspace{5cm}} & Le : \underline{\hspace{5cm}} \\
+        \hline
+        Signature : & Cachet/Attestation : \\
+        & \\
+        & \\
+        \hline
+        \end{tabular}
+
+        \section*{Post-Scriptum: Un Engagement Vivant}
+        Cet engagement n'est pas une simple formalité mais un contrat moral vivant qui évoluera avec votre pratique et avec les transformations technologiques. Revenez régulièrement à ces principes, questionnez-les, enrichissez-les par votre expérience.
+
+        \medskip
+
+        \noindent\textbf{Rappelez-vous toujours}: La technique la plus sophistiquée ne vaut rien sans l'intégrité de celle ou celui qui la manie.
+
+        \begin{center}
+        \fbox{
+        \parbox{0.8\textwidth}{
+        \centering
+        « On reconnaît la qualité d'un investigator non pas à sa technique mais à son éthique. \\
+        La première peut s'acquérir, la seconde se cultive. »
+        }
+        }
+        \end{center}
+        % Table des matières
+        \tableofcontents
+        % Liste des figures
+        \listoffigures
+        \addcontentsline{toc}{chapter}{Liste des figures}
+        % Liste des tableaux
+        \listoftables
+        \addcontentsline{toc}{chapter}{Liste des tableaux}
+        % Liste des algorithmes
+        \listofalgorithms
+        \addcontentsline{toc}{chapter}{Liste des algorithmes}
+        % Liste des codes
+        \lstlistoflistings
+        \addcontentsline{toc}{chapter}{Liste des codes}
+        % Glossaire
+        \printglossary[title=Glossaire, toctitle=Glossaire]
+
+        % Corps du document
+    \mainmatter
+
+        %**PARTIE I: FONDEMENTS HISTORIQUES ET ÉVOLUTION**
+        \part{Fondements, Historique et Évolution}
+        %\chapter{Philosophie et Fondements de l'Investigation Numérique}
+        \input{chapitres/0_philosophie_fondements}
+        %\chapter{Histoire de l'Investigation Numérique}
+        \input{chapitres/1_histoire_investigation}
+        %\chapter{Les Grandes Affaires qui ont Façonné la Discipline}
+        \input{chapitres/2_grandes_affaires}
+
+        %**PARTIE II: CADRE THÉORIQUE ET CONCEPTUEL**
+        \part{Cadre Théorique et Conceptuel}
+        %\chapter{Fondements Théoriques de l'Investigation Numérique}
+        \input{chapitres/3_fondements_theoriques}
+        %\chapter{État de l'Art et Évolution Scientifique}
+        \input{chapitres/4_etat_art}
+
+        %**PARTIE III: NORMES ET STANDARDS INTERNATIONAUX
+        \part{Normes et Standards Internationaux}
+        %\chapter{Cadre Normatif Global}
+        \input{chapitres/5_cadre_normatif_global}
+        %\chapter{Applications et Cas d'Usage}
+        \input{chapitres/6_applications_cas_usage}
+
+        %**PARTIE IV: MEILLEURES PRATIQUES MONDIALES**
+        \part{Meilleures Pratiques Mondiales}
+        %\chapter{Méthodologies d'Investigation}
+        \input{chapitres/7_methodologies_investigation}
+        %\chapter{Outils et Techniques Avancées}
+        \input{chapitres/8_outils_techniques_avancees}
+
+        %**PARTIE V: L'ÈRE POST-QUANTIQUE**
+        \part{L'Ere du Post-Quantique}
+        %\chapter{Impact du Quantique sur l'Investigation Numérique}
+        \input{chapitres/9_impact_quantique_investigation_numerique}
+        %\chapter{Le Trilemme CRO et ses Implications}
+        \input{chapitres/10_trilemme_cro_implications}
+
+        %**PARTIE VI: PRIMITIVES CRYPTOGRAPHIQUES ET OPPOSABILITÉ**
+        \part{Primitives Cryptographiques et Opposabilité}
+        %\chapter{Analyse des Primitives selon le Trilemme CRO}
+        \input{chapitres/11_analyse_primitives}
+        %\chapter{Le Méta-Protocole Q2CSI et son instanciation ZK-NR}
+        \input{chapitres/12_protocole_zknr}
+
+        %**Partie VII - CRYPTANALYSE ET ANALYSE DE PROTOCOLES**
+        \part{Cryptanalyse et Analyse de Protocoles}
+        %\chapter{Fondement de la cryptanalyse}
+        \input{Chapitres/21_fondements_cryptanalyse}
+        %\chapter{Methodoloie et Analyse Formelle}
+        \input{Chapitres/22_methodologie_analyse_formelle}
+        %\chapter{Cas Pratique}
+        \input{Chapitres/23_cas_pratique}
+
+        %**PARTIE VIII: CADRE JURIDIQUE INTERNATIONAL**
+        \part{Cadre Juridiqe}
+        %\chapter{Législation Mondiale et Régionale}
+        \input{chapitres/13_legislation_mondiale_regionale}
+        %\chapter{Droit Camerounais et Africain}
+        \input{chapitres/14_droit_camerounais_africain}
+
+        %**PARTIE IX: PRATIQUE DU FORENSIC**
+        \part{Pratique du Forensique}
+        %\chapter{Mise en place d'un laboratoire de forensic}
+        \input{chapitres/16_chap_lab_forensics}
+        %\chapter{Forensic systèmes avancés}
+        \input{chapitres/17_forensique_système_vancee}
+        %\chapter{Forensic Réseau Opérationnelle} 
+        \input{chapitres/18_forensique_reseau_operationnelle}
+        %\chapter{Anti-Forensique et Contremesures} 
+        \input{chapitres/19_anti_Forensique_contremesures}
+        %\chapter{Anti-Forensique et Contremesures} 
+        \input{chapitres/20_benchmarking}
+
+        % Partie X: Cas Pratique Intégré
+        \part{Cas Pratique Intégré}
+        %\chapter{L'Affaire CyberFinance Cameroun 2025}
+        \input{chapitres/15_affaire_cyberfinance}
+
+    \chapter*{Conclusion Générale}
+    \addcontentsline{toc}{chapter}{Conclusion Générale}
+
+        \section*{Synthèse des Apprentissages}
+        Ce manuel a couvert l'ensemble du spectre de l'investigation numérique moderne, depuis ses fondements historiques jusqu'aux défis post-quantiques. Les contributions théoriques du \textbf{Trilemme CRO} et du protocole \textbf{ZK-NR} ouvrent de nouvelles perspectives pour concilier les exigences apparemment contradictoires de confidentialité, fiabilité et opposabilité juridique.
+
+        \section*{Perspectives d'Avenir}
+            \subsection*{Court Terme (2025-2027)}
+                \begin{itemize}
+                    \item Déploiement progressif des solutions PQC.
+                    \item Adoption du framework Q2CSI dans les organisations critiques.
+                    \item Formation des professionnels aux nouvelles méthodologies.
+                \end{itemize}
+
+            \subsection*{Moyen Terme (2027-2030)}
+                \begin{itemize}
+                    \item Standardisation internationale des protocoles ZK-NR.
+                    \item Intégration de l'IA quantique dans l'investigation.
+                    \item Évolution du cadre juridique pour l'ère post-quantique.
+                \end{itemize}
+
+            \subsection*{Long Terme (2030+)}
+                \begin{itemize}
+                    \item Investigation quantique native.
+                    \item Frameworks d'opposabilité universelle.
+                    \item Convergence globale des standards.
+                \end{itemize}
+        \section*{A mes co-auteurs}
+            Enfin, je tiens à exprimer ma reconnaissance envers mes co-auteurs.Les articles suivant, de la série, ont bénéficié de leur contribution déterminante. Leur rigueur, la complémentarité de leurs approches et la qualité de nos échanges ont largement enrichi la cohérence scientifique de l’ensemble. Cette dynamique collaborative constitue un socle solide pour les projets et publications à venir.
+            \begin{itemize}
+                \item \textit{Exploring ZK-NR} \cite{eprint:2025:1138} (avec Flavien Serge MANI ONANA et Thomas DJOTIO NDIÉ).
+                \item \textit{CRO Trilemma} \cite{eprint:2025:1348} (avec Flavien Serge MANI ONANA et Thomas DJOTIO NDIÉ).
+                \item \textit{Q2CSI 2025} \cite{eprint:2025:1380} (avec Flavien Serge MANI ONANA, Thomas DJOTIO NDIÉ et Thomas BOUETOU BOUETOU). 
+                \item \textit{Design ZK-NR} \cite{eprint:2025:1422} (avec Flavien Serge MANI ONANA, Thomas DJOTIO NDIÉ et Roger ATSA ETOUNDI).
+            \end{itemize}
+            
+
+        \section*{Message Final}
+        L'investigation numérique n'est plus simplement une discipline technique, mais un pilier fondamental de la justice dans notre société numérisée. La maîtrise des concepts présentés dans ce manuel - particulièrement le Trilemme CRO et ses solutions architecturales - sera essentielle pour les professionnels de demain.
+        Comme le souligne la devise qui guide notre travail:
+
+        \begin{quote}
+        \emph{"Like a conscientious and methodical craftsman, every day, refine your practice. Only in this way will you be and remain an Expert."}
+        \vspace{1cm}
+        \hfill \textit{\textipa{Mal\textepsilon tY\textopeno n}}
+        \end{quote}
+    %\chapter{Bibliographie}
+
+    \begin{thebibliography}{99}
+      \section*{Travaux de Recherche Fondamentaux}
+
+        \bibitem{bernstein2017}
+        BERNSTEIN, D.J., et al.
+        \textit{Post-Quantum Cryptography}.
+        Springer, 2017.
+
+        \bibitem{casey2004}
+        CASEY, E.
+        \emph{Digital Evidence and Computer Crime}.
+        Academic Press, 2004.
+
+        \bibitem{carrier2005}
+        CARRIER, B.
+        \emph{File System Forensic Analysis}.
+        Addison-Wesley Professional, 2005.
+
+        \bibitem{farmer1992}
+        FARMER, D.
+        \emph{Computer Forensics: An Introduction}.
+        Publication interne FBI, 1992.
+
+        \bibitem{minka2025cro} 
+        MINKA MI NGUIDJOI, T.E., MANI ONANA, F.S., DJOTIO NDIÉ, T. 
+        \emph{The CRO Trilemma: a formal incompatibility between Confidentiality, Reliability and legal Opposability in Post-Quantum proof systems}. 
+        Cryptology ePrint Archive, Paper 2025/1348, 2025. 
+        URL: \url{https://eprint.iacr.org/2025/1348}.
+
+        \bibitem{minka2025q2csi}
+        MINKA MI NGUIDJOI, T.E., MANI ONANA, F.S., DJOTIO NDIÉ, T., BOUETOU BOUETOU, T.
+        \emph{Quantum Composable and Contextual Security Infrastructure (Q2CSI): A Modular Architecture for Legally Explainable Cryptographic Signatures}.
+        Cryptology ePrint Archive, Paper 2025/1380, 2025.
+        URL: \url{https://eprint.iacr.org/2025/1380}.
+
+        \bibitem{minka2025zknr}
+        MINKA MI NGUIDJOI, T.E., MANI ONANA, F.S., DJOTIO NDIÉ, T.
+        \emph{ZK-NR: A Layered Cryptographic Architecture for Explainable Non-Repudiation}.
+        Cryptology ePrint Archive, Paper 2025/1138, 2025.
+        URL: \url{https://eprint.iacr.org/2025/1138}.
+
+        \bibitem{minka2025design}
+        MINKA MI NGUIDJOI, T.E., MANI ONANA, F.S., DJOTIO NDIÉ, T., ATSA ETOUNDI, R.
+        \emph{Design ZK-NR: A Post-Quantum Layered Protocol for Legally Explainable Zero-Knowledge Non-Repudiation Attestation}.
+        Cryptology ePrint Archive, Paper 2025/1422, 2025.
+        URL: \url{https://eprint.iacr.org/2025/1422}.
+
+        \bibitem{minka2025uc}
+        MINKA MI NGUIDJOI, T.E.
+        \emph{UC-Security of the ZK-NR Protocol under Contextual Entropy Constraints: A Composable Zero-Knowledge Attestation Framework}.
+        Cryptology ePrint Archive, Paper 2025/1529, 2025.
+        URL: \url{https://eprint.iacr.org/2025/1529}.
+
+    %\end{thebibliography}
+
+      \section*{Standards et Normes Techniques}
+
+    %\begin{thebibliography}{9}
+
+        \bibitem{nist2024pqc}
+        National Institute of Standards and Technology.
+        \emph{Post-Quantum Cryptography Standardization}.
+        NIST, 2024.
+
+        \bibitem{nist80086}
+        National Institute of Standards and Technology.
+        \emph{Guide to Integrating Forensic Techniques into Incident Response}.
+        NIST Special Publication 800-86, 2006.
+
+        \bibitem{nist800101}
+        National Institute of Standards and Technology.
+        \emph{Guidelines on Mobile Device Forensics}.
+        NIST Special Publication 800-101, 2014.
+
+        \bibitem{iso27037}
+        International Organization for Standardization.
+        \emph{Information technology - Security techniques - Guidelines for identification, collection, acquisition and preservation of digital evidence}.
+        ISO/IEC 27037:2012.
+
+        \bibitem{iso27041}
+        International Organization for Standardization.
+        \emph{Information technology - Security techniques - Guidance on assuring suitability and adequacy of incident investigative method}.
+        ISO/IEC 27041:2015.
+
+        \bibitem{iso27042}
+        International Organization for Standardization.
+        \emph{Information technology - Security techniques - Guidelines for the analysis and interpretation of digital evidence}.
+        ISO/IEC 27042:2015.
+
+        \bibitem{iso27043}
+        International Organization for Standardization.
+        \emph{Information technology - Security techniques - Incident investigation principles and processes}.
+        ISO/IEC 27043:2015.
+
+        \bibitem{iso27050}
+        International Organization for Standardization.
+        \emph{Information technology - Security techniques - Electronic discovery}.
+        ISO/IEC 27050:2023.
+
+        \bibitem{rfc3227}
+        BREZINSKI, D., KILLALEA, T.
+        \emph{Guidelines for Evidence Collection and Archiving}.
+        RFC 3227, IETF, 2002.
+
+        \bibitem{acpo2012}
+        Association of Chief Police Officers.
+        \emph{ACPO Good Practice Guide for Digital Evidence}.
+        ACPO Guidelines, 2012.
+
+    %\end{thebibliography}
+
+      \section*{Cadres Juridiques et Réglementaires}
+
+    %\begin{thebibliography}{9}
+
+        \bibitem{budapest2001}
+        Council of Europe.
+        \emph{Convention on Cybercrime}.
+        Budapest Convention, 2001.
+
+        \bibitem{malabo2014}
+        African Union.
+        \emph{African Union Convention on Cyber Security and Personal Data Protection}.
+        Malabo Convention, 2014.
+
+        \bibitem{cameroun2010a}
+        République du Cameroun.
+        \emph{Loi N°2010/012 du 21 décembre 2010 relative à la cybersécurité et la cybercriminalité}.
+        2010.
+
+        \bibitem{cameroun2010b}
+        République du Cameroun.
+        \emph{Loi N°2010/013 du 21 décembre 2010 régissant les communications électroniques}.
+        2010.
+
+    %\end{thebibliography}
+
+      \section*{Revues et Publications Académiques}
+
+      \begin{itemize}
+        \item \emph{Journal of Digital Forensics, Security and Law}
+        \item \emph{Digital Investigation Journal}
+        \item \emph{Forensic Science International: Digital Investigation}
+        \item \emph{IEEE Transactions on Information Forensics and Security}
+        \item \emph{Cryptology ePrint Archive}
+        \item \emph{Journal of Cybersecurity}
+        \item \emph{Computers \& Security}
+        \item \emph{Journal of Information Security and Applications}
+      \end{itemize}
+
+    \section*{Ressources en Ligne}
+
+      \begin{itemize}
+        \item National Institute of Standards and Technology (NIST) - \url{https://www.nist.gov}
+        \item International Organization for Standardization (ISO) - \url{https://www.iso.org}
+        \item Internet Engineering Task Force (IETF) - \url{https://www.ietf.org}
+        \item Cryptology ePrint Archive - \url{https://eprint.iacr.org}
+        \item Forum of Incident Response and Security Teams (FIRST) - \url{https://www.first.org}
+        \item African Union - \url{https://au.int}
+      \end{itemize}
+    % Annexes
+    \appendix
+        \part*{Annexes}
+        \addcontentsline{toc}{part}{Annexes}
+
+        %\chapter{Glossaire Technique}
+        \input{annexes/A_glossaire}
+        %\chapter{Outils et Ressources}
+        \input{annexes/B_outils}
+        %\chapter{Templates et Modèles}
+        \input{annexes/C_templates}
+        %\chapter{Contacts et Réseaux Professionnels}
+        \input{annexes/E_contacts}
+        %\chapter{Références Bibliographiques}
+        %\input{annexes/D_bibliographie}
+        % Bibliographie
+        \printbibliography[title=Références Bibliographiques, heading=bibintoc]
+
+        % Index
+        \printindex
+
+\end{document}
