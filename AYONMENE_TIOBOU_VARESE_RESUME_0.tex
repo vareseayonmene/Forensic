@@ -1,0 +1,263 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{fontawesome5}
+\usepackage{eso-pic}
+\usepackage{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usetikzlibrary{calc}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=cyan,
+	pdftitle={Résumé du Manuel d'Investigation Numérique},
+	bookmarks=true,
+}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+
+\geometry{top=2cm,bottom=2cm,left=1cm,right=1cm}
+
+
+\definecolor{blueENSPY}{RGB}{0,51,102}
+\definecolor{lightBlue}{RGB}{200,220,240}
+\definecolor{gold}{RGB}{255,204,0}
+\definecolor{myblue}{RGB}{0,51,102}
+\definecolor{mygold}{RGB}{255,204,0}
+
+\begin{document}
+	\pagestyle{empty}
+\begin{titlepage}
+	\AddToShipoutPictureBG*{%
+		\begin{tikzpicture}[remember picture, overlay]
+			\draw[myblue, line width=4pt]
+			($(current page.north west) + (0.5cm,-0.5cm)$) --
+			($(current page.north east) + (-0.5cm,-0.5cm)$) --
+			($(current page.south east) + (-0.5cm,0.5cm)$) --
+			($(current page.south west) + (0.5cm,0.5cm)$) --
+			cycle;
+		\end{tikzpicture}%
+	}
+			\AddToShipoutPictureBG*{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\draw[myblue, line width=6pt]
+				($(current page.north west) + (0.25cm,-0.25cm)$) --
+				($(current page.north east) + (-0.25cm,-0.25cm)$) --
+				($(current page.south east) + (-0.25cm,0.25cm)$) --
+				($(current page.south west) + (0.25cm,0.25cm)$) --
+				cycle;
+			\end{tikzpicture}%
+	}
+	%=== EN-TÊTE ===
+	\noindent
+\begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X 
+		>{\centering\arraybackslash}m{2.5cm} 
+		>{\centering\arraybackslash}X}
+	% --- Bloc gauche ---
+	\begin{tabular}{c}
+		\textbf{RÉPUBLIQUE DU CAMEROUN}\\
+		Paix-Travail-Patrie \\[0.2cm]
+		\textbf{UNIVERSITÉ DE YAOUNDÉ I}\\[0.2cm]
+		\textbf{ÉCOLE NATIONALE SUPÉRIEURE}\\
+		\textbf{POLYTECHNIQUE DE YAOUNDÉ}\\[0.2cm]
+		\textbf{DÉPARTEMENT DE GÉNIE}\\
+		\textbf{INFORMATIQUE}
+	\end{tabular}
+	&
+	% --- Logos au centre ---
+	\begin{tabular}{c}
+	%\includegraphics[width=2.5cm]{yde1.png}\\[0.5cm]
+	\includegraphics[width=2.5cm]{téléchargem.png}
+	\end{tabular}
+	&
+	% --- Bloc droit ---
+	\begin{tabular}{c}
+		\textbf{REPUBLIC OF CAMEROON}\\
+		Peace-Work-Fatherland \\[0.2cm]
+		\textbf{UNIVERSITY OF YAOUNDÉ I}\\[0.2cm]
+		\textbf{NATIONAL ADVANCED SCHOOL}\\
+		\textbf{OF ENGINEERING OF YAOUNDÉ}\\[0.2cm]
+		\textbf{DEPARTMENT OF COMPUTER}\\
+		\textbf{ENGINEERING}
+	\end{tabular}
+\end{tabularx}
+
+
+	
+	\vspace{1cm}
+	
+	% --- Bandeau bleu ---
+\begin{center}
+	\begin{tcolorbox}[
+	colback=blue!80,   % couleur de fond
+	colframe=blue!80,  % couleur de bordure identique (bordure invisible)
+	arc=6mm,           % arrondi des coins
+	boxrule=0pt,       % épaisseur de bordure = 0
+	width=0.8\textwidth,
+	halign=center
+	]
+	{\color{black}\bfseries \Large INTRODUCTION AU TECHNIQUE D'INVESTIGATION NUMERIQUE}
+\end{tcolorbox}
+\end{center}
+	
+	\vspace{1.5cm}
+	
+	% --- Titre principal ---
+\begin{center}
+	\rule{18cm}{2pt} \\[0.3cm]
+	{\Large \bfseries RÉSUME DU CHAPITRE D'INTRODUCTION : THEORIES ET PRATIQUES DE L'INVESTIGATION NUMERIQUE} \\[0.1cm] 
+	\rule{18cm}{5pt} \\[0.3cm]
+	
+	{\Huge \textbf{DEVOIR}} \\[0.1cm]
+	\rule{08cm}{3pt} \\[2cm]
+\end{center}
+	
+	% --- Tableau infos étudiant ---
+	\begin{center}
+		
+		\renewcommand{\arraystretch}{2}
+		\begin{tabular}{|>{\centering\arraybackslash}m{8cm}|>{\centering\arraybackslash}m{5cm}|>{\centering\arraybackslash}m{5cm}|}
+			\hline
+			\textbf{NOMS ET PRÉNOMS} & \textbf{MATRICULES} & \textbf{SPÉCIALITÉS} \\
+			\hline
+			AYONNEME TIOBOU Varese & 22P045 & HN-4 CIN \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\vspace{1.5cm}
+	
+	% --- Examinateur et année ---
+	\begin{flushleft}
+		\textbf{EXAMINATRICE :} Mr MINKA Thierry
+	\end{flushleft}
+	
+	\begin{flushright}
+		\textbf{Année Académique :} \textbf{2025/2026}
+	\end{flushright}
+	
+	\vfill
+	
+	% --- Pied de page ---
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[blueENSPY, line width=3pt] (0,0) -- (1\textwidth,0);
+		\end{tikzpicture}
+		\\[0.3cm]
+		\textbf{\color{blueENSPY}INVESTIGATION NUMERIQUE \hspace{4cm} \faIcon{graduation-cap} \hspace{4cm} ENSPY}
+	\end{center}
+\end{titlepage}
+	
+\begin{center}
+	\section*{\huge Introduction}
+\end{center}
+
+{\Large Le manuel « Théories et Pratiques de l’Investigation Numérique » constitue un ouvrage académique de référence pour les étudiants, chercheurs et professionnels de la cybersécurité. Il présente de manière approfondie les bases théoriques, les évolutions historiques, les méthodes pratiques, les cadres juridiques et les défis éthiques liés à l’investigation numérique dans un monde en pleine mutation. L’originalité de l’ouvrage réside dans l’introduction du \textbf{trilemme CRO} (Confidentialité, Fiabilité, Opposabilité juridique), un modèle conceptuel innovant qui redéfinit la preuve numérique dans un contexte post-quantique. Ce résumé propose une synthèse structurée et détaillée en huit volets principaux.}
+
+\section{\centering \huge Fondements et Historique de l’Investigation Numérique}
+{\Large L’investigation numérique est née dans les années 1970, au moment où l’informatique commençait à pénétrer les entreprises et les institutions. La première saisie de données informatiques (1979) a ouvert la voie à une discipline encore embryonnaire. Les années 1980-1990 marquent l’apparition des premiers cas emblématiques, tels que l’affaire des « 414s » ou celle de Kevin Mitnick, mettant en évidence la nécessité de méthodes d’enquête spécialisées.
+
+La décennie 2000 voit la professionnalisation et la standardisation des pratiques, notamment avec l’affaire Enron (2001) qui impose la conservation massive de preuves numériques. Le développement d’outils comme EnCase ou Sleuth Kit participe à la structuration de la discipline. Enfin, les années 2010-2020 sont marquées par l’ère du Big Data, du Cloud et des cyberattaques globales (Stuxnet, WannaCry, Panama Papers). Aujourd’hui, l’investigation numérique entre dans une ère post-quantique, où l’IA et l’informatique quantique bouleversent les paradigmes existants.}
+
+\section{\centering \huge Cadre Théorique et Conceptuel}
+{\Large Le manuel explore en profondeur l’épistémologie de la preuve numérique. La trace numérique est envisagée comme un phénomène existentiel, produit inévitable de toute interaction avec un système informatique.
+
+L’approche mobilise la théorie de l’information (entropie, redondance), la théorie des graphes (analyse de réseaux, relations entre entités) et la théorie du chaos (sensibilité aux conditions initiales).
+
+Un point central est l’introduction du \textbf{trilemme CRO} qui met en évidence l’impossibilité de concilier simultanément, et de manière optimale, la confidentialité, la fiabilité et l’opposabilité juridique des preuves numériques. Cette tension structurelle oblige les investigateurs à rechercher des compromis pragmatiques selon le contexte de chaque affaire.}
+
+\section{\centering \huge Normes et Standards Internationaux}
+{\Large L’investigation numérique est encadrée par un ensemble de normes internationales visant à garantir la validité juridique et scientifique des preuves collectées.
+\begin{itemize}
+	\item L’\textbf{ISO/IEC 27037} définit les principes de base de l’identification, de la collecte et de la conservation des données.
+	\item L’\textbf{ISO/IEC 27041} et \textbf{27042} détaillent respectivement les méthodes validées et les cadres d’analyse.
+	\item L’\textbf{ISO/IEC 27043} propose un modèle global de processus d’investigation.
+	\item Aux États-Unis, le \textbf{NIST SP 800-86} fournit un cadre pratique reconnu.
+	\item Le \textbf{RFC 3227} établit un ordre de volatilité des données, essentiel pour la priorisation lors de la collecte.
+	\item En Europe, l’\textbf{ACPO Guide} fixe des principes fondamentaux de proportionnalité et d’intégrité.
+\end{itemize}
+Le manuel met également en lumière l’adaptation locale de ces normes dans le contexte africain, notamment au Cameroun, avec la Convention de Malabo (2014) et les lois nationales sur la cybersécurité (2010/012, 2010/013 et 2024/017).}
+
+\section{\centering \huge Méthodologies et Meilleures Pratiques}
+{\Large L’ouvrage compare diverses méthodologies issues de grandes institutions :
+\begin{itemize}
+	\item La méthodologie du \textbf{SANS Institute (FOR508)}
+	\item Celle du \textbf{CERT/CC} pour la réponse aux incidents
+	\item Le cadre européen proposé par l’\textbf{ENISA}
+	\item Des approches asiatiques (Corée, Japon)
+\end{itemize}}
+{\Large Ces méthodes sont appliquées à l’investigation de systèmes, de réseaux et de données dans des environnements complexes. Le manuel insiste sur l’importance de la documentation, de la traçabilité (\textit{chain of custody}) et du respect de l’éthique professionnelle.}
+
+Il détaille également l’utilisation d’outils forensiques tels que :
+\begin{itemize}
+	\item \textbf{Volatility} pour l’analyse mémoire
+	\item \textbf{DFIR Tools} pour la reconstruction temporelle
+	\item Les \textbf{SIEM} pour la corrélation de logs
+\end{itemize}
+{\Large L’intégration de l’intelligence artificielle permet désormais la classification automatisée de malwares et l’analyse comportementale avancée via des modèles de \textit{machine learning} et \textit{deep learning}.}
+
+\section{\centering \huge L’Ère Post-Quantique et la Cryptographie}
+{\Large Le développement de l’informatique quantique représente une menace sérieuse pour les algorithmes de cryptographie classique.
+\begin{itemize}
+	\item L’algorithme de \textbf{Shor} compromet les systèmes RSA et ECC.
+	\item L’algorithme de \textbf{Grover} accélère la recherche dans les systèmes symétriques.
+\end{itemize}
+Le manuel présente les solutions de cryptographie post-quantique, notamment :
+\begin{itemize}
+	\item \textbf{CRYSTALS-Kyber} (échange de clés)
+	\item \textbf{CRYSTALS-Dilithium} (signatures)
+\end{itemize}
+Il introduit également le protocole \textbf{ZK-NR} (Zero Knowledge – Non-Repudiation) qui permet d’assurer une preuve vérifiable sans divulguer d’informations sensibles. Ces avancées s’inscrivent dans le cadre de l’architecture \textbf{Q2CSI} et du trilemme \textbf{CRO}, qui deviennent des outils conceptuels et pratiques incontournables pour l’investigateur de demain.}
+
+\section{\centering \huge Cadre Juridique et Enjeux Éthiques}
+{\Large Le droit joue un rôle central dans l’investigation numérique.
+\begin{itemize}
+	\item Aux \textbf{États-Unis}, les \textbf{Federal Rules of Evidence (FRE)} encadrent la recevabilité des preuves, tandis que le \textbf{CFAA} réprime la fraude informatique.
+	\item En \textbf{Europe}, le \textbf{RGPD} impose des contraintes strictes sur la collecte et l’utilisation de données.
+	\item En \textbf{Afrique}, la \textbf{Convention de Malabo} constitue le texte de référence.
+	\item Au \textbf{Cameroun}, les lois nationales (2010/012, 2010/013, 2024/017) encadrent la cybercriminalité et la protection des données personnelles.
+\end{itemize}
+Cependant, des défis persistent en matière de formation des experts agréés et de sensibilisation des magistrats. L’auteur insiste sur le \textbf{contrat déontologique} de l’investigateur numérique, fondé sur les principes d’intégrité, de proportionnalité, de responsabilité et de service.}
+
+\section{\centering \huge Pratique Opérationnelle et Laboratoires Forensiques}
+{\Large Le manuel fournit un guide concret pour la mise en place d’un laboratoire forensique.
+\begin{itemize}
+	\item \textbf{Environnements techniques} : SIFT, Remnux, VMware, Hyper-V.
+	\item \textbf{Procédures opérationnelles standard} : checklists, modèles de rapports, scripts d’automatisation.
+	\item \textbf{Mécanismes} : Certification, accréditation, formation continue, veille technologique.
+	\item \textbf{Pratiques avancées} : Threat intelligence, exercices de red teaming.
+\end{itemize}
+Des sections spécifiques traitent de la forensique système (NTFS, EXT4, APFS), de la forensique mémoire (Volatility 3), et de la forensique réseau (analyse PCAP, SIEM, détection d’intrusions).}
+
+\section{ \centering \huge Étude de Cas : CyberFinance Cameroun 2025}
+{\Large L’ouvrage se conclut par un cas pratique intégrateur illustrant une attaque de type \textit{ransomware} visant une institution financière camerounaise. Les phases de l’enquête sont détaillées :
+\begin{itemize}
+	\item Détection et réponse initiale
+	\item Collecte de preuves selon ISO 27037
+	\item Analyse technique post-quantique
+	\item Attribution de l'attaque
+	\item Remédiation et renforcement
+	\item Aspects juridiques et préparation du dossier pour le tribunal
+\end{itemize}
+L’étude met en évidence les défis du contexte africain (ressources limitées, cadre légal en évolution) et les opportunités offertes par l’adoption des meilleures pratiques mondiales et des outils post-quantiques. Ce cas sert de synthèse et de mise en pratique des concepts étudiés.}
+
+\section*{\centering \huge Conclusion Générale}
+{\Large Le manuel offre une vision globale et intégrée de l’investigation numérique, où se croisent philosophie, science, technique et droit. Il propose une réflexion sur la \textbf{responsabilité éthique} de l’investigateur numérique et sur la nécessité d’adapter les pratiques à l’ère post-quantique. Il constitue un outil indispensable pour former des experts capables de relever les défis technologiques, juridiques et humains de la cybersécurité moderne. Ce résumé met en évidence la richesse de l’ouvrage et son rôle de guide académique et pratique dans un domaine en constante évolution.}
+	
+\end{document}
+
+
