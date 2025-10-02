@@ -1,0 +1,876 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{fontawesome5}
+\usepackage{eso-pic}
+\usepackage{amsmath, amssymb}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+%\usepackage{minted}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\hypersetup{linktoc=all}
+
+% Configuration pour Python
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\newtheorem{theorem}{Théorème}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	frame=single
+}
+
+\lstset{style=mystyle}
+
+
+\usetikzlibrary{calc}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=cyan,
+	pdftitle={Résumé du Manuel d'Investigation Numérique},
+	bookmarks=false,}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+
+\geometry{top=2cm,bottom=2cm,left=1.5cm,right=2cm}
+
+
+\definecolor{blueENSPY}{RGB}{0,51,102}
+\definecolor{lightBlue}{RGB}{200,220,240}
+\definecolor{gold}{RGB}{255,204,0}
+\definecolor{myblue}{RGB}{0,51,102}
+\definecolor{mygold}{RGB}{255,204,0}
+
+\begin{document}
+	\pagestyle{empty}
+	\begin{titlepage}
+		\AddToShipoutPictureBG*{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\draw[myblue, line width=4pt]
+				($(current page.north west) + (0.5cm,-0.5cm)$) --
+				($(current page.north east) + (-0.5cm,-0.5cm)$) --
+				($(current page.south east) + (-0.5cm,0.5cm)$) --
+				($(current page.south west) + (0.5cm,0.5cm)$) --
+				cycle;
+			\end{tikzpicture}%
+		}
+		\AddToShipoutPictureBG*{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\draw[myblue, line width=1pt]
+				($(current page.north west) + (0.25cm,-0.25cm)$) --
+				($(current page.north east) + (-0.25cm,-0.25cm)$) --
+				($(current page.south east) + (-0.25cm,0.25cm)$) --
+				($(current page.south west) + (0.25cm,0.25cm)$) --
+				cycle;
+			\end{tikzpicture}%
+		}
+		\AddToShipoutPictureBG*{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\draw[myblue, line width=2pt]
+				($(current page.north west) + (0.35cm,-0.35cm)$) --
+				($(current page.north east) + (-0.35cm,-0.35cm)$) --
+				($(current page.south east) + (-0.35cm,0.35cm)$) --
+				($(current page.south west) + (0.35cm,0.35cm)$) --
+				cycle;
+			\end{tikzpicture}%
+		}
+		%=== EN-TÊTE ===
+		%\noindent
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{p{7.5cm}c p{7.1cm}}
+				% --- Bloc gauche (Français) ---
+				\centering
+				\textbf{RÉPUBLIQUE DU CAMEROUN}\\
+				Paix-Travail-Patrie\\
+				**********\\[0.2cm]
+				\textbf{UNIVERSITÉ DE YAOUNDÉ I}\\
+				**************\\[0.2cm]
+				\textbf{ÉCOLE NATIONALE SUPÉRIEURE POLYTECHNIQUE DE YAOUNDÉ}\\
+				%\textbf{POLYTECHNIQUE DE YAOUNDÉ}\\
+				******************\\[0.2cm]
+				\textbf{DÉPARTEMENT DE GÉNIE}\\
+				\textbf{INFORMATIQUE}\\
+				**********************
+				
+				&
+				
+				% --- Logos au centre ---
+				\raisebox{-1.2\height}{\includegraphics[width=2.8
+					cm]{yde1.png}}
+				
+				&
+				
+				% --- Bloc droit (Anglais) ---
+				\centering
+				\textbf{REPUBLIC OF CAMEROON}\\
+				Peace-Work-Fatherland\\ 
+				********\\[0.2cm]
+				\textbf{UNIVERSITY OF YAOUNDÉ I}\\
+				************\\[0.2cm]
+				\textbf{NATIONAL ADVANCED SCHOOL OF ENGINEERING OF YAOUNDÉ}\\
+				%\textbf{OF ENGINEERING OF YAOUNDÉ}\\
+				******************\\[0.2cm]
+				\textbf{DEPARTMENT OF COMPUTER ENGINEERING}\\
+				%\textbf{ENGINEERING}\\
+				********************
+			\end{tabular}
+		\end{table}
+		
+		% --- Bandeau bleu ---
+		\begin{center}
+			\begin{tcolorbox}[
+				colback=blue!80,   % couleur de fond
+				colframe=blue!80,  % couleur de bordure identique (bordure invisible)
+				arc=6mm,           % arrondi des coins
+				boxrule=0pt,       % épaisseur de bordure = 0
+				width=0.6\textwidth,
+				halign=center
+				]
+				{\color{black}\bfseries  INTRODUCTION AU TECHNIQUE D'INVESTIGATION NUMERIQUE}
+			\end{tcolorbox}
+		\end{center}
+		
+		\vspace{0.05cm}
+		
+		% --- Titre principal ---
+		\begin{center}
+			\rule{12cm}{3pt} \\[0.00001mm]
+			\rule{18cm}{1pt} \\[0.4cm]
+			{\Large \bfseries DEVOIR CHAPITRE 1:PHILOSOPHIE ET FONDEMENTS DE L'INVESTIGATION NUMÉRIQUE} \\[0.0001cm] 
+			\rule{18cm}{1pt} \\[0.00001mm]
+			\rule{12cm}{3pt} \\[0.5cm]
+		\end{center}
+		
+		% --- Tableau infos étudiant ---
+		\begin{center}
+			
+			%\renewcommand{\arraystretch}{2}
+			%\begin{tabular}{|>{\centering\arraybackslash}m{8cm}|>{\centering\arraybackslash}m{5cm}|>{\centering\arraybackslash}m{5cm}|}
+			%	\hline
+			%	\textbf{NOMS ET PRÉNOMS} & \textbf{MATRICULES} & \textbf{SPÉCIALITÉS} \\
+			%	\hline
+			%	AYONNEME TIOBOU Varese & 22P045 & HN-4 CIN \\
+			%	\hline
+			%\end{tabular}
+			\textbf{NOM ET PRÉNOM}\\
+			AYONNEME TIOBOU Varese\\[0.1cm]
+			\textbf{MATRICULE}\\
+			22P045\\[0.1cm]
+			\textbf{SPÉCIALITÉ}\\
+			HN-4 CIN
+		\end{center}
+		
+		\vspace{1cm}
+		
+		% --- Examinateur et année ---
+		\begin{flushleft}
+			\textbf{EXAMINATEUR :} Mr MINKA Thierry
+		\end{flushleft}
+		
+		\begin{flushright}
+			\textbf{Année Académique :} 2025/2026
+		\end{flushright}
+		
+		\vfill
+		%\vspace{0.1cm}
+		
+		% --- Pied de page ---
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[blueENSPY, line width=2pt] (0,0) -- (1\textwidth,0);
+			\end{tikzpicture}
+			\\[0.05cm]
+			\textbf{\color{blueENSPY}INVESTIGATION NUMERIQUE \hspace{1cm} \faIcon{graduation-cap} \hspace{5cm} ENSPY}
+		\end{center}
+	\end{titlepage}
+	
+	\tableofcontents
+	\pagenumbering{arabic}
+	\pagebreak
+	\part*{\centering partie 1: Fondements Philosophiques et Épistémologiques}
+	\section{Analyse Critique du Paradoxe de la Transparence}
+	\subsection{ dissertation sur le paradoxe identifié par Byung-Chul Han}
+	
+
+	La pensée de \textbf{Byung-Chul Han} s’inscrit dans une critique radicale de la modernité numérique. Dans son analyse, la «\emph{
+	 société de la transparence} » érige la visibilité absolue en valeur suprême. Tout doit être rendu accessible, communicable, quantifiable. Or, cette injonction paradoxale à la transparence entre en conflit avec un droit fondamental : celui à l’intimité et à la protection de la vie privée. Ce paradoxe, au cœur des pratiques d’investigation numérique, met en lumière la tension entre deux impératifs qui semblent inconciliables : révéler la vérité et préserver l’espace secret de l’individu\\
+
+	
+	\textbf{Byung-Chul Han} souligne que la transparence, loin d’être synonyme de liberté, se transforme en nouvelle forme de contrôle. Dans un monde où chaque clic, chaque interaction, chaque transaction laisse une trace exploitable, la frontière entre l’espace public et privé s’effondre. L’individu se retrouve exposé à une surveillance permanente, qu’elle soit institutionnelle, commerciale ou algorithmique. La quête de clarté totale se retourne alors en une forme d’opacité : en multipliant les données et en abolissant les zones d’ombre, on rend paradoxalement plus difficile la compréhension du réel, désormais fragmenté en myriades de signaux contradictoires.\\
+	
+	Pour l’investigateur numérique, ce paradoxe prend une résonance particulière. Sa mission est de rechercher la vérité dans l’univers numérique, d’extraire de la masse de données les éléments probants permettant de reconstituer des faits. Mais il doit aussi respecter des principes éthiques et juridiques stricts : proportionnalité, intégrité, confidentialité. Trop de transparence — l’accès illimité à toutes les données — conduirait à une violation des droits fondamentaux. Trop de protection de l’intimité, à l’inverse, risquerait d’entraver la manifestation de la vérité judiciaire. C’est dans cet espace de tension que s’inscrit l’art du praticien.\\
+	
+	
+	Les documents étudiés proposent de penser ce dilemme sous l’angle d’une « déontologie de l’investigation numérique ». L’investigateur est présenté comme un « \emph{philosophe-praticien }» qui, à la manière d’un archéologue, exhume des traces tout en assumant la responsabilité morale de ses gestes. Dans ce cadre, le paradoxe de Han n’est pas seulement une aporie mais une boussole éthique. Il rappelle que la recherche de transparence ne peut être absolue : elle doit être médiée par des protocoles, des normes et une vigilance éthique constante.\\
+	
+	De plus, à l’ère post-quantique, la question de la transparence se complexifie. Les techniques d’anonymisation, de chiffrement ou encore de preuves à divulgation nulle de connaissance (ZK-NR) offrent de nouvelles manières de concilier vérification et confidentialité. Elles incarnent des solutions techniques à ce paradoxe : démontrer l’authenticité d’une preuve sans en révéler intégralement le contenu. Ainsi, le paradoxe de la transparence devient moteur d’innovation, stimulant l’invention de protocoles qui cherchent à dépasser l’opposition binaire entre vérité et intimité.\\
+
+	
+	En définitive, la réflexion de \textbf{ Byung-Chul Han} sur la transparence met en garde contre une dérive totalitaire du numérique où plus rien n’échapperait au regard. Pour l’investigation numérique, ce constat se traduit par une responsabilité accrue : produire de la vérité sans sacrifier la dignité humaine. C’est dans l’équilibre fragile entre exposition et préservation que réside la légitimité de la discipline. Le paradoxe de Han n’est pas un obstacle, mais un rappel permanent que la technique, pour être juste, doit être guidée par l’éthique.
+	
+	\subsection{ Application du paradoxe de Byung-chul Han à un cas concret d'investigation }
+	
+	Prenons le cas d’une enquête gouvernementale sur une affaire de corruption impliquant des fonds publics. L’opinion publique exige une transparence maximale : accès aux données financières, publication des flux bancaires suspects, divulgation des communications électroniques des responsables mis en cause. La logique démocratique plaide ici pour une exposition totale, au nom du droit à l’information et de la lutte contre l’impunité.
+	
+	Cependant, cette quête de transparence se heurte rapidement aux limites de la vie privée et des droits fondamentaux. Les transactions financières concernent souvent des comptes partagés avec des tiers non impliqués. Les courriels ou messages saisis contiennent des éléments relevant de la sphère intime (santé, famille, opinions personnelles) qui n’ont aucun rapport avec l’enquête. Rendre publics ces éléments violerait la dignité des personnes concernées et créerait un précédent dangereux où l’État pourrait justifier une surveillance illimitée.
+	
+	C’est précisément là que le paradoxe de \textbf{Byung-Chul Han} se matérialise :
+	\begin{itemize}
+		\item \textbf{Trop de transparence} → atteinte disproportionnée à la vie privée, perte de confiance des citoyens envers l’État, dérive vers une société de surveillance.
+		\item \textbf{Trop de confidentialité} → opacité des procédures, soupçons de collusion, fragilisation de la justice et de la démocratie.
+	\end{itemize}
+	
+	
+	L’investigateur numérique, mandaté pour analyser les données, doit trouver un équilibre pragmatique. Conformément aux principes déontologiques, il applique le principe de proportionnalité : seuls les éléments directement liés aux faits de corruption sont extraits et documentés. Les informations intimes ou hors sujet sont protégées par des mécanismes de minimisation et de pseudonymisation.
+	
+	D’un point de vue technique, des solutions inspirées des preuves à divulgation nulle de connaissance (Zero-Knowledge Proofs) permettent de démontrer l’existence de transactions illégales sans révéler l’ensemble des comptes bancaires. Ainsi, l’investigateur rend visibles les éléments pertinents pour la justice et la société civile, tout en garantissant que la vie privée des personnes non impliquées demeure intacte.
+	
+	Ce cas concret illustre que l’investigation numérique ne peut pas résoudre le paradoxe en choisissant un pôle au détriment de l’autre. Elle doit, au contraire, négocier en permanence l’équilibre fragile entre exigence de transparence et respect de la confidentialité. Cela suppose non seulement des outils techniques avancés, mais aussi une culture éthique forte chez les praticiens.
+	
+	\subsection{résolution pratique inspirée de l'éthique kantienne}
+	 \begin{enumerate}
+	 	\item{\textbf{Impératif de respect de la dignité}
+	 		\begin{itemize}
+	 		\item Agir toujours de manière à traiter les personnes impliquées non pas seulement comme des moyens d’obtenir la vérité, mais comme des fins en soi.
+	 		\item Concrètement : ne collecter et n’exposer que les données strictement nécessaires à l’enquête.
+	 		\end{itemize}}
+ 		\item {\textbf{Universalisation de la règle}
+ 			\begin{itemize}
+ 				\item Avant toute action, se demander : « Si tous les investigateurs agissaient ainsi, cela renforcerait-il la justice et la confiance dans la société ? »
+ 				\item Concrètement : éviter toute pratique intrusive qui, généralisée, mènerait à une surveillance totale.
+ 			\end{itemize}}
+ 		\item {\textbf{Principe de proportionnalité éthique}
+ 			\begin{itemize}
+ 				\item L’équilibre entre transparence et confidentialité doit viser un juste milieu : assez de visibilité pour garantir la vérité, assez de retenue pour protéger l’intimité.
+ 				\item Concrètement : appliquer systématiquement une anonymisation ou pseudonymisation des données tierces non pertinentes.
+ 			\end{itemize}}
+ 		\item {\textbf{Devoir de vérité vérifiable}
+ 			\begin{itemize}
+ 			\item L’investigateur a l’obligation morale de produire des preuves fiables et opposables, mais sans sacrifier le droit à la vie privée.
+ 			\item Concrètement : recourir à des protocoles cryptographiques (Zero-Knowledge Proofs, ZK-NR) permettant de démontrer un fait sans tout divulguer.
+ 		
+ 			\end{itemize}}
+ 		\item {\textbf{Responsabilité intergénérationnelle}
+ 			\begin{itemize}
+ 				\item Inspiré de Kant et prolongé par Hans Jonas : agir de façon à préserver la liberté et les droits numériques pour les générations futures.
+ 				\item Concrètement : éviter la constitution de bases de données intrusives qui pourraient être réutilisées abusivement par d’autres acteurs.
+ 			\end{itemize}}
+	 \end{enumerate}
+	\section{Transformation Ontologique du Numérique}
+	\subsection{Comparaison de la conception de l'être chez Heidegger et son adaptation à l'ère numérique}
+	\vspace{0.5cm}
+	Pour \textbf{Martin Heidegger}, l’être humain (\textbf{\emph{le Dasein}}) se définit par son être-au-monde, c’est-à-dire par une existence ouverte, inscrite dans un horizon de sens où l’homme n’est pas simple objet mais présence qui se projette. L’existence authentique implique une relation consciente avec le temps, la finitude et la technique, cette dernière étant perçue comme un dévoilement (\textbf{\emph{aletheia}}) mais aussi comme un danger d’arracher l’homme à son rapport originel à l’être. À l’ère numérique, cette conception connaît une mutation profonde. L’existence se double d’une digitalité, un «\emph{ être numérique} » qui prolonge mais aussi fragilise l’être physique. Les traces numériques deviennent une nouvelle forme de présence, souvent détachée de la volonté de l’individu. Le risque est alors que la technique numérique, en multipliant les données et en imposant la transparence, transforme l’existence en simple flux informationnel mesurable et contrôlable, réduisant la liberté du \textbf{\emph{Dasein}} à une série de signaux exploitables. Ainsi, l’être numérique illustre une adaptation de la pensée \textbf{heideggérienne} : l’homme continue de se dévoiler par la technique, mais ce dévoilement devient permanent, algorithmique et partiellement hors de son contrôle
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|p{6cm}|p{7cm}|}
+			\hline
+			\textbf{Aspect }& \textbf{Chez Heidegger (Être-au-monde)} & \textbf{Adaptation à l’ère numérique (Être numérique)} \\
+			\hline
+			Mode d’existence & Présence authentique dans le monde, ouverture au sens & Existence doublée d’une présence digitale (profil, données, traces) \\
+			\hline
+			Rapport au temps &  Temporalité vécue (finitude, projection vers l’avenir) & Temporalité fragmentée, non-linéaire (logs, instantanéité des données) \\
+			\hline
+			Rôle de la technique & Moyen de dévoilement de l’être (Gestell) mais risque d’oubli de l’être & Technique numérique comme médiation constante, qui enregistre et expose l’existence \\
+			\hline
+			Identité & Construite par l’expérience et le rapport à la mort (être-vers-la-mort) & Construite et souvent réduite à un ensemble de données et profils exploitables \\
+			\hline
+			Liberté & Possibilité de choisir une existence authentique & Limité par la surveillance algorithmique et les logiques de transparence forcée \\
+			\hline
+			Trace de l’être &  Inscrite dans l’histoire et la mémoire humaine & Inscrite dans la donnée numérique, persistante et difficile à effacer\\
+			\hline
+		\end{tabular}
+		\caption{comparaison entre la conception de l’être chez Heidegger et son adaptation à l’ère numérique}
+	\end{table}
+	\subsection{Étude d'un profil social complet et analyse comme manifestation d'\emph{être-par-la-trace} }
+	     \subsubsection{Exemple de profil social}
+	     \textbf{Nom affiche}: \emph{claire marie, 29ans}\\
+	     \textbf{Photo de profil} : \emph{photo d'elle Souriant devant un café branché}\\
+	     \textbf{Bio courte} : \emph{« Ingénieure en cybersécurité  | Yoga et voyages | Citoyenne engagée »}\\
+	     \textbf{publication recntes:}
+	     \begin{itemize}
+	     	\item \emph{Story Instagram} : « En conférence sur la sécurité numérique à Berlin »
+	     	\item \emph{Post LinkedIn} : Article partagé sur l’éthique de l’intelligence artificielle, avec commentaire « La technologie doit rester au service de l’humain  »
+	     	\item \emph{Tweet} : « Le yoga m’aide à garder l’équilibre face au rythme effréné du numérique. \#Mindfulness »
+	     	\item \emph{Album Facebook }: Photos de vacances en Islande, paysages, randonnées, interactions avec la nature.
+	    \end{itemize}
+	    \textbf{Interactions sociales :}
+	    	\begin{itemize}
+	    		\item 500+ connexions LinkedIn (réseau professionnel large).
+	    		\item Nombreux likes et partages sur ses posts autour de la cybersécurité.
+	    		\item Discussions privées avec un cercle restreint d’amis sur WhatsApp.
+	    	\end{itemize}
+	    
+	     \textbf{Données implicites :}
+	        	\begin{itemize}
+					\item Géolocalisation indirecte (voyages, événements professionnels).
+	 				\item Habitudes de consommation (cafés, yoga, voyages).
+	                \item Opinions éthiques et politiques (engagement sur IA, durabilité).
+				\end{itemize}
+	     \subsubsection{Analyse : l’être-par-la-trace}	
+	     
+	     \begin{enumerate}
+	     	\item etre numérique comme prolongement de l’être physique
+	     	\begin{itemize}
+	     		\item Claire ne se réduit pas à ses activités quotidiennes vécues hors ligne. Son identité se projette dans l’espace numérique par les traces qu’elle y dépose volontairement (posts, photos) et involontairement (métadonnées, géolocalisation).
+	     		\item  Elle devient un « être-par-la-trace » : son existence sociale est médiée et partiellement définie par ce qui est enregistré et rendu visible en ligne.
+	     	\end{itemize}
+	     	\item Temporalité digitale non-linéaire
+	     	\begin{itemize}
+	     		\item Les souvenirs de vacances en Islande (passé), les publications sur des conférences (présent) et ses projets professionnels (avenir) coexistent simultanément dans son profil.
+	     		\item Contrairement au temps vécu, la temporalité numérique est fragmentée, cumulée et consultable à volonté, créant une mémoire « persistante » qui façonne son être au monde.
+	     	\end{itemize}
+	     	\item Intentionnalité et performativité
+	     	\begin{itemize}
+	     		\item Ses posts sur LinkedIn ou Twitter ne sont pas de simples reflets d’une vie : ils construisent une image intentionnelle (professionnelle, éthique, engagée). 
+	     		\item Cette « trace performative » illustre que l’être numérique n’est pas une copie neutre de l’être physique, mais une projection choisie et calibrée pour un public.
+	     	\end{itemize}
+	     	\item Risques ontologiques
+	     	\begin{itemize}
+	     		\item Claire est exposée à une transparence forcée : ses voyages ou habitudes peuvent être cartographiés à partir de ses publications.
+	     		\item Son « être-par-la-trace » peut être manipulé par autrui (ex. récupération de ses opinions ou de ses données à des fins commerciales ou politiques).
+	     		\item Le danger est que sa véritable existence (complexe, ambivalente, intime) se réduise à l’image qu’en donnent ses traces numériques.
+	     	\end{itemize}
+	     \end{enumerate}
+	      
+	      Le profil social de Claire manifeste l’« être-par-la-trace » car son existence, à l’ère numérique, se déploie autant dans la matérialité de ses actes que dans les traces qu’elle laisse et qui deviennent des marqueurs constitutifs de son identité. Elle n’est plus seulement être-au-monde (Heidegger), mais être-au-monde-numérique, conditionné par la persistance, la visibilité et la réinterprétation infinie de ses traces digitales.
+	     
+	\subsection{ impact de la transformation ontologique sur la notion de preuve légale}
+		
+		À l’ère numérique, la preuve ne se fonde plus uniquement sur des objets matériels (documents papier, empreintes physiques), mais sur des traces digitales issues des activités en ligne. Cette transformation ontologique modifie profondément la manière dont la vérité judiciaire est construite. La trace numérique devient non seulement une extension de l’être, mais aussi un fragment de son identité exploitable en justice.
+		
+		Cependant, la nature de cette trace introduit de nouveaux défis. Contrairement à la preuve matérielle, elle est volatile, duplicable et manipulable. Une photo, un log ou un message peuvent être altérés ou produits artificiellement (ex. deepfakes). L’authenticité de la preuve légale repose donc moins sur sa matérialité que sur la chaîne de confiance et de custody qui garantit son intégrité.
+		
+		De plus, la persistance des traces numériques crée un déséquilibre éthique. Là où la mémoire humaine permet l’oubli, le numérique conserve. Une donnée insignifiante au moment de sa création peut devenir, des années plus tard, un élément incriminant. La preuve légale se confronte ainsi à la question du droit à l’oubli et de la proportionnalité entre vérité judiciaire et respect de la vie privée.
+		
+		Enfin, la transformation ontologique oblige les juristes et investigateurs à redéfinir la notion même d’authenticité. Prouver n’est plus seulement exhiber un objet, mais démontrer par des procédés cryptographiques, métadonnées et protocoles forensiques qu’une trace est fiable. La preuve légale se déplace ainsi du visible vers l’invisible technique, où la validation repose sur la confiance dans des méthodes scientifiques.
+		
+		En résumé : l’« être-par-la-trace » bouleverse la preuve légale en la rendant plus riche, mais aussi plus fragile et plus dépendante de protocoles techniques et éthiques.	
+	
+	\part*{\centering Partie 2 : Mathématiques de l'Investigation}
+	\section{Calcul d'Entropie de Shannon Appliquée}
+	 	\subsection{fichiers telecharger : document texte, image JPEG,
+	 		fichier chiffré AES}
+	 		\begin{figure}[htbp]
+	 			\centering
+	 			\includegraphics[width=0.8\textwidth]{fichier.png}
+	 			\caption{Capture d'écran des fichiers téléchargés pour le calcule d'entropie}
+	 			\label{fig:fichiers-telecharges}
+	 		\end{figure}
+	 	\subsection{script Python calculant l'entropie de chaque fichier}
+	 	 
+	 \begin{lstlisting}[language=Python, caption=Calcul de l'entropie de Shannon]
+	 	import math
+	 	import sys
+	 	from collections import Counter
+	 	
+	 	def calculate_entropy(file_path):
+	 	"""Calcule l'entropie (Shannon) d'un fichier binaire."""
+	 	with open(file_path, "rb") as f:
+	 	data = f.read()
+	 	
+	 	if not data:
+	 	return 0.0
+	 	
+	 	# compter la frequence en octets
+	 	counter = Counter(data)
+	 	total_bytes = len(data)
+	 	
+	 	# Calcul entropie
+	 	entropy = 0.0
+	 	for count in counter.values():
+	 	p = count / total_bytes
+	 	entropy -= p * math.log2(p)
+	 	
+	 	return entropy
+	 	
+	 	if __name__ == "__main__":
+	 	if len(sys.argv) < 2:
+	 	print("Usage: python entropy.py fichier1 [fichier2 ...]")
+	 	sys.exit(1)
+	 	
+	 	for file_path in sys.argv[1:]:
+	 	try:
+	 	ent = calculate_entropy(file_path)
+	 	print(f"Fichier: {file_path} | Entropie: {ent:.4f} bits/octet")
+	 	except Exception as e:
+	 	print(f"Erreur avec {file_path}: {e}")
+	 \end{lstlisting}
+	 
+	 \subsection{Analyse des résultats :}
+	 	\begin{figure}[htbp]
+	 		\centering
+	 		\includegraphics[width=1\textwidth]{resultat.png}
+	 		\caption{Capture d'écran des resultat du calcul d'entropie des fichiers }
+	 		\label{fig:resultats entropie}
+	 	\end{figure}
+	 \subsection{seuil de détection de chiffrement automatique}
+	 \section{Théorie des Graphes en Investigation Criminelle}
+	 \subsection{Construction d'un graphe à partir de données de communications téléphoniques}
+	 
+	 \begin{center}
+	 	\includegraphics[width=0.9\textwidth]{graphe.pdf}
+	 \end{center}
+	 
+	 \subsection{Calcule les métriques de centralité (degré, intermédiarité, proximité)}
+	 Le tableau ci-dessous présente les métriques de centralité calculées à partir des données
+	 téléphoniques (appelant, appelé, durée). Les colonnes donnent : centralité de degré (normalisée),
+	 intermédiarité (betweenness, normalisée), proximité (closeness), force totale (somme des durées)
+	 et degré (nombre d'arêtes).
+	 
+	 \begin{center}
+	 	\begin{longtable}{lrrrrr}
+	 		\toprule
+	 	\textbf{Personne} & \textbf{Degré} & \textbf{Deg.Centrality} & \textbf{Intermédiaire} & \textbf{Proximité} & \textbf{Force(s)} \\
+	 		\midrule
+	 		\endhead
+	 		Alice & 4 & 1.000 & 0.500 & 1.000 & 300.0 \\
+	 		Bob & 3 & 0.750 & 0.000 & 0.800 & 365.0 \\
+	 		Charlie & 3 & 0.750 & 0.000 & 0.800 & 155.0 \\
+	 		Eve & 3 & 0.750 & 0.000 & 0.800 & 340.0 \\
+	 		David & 1 & 0.250 & 0.000 & 0.571 & 30.0 \\
+	 		\bottomrule
+	 	\end{longtable}
+	 \end{center}
+	 \subsection{Identification des nœuds critiques utilisant l'algorithme de FREEMAN}
+	  La centralite de FREEMAN se réfère a la centralite d'intermédiaire. Elle définit le nœud critique comme étant le nœud qui contrôle le plus grand nombre de chemins entre les autres acteurs du réseau. En pratique, le nœud critique est identifier comme étant celui ayant la plus grande centralite intermédiaire. 
+	  
+	  Donc dans notre cas le nœud critique est celui d'\textbf{Alice} avec une centralite intermédiaire égale a \textbf{0.5}
+	 \subsection{Visualisation du graphe avec des couleurs proportionnelles à la centralité}
+	 	\begin{center}
+	 		\includegraphics[width=1.2\textwidth]{graphe_couleur_freeman.pdf}
+	 	\end{center}
+	 \section{Modélisation de l'Effet Papillon en Forensique}
+	 \subsection{}
+	 \part*{Partie 3: Révolution Quantique et Ses Implications}
+	 \section{Expérience de Pensée Schrödinger Adaptée}
+	 \subsection{version numérique du chat de Schrödinger}
+	 On possède un système de stockage (disque, cloud) et un fichier "F" identifié par son chemin et ses métadonnées.
+	 
+	 Avant tout examen extérieur, on installe un mécanisme contrôlé qui, avec probabilité p, exécute une suppression logique (ou chiffrement irréversible) du fichier, sinon le laisse intact. Le mécanisme est scellé (logs chiffrés écrits en append-only) et activé à une horodatation donnée. L’observateur externe n’a accès qu’aux métadonnées publiques (taille, allocation, horodatage d’étude) mais ignore si le processus d’effacement a été déclenché.
+	 
+	 Tant qu’aucune opération fautive (analyse, démontage du sceau) n’est effectuée, l’état du fichier est indéterminé pour l’observateur : il peut être disponible (présent) ou rendu inaccessible (effacé/chiffré).
+	 
+	 L’« observation » consiste à exécuter une procédure d’extraction qui lève le sceau, déclenche les mécanismes d’audit et produit un artefact d’examen (image, hash, log). À ce moment l’observateur passe d’un état d’ignorance à la connaissance effective : l’équivalent de la mesure quantique.
+
+	 \textbf{Remarque}: il s’agit d’une analogie avec la superposition quantique — la « superposition » est ici informationnelle (épi-stémique), pas matérielle. Le fichier a un état ontologique (présent ou effacé) même si notre connaissance est incertaine ; la situation ressemble toutefois au principe quantique si les opérations sur le support peuvent modifier irréversiblement l’état lors de l’examen (ex. actions atomiques sur un dispositif sécurisé).
+	 
+	 \subsection{Un fichier existe-t-il dans un état superposé " présent/effacé " avant analyse ?}
+	 Brève réponse : non en sens strict quantique, oui en sens épistémique/pratique.
+	 \begin{itemize}
+	 	\item	Sens physique strict (quantique) : un fichier binaire sur un disque est une configuration physique classique — il n’est pas littéralement dans une superposition quantique de « présent/effacé » (sauf si on utilise un registre quantique).
+	 
+	 \item Sens informationnel/forensique : pour l’investigateur externe l’état est indéterminé jusqu’à la mesure. Cette indétermination se comporte comme une superposition d’états possibles (accessible vs supprimé). L’analogie est utile pour raisonner sur l’effet de l’observation (mesure destructive, effets de l’action) mais il faut garder la distinction : c’est une ignorance, pas une superposition physique.
+	\end{itemize}
+	  
+	 \subsection{impact sur la notion de preuve  \emph{certaine}  en justice}
+	 
+	 L’« être-par-la-trace » numérique et la possibilité que l’état d’un fichier change entre sa production et son examen fragilisent la certitude judiciaire. Trois effets concrets : (1) marginalisation de l’objectivité matérielle — la preuve n’est plus un objet purement stable ; (2) augmentation du rôle des métadonnées \& logs — l’authenticité dépendra des mécanismes de journalisation, horodatage et scellage ; (3) préférence pour preuves probabilistes et processus — les tribunaux devront accepter des degrés de confiance (certitudes statistiques, attestations de procédures immuables) et non seulement des « objets bruts ».
+	 \textbf{Conséquences pratiques} : nécessité de chaînes de custody inviolables, d’horodatages tiers (timestamping TSA / blockchain) et de protocoles de preuve (hashs, ZK-proofs) permettant d’attester d’un état sans tout révéler. La preuve certaine devient donc procédurale et probabiliste : la robustesse du processus de collecte vaut autant que l’objet lui-même.
+	 
+	 \subsection{protocole d'observation minimisant l'effet sur le système}
+	 \begin{enumerate}
+	 	
+	 \item Sceller et inventorier : avant toute intervention, photographier/filmer l’état physique, relever identifiants, monter un sceau numérique (HSM/TPM) et un sceau physique. Générer un manifest signé contenant horodatage et métadonnées.
+	 
+	 \item Write-blocker matériel/virtuel : utiliser un write-blocker matériel sur supports physiques ; pour cloud, cloner via snapshot immuable ou API read-only.
+	 
+	 \item Image bit-for-bit (acquisition forensique) : si possible, faire une image sectorielle complète du support (dd, dc3dd, guymager) via write-blocker ; calculer plusieurs hashs (MD5, SHA-256) et les horodater par un service tiers (timestamping).
+	 \item Extraction incrémentale et triage minimal : si l’imagerie complète est impossible, réaliser un export ciblé (fichier identifié) en lecture seule, en calculant hash et en écrivant un log immuable signée. Préserver les métadonnées (MFT, inodes, attributs étendus).
+	 \item Mesure non-destructive préférée : privilégier l’acquisition en lecture seule ; éviter toute exécution de code présent sur le système (pas d’exécution automatique de fichiers). Utiliser sandbox séparée pour analyser les binaires.
+	 
+
+	 \item Horodatage externe / notarisation : soumettre les hashs à un service de timestamp (TSA) ou inscrire un commitment sur une blockchain publique/privée pour obtenir preuve d’existence antérieure.
+	 \item Filesystem forensics : recueillir artefacts corroborants (logs, snapshots, journaux d’OS) pour établir la chronologie et l’état antérieur.
+	 \item Zero-Knowledge / preuves sélectives : lorsqu’il faut prouver un fait sans divulguer tout le contenu (ex. existence d’un document spécifique), utiliser des preuves à divulgation nulle de connaissance ou commitments cryptographiques signés par l’acquéreur.
+	 
+	 \item Journalisation immuable : consigner chaque action (who/what/when/how) dans un journal append-only signé (HSM) et, si possible, répliqué hors site.
+	 \item Revue par tiers : faire auditer l’acquisition et l’intégrité par un expert indépendant ; conserver copie scellée accessible sous mandat judiciaire.
+
+	 \item Isolation des preuves : stocker les images et artefacts sur supports immuables (WORM) ; limiter accès en lecture/écriture par rôles.
+	 \item Conservation des contextes : conserver l’environnement d’origine (captures réseau, états de mémoire) pour permettre re-analyse sans toucher l’original.
+	 
+	\end{enumerate}
+	 \section{Calculs sur la Sphère de Bloch}
+	 Considérons le qubit défini par les angles $\theta=\tfrac{\pi}{3}$ et $\phi=\tfrac{\pi}{4}$ : 
+	 \[
+	 |\psi\rangle = \cos\!\left(\tfrac{\pi}{6}\right)|0\rangle + e^{i\pi/4}\,\sin\!\left(\tfrac{\pi}{6}\right)|1\rangle.
+	 \]
+	 \subsection{calcule des probabilites de mesure P(0) ET P(1)}
+	 \emph{emplitudes}
+	 \[
+	 a_0 = \cos\!\left(\tfrac{\pi}{6}\right) = \tfrac{\sqrt{3}}{2} \approx 0.866,
+	 \]
+	 \[
+	 a_1 = e^{i\pi/4}\sin\!\left(\tfrac{\pi}{6}\right) = \tfrac{1}{2}e^{i\pi/4} \approx 0.354 + 0.354i.
+	 \]
+	 \emph{probabilites}
+	 Dans la base computationnelle $\{|0\rangle, |1\rangle\}$ :
+	 \[
+	 P(0) = |a_0|^2 = \tfrac{3}{4} = 0.75 \quad \text{(75\%)},
+	 \]
+	 \[
+	 P(1) = |a_1|^2 = \tfrac{1}{4} = 0.25 \quad \text{(25\%)}.
+	 \]
+	 \subsection{Représentation graphique sur la sphère de Bloch}
+	 Le vecteur associé sur la sphère de Bloch est donné par :
+	 \[
+	 \vec{r} = (\sin\theta \cos\phi, \ \sin\theta \sin\phi, \ \cos\theta).
+	 \]
+	 Numériquement :
+	 \[
+	 \vec{r} \approx (0.612,\ 0.612,\ 0.500).
+	 \]
+	 
+	 L’état est représenté par le point suivant sur la sphère de Bloch : 
+	 
+	 \begin{center}
+	 	\includegraphics[width=0.6\textwidth]{bloch.png}
+	 \end{center}
+	 
+	 \subsection{Impact sur un système de preuve quantique}
+	 \begin{itemize}
+	 	\item Les mesures sont probabilistes : un seul tirage ne fournit pas une preuve certaine, mais un ensemble statistique de résultats.
+	 	\item La phase relative ($\phi=\pi/4$) n’affecte pas les probabilités dans la base $\{|0\rangle, |1\rangle\}$, mais elle est essentielle si la vérification se fait dans d’autres bases.
+	 	\item Toute mesure modifie irréversiblement l’état (\textit{collapse}), ce qui impose des protocoles fondés sur la répétition et la fiabilité statistique.
+	 \end{itemize}
+	 
+	 \section{Analyse du Théorème de Non-Clonage}
+	 \subsection{pourquoi le théorème de non-clonage empêche la copie
+	 	parfaite d'états quantiques?}
+	 	\begin{itemize}
+	 	\item \begin{theorem}[théorème de non-clonage]
+	 		
+	 		il est impossible de construire un opérateur quantique universel qui prend un état inconnu $ |\psi\rangle$ et produit $|\psi\rangle x |\psi\rangle$ .
+	 		
+	 		\end{theorem}
+	 	\item les opérations quantiques autorisées sont unitaires (ou isométriques), linéaires et réversibles.
+	 	\item Si un opérateur $U$ existait tel que :
+	 	
+	 	\[
+	 	U \, |\psi\rangle \otimes |0\rangle = |\psi\rangle \otimes |\psi\rangle
+	 	\]
+	 	
+	 	alors, par linéarité, pour deux états distincts $|\psi_1\rangle$ et $|\psi_2\rangle$ :
+	 	
+	 	\[
+	 	U \, (\alpha|\psi_1\rangle + \beta|\psi_2\rangle) \otimes |0\rangle = \alpha|\psi_1\rangle \otimes |\psi_1\rangle + \beta|\psi_2\rangle \otimes |\psi_2\rangle,
+	 	\]
+	 	
+	 	ce qui n'est pas égal au clonage de la superposition :
+	 	
+	 	\[
+	 	(\alpha|\psi_1\rangle + \beta|\psi_2\rangle) \otimes (\alpha|\psi_1\rangle + \beta|\psi_2\rangle).
+	 	\]
+	 	
+	 	$\rightarrow$ Contradiction : la copie universelle est impossible.
+	 	
+	 	\item En revanche, on peut cloner des états orthogonaux connus (ex. $|0\rangle$ et $|1\rangle$), mais pas un état arbitraire inconnu.
+	\end{itemize}
+	 \subsection{implications pour la conservation des preuves quantiques}
+	 \begin{itemize}
+	 	\item Pas de duplicata fidèle : si une preuve est stockée sous forme d’état quantique pur (par exemple un registre en superposition ou un témoin quantique cryptographique), on ne peut pas en faire des copies de sauvegarde.
+	 	\item Mesure destructrice : toute tentative de lecture pour “vérifier” modifie irréversiblement l’état (effet de collapse). Cela complique la conservation et la reproduction judiciaire.
+	 	\item Chaîne de custody repensée : au lieu de stocker plusieurs copies identiques, il faut utiliser :
+	 			\begin{itemize}
+	 				\item des protocoles d’attestation (preuves interactives que l’état existait, sans le révéler intégralement) ;
+	 				\item des redondances probabilistes (fournir plusieurs exemplaires préparés à l’avance par la source, pas copiés après coup) ;
+	 				\item des mécanismes de certification (horodatage, engagement cryptographique, signatures quantiques).
+	 			\end{itemize}
+	 	\item En pratique, la conservation de preuves quantiques devient plus proche de la gestion d’objets uniques fragiles que de fichiers numériques classiques.
+	 \end{itemize}
+	 \subsection{alternative utilisant le protocole ZK-NR}
+	 On peut contourner l’impossibilité de cloner en déplaçant le problème de la preuve de contenu vers une preuve d’existence et d’intégrité.
+	 \begin{enumerate}
+	 	\item principe
+	 		\begin{itemize}
+	 			\item ZK (Zero Knowledge) : prouver que l’on possède un état quantique ou une information sans révéler sa totalité.
+	 			\item NR (Non-Révocation / Non-Répudiation) : assurer que la partie qui fournit la preuve ne peut nier l’avoir fait, grâce à un engagement cryptographique signé.
+	 		\end{itemize}
+	 	\item Application au contexte forensique
+	 		\begin{itemize}
+	 			\item Préparation : au moment de l’acquisition, l’expert calcule un engagement cryptographique sur la description de l’état (par ex. résultat d’une mesure partielle ou distribution de probabilité).
+	 			
+	 			\item ZK Proof : il construit une preuve à divulgation nulle permettant de démontrer que l’engagement correspond à un état issu du protocole d’acquisition, sans divulguer l’état complet.
+	 			
+	 			\item NR (Signature et timestamp) : l’engagement et la preuve ZK sont horodatés et signés (par une autorité tierce ou blockchain). Ainsi, l’expert ne peut plus nier la possession initiale de l’état (non-répudiation).
+	 			
+	 			\item Vérification ultérieure : au tribunal, on ne mesure pas directement la preuve quantique fragile, mais on vérifie :
+	 				\begin{itemize}
+	 					\item l’engagement cryptographique (intégrité) ;
+	 					
+	 					\item la validité de la preuve ZK (possession/existence de l’état initial) ;
+	 					
+	 					\item la signature/horodatage (chaîne de custody).
+	 				\end{itemize}
+	 		\end{itemize}
+	 \end{enumerate}
+	 \part*{Paradoxe de l'Authenticité Invisible}
+	 \section{Formalisation Mathématique du Paradoxe}
+	  Trois systèmes de preuve considérés :
+	  
+	  \begin{enumerate}
+	  	\item Preuve classique papier (sceau + document physique).
+	  	\item Preuve numérique par hash + timestamp (SHA-256 + TSA).
+	  	\item Preuve ZK-NR (Zero-Knowledge + Non-Repudiation, protocole moderne).
+	  \end{enumerate}
+	  
+	  Pour chaque système $P$ on estime trois indices normalisés dans $[0,1]$ :
+	  
+	  \begin{itemize}
+	  	\item $A$ = authenticité perçue / force probante,
+	  	\item $C$ = confidentialité / préservation de la vie privée,
+	  	\item $O$ = opposabilité juridique (admissibilité / non-répudiation).
+	  \end{itemize}
+	  
+	  Paradoxe (formulation donnée) : $\forall P,\; A(P) \cdot C(P) \leq 1 - \delta$ avec $\delta > 0$ (constante système).
+	  
+	  Relation d'incertitude : $\Delta A \cdot \Delta C \geq \dfrac{\hbar_{\text{num}}}{2}$. Nous estimerons $\hbar_{\text{num}}$ expérimentalement en évaluant $\Delta A$, $\Delta C$.
+	  
+	  Les nombres ci-dessous sont des estimations raisonnées (justification courte à droite).
+	  
+	  \begin{table}[h]
+	  	\centering
+	  	\begin{tabular}{|l|c|c|c|c|p{5cm}|}
+	  		\hline
+	  		\textbf{Système} & \textbf{A} & \textbf{C} & \textbf{O} & \textbf{$A\cdot C$} & \textbf{Justification} \\
+	  		\hline
+	  		1. Papier physique & 0.95 & 0.20 & 0.90 & 0.19 & 
+	  		\begin{minipage}[t]{5cm}
+	  			$A$ : objet tangible, signatures, faible altérabilité \\
+	  			$C$ : faible confidentialité si rendu public \\
+	  			$O$ : forte opposabilité judiciaire
+	  		\end{minipage} \\
+	  		\hline
+	  		2. Hash + timestamp & 0.90 & 0.60 & 0.85 & 0.54 & 
+	  		\begin{minipage}[t]{5cm}
+	  			$A$ : hash+TSA atteste intégrité/existence \\
+	  			$C$ : hash protège contenu mais accès au fichier existant peut divulguer \\
+	  			$O$ : bonne opposabilité via TSA/signer
+	  		\end{minipage} \\
+	  		\hline
+	  		3. ZK-NR (protocole) & 0.85 & 0.95 & 0.80 & 0.8075 & 
+	  		\begin{minipage}[t]{5cm}
+	  			$A$ : prouve propriété sans révéler tout \\
+	  			$C$ : préserve confidentialité quasi-totale \\
+	  			$O$ : opposabilité via signatures/horodatage
+	  		\end{minipage} \\
+	  		\hline
+	  	\end{tabular}
+	  \end{table}
+	  
+	  \noindent Remarque : ces estimations reposent sur l'analyse qualitative des forces/faiblesses : 
+	  \begin{itemize}
+	  	\item papier $\Rightarrow$ très authentique mais peu confidentiel ; 
+	  	\item hash $\Rightarrow$ très bon pour intégrité ; 
+	  	\item ZK-NR $\Rightarrow$ compromis très favorable confidentialité/authenticité.
+	  \end{itemize}
+	 \subsection{Vérification de l'inégalité fondamentale : $A \cdot C \leq 1 - \delta$}
+	 Calculons $\max_P A \cdot C = 0.8075$ (système 3).
+	 
+	 Pour l'inégalité universelle il faut choisir $\delta$ tel que, pour tout $P$,
+	 \[
+	 A \cdot C \leq 1 - \delta.
+	 \]
+	 
+	 Le $\delta$ minimal compatible avec nos trois estimations est :
+	 \[
+	 \delta_{\min} = 1 - \max_P (A \cdot C) = 1 - 0.8075 = 0.1925.
+	 \]
+	 
+	 Choisissons donc pour l'exemple $\delta = 0.19$ (arrondi raisonnable).
+	 
+	 Vérification :
+	 
+	 \begin{itemize}
+	 	\item S1 : $0.19 \leq 1 - 0.19 = 0.81$ $\rightarrow$ $A \cdot C = 0.19 \leq 0.81$ $\checkmark$
+	 	\item S2 : $0.54 \leq 0.81$ $\checkmark$
+	 	\item S3 : $0.8075 \leq 0.81$ $\checkmark$ (légèrement strict mais satisfait si $\delta = 0.19$)
+	 \end{itemize}
+	 
+	 Conclusion : avec nos estimations, l'inégalité est vérifiée si l'on adopte $\delta \gtrsim 0.1925$. Interprétation : il existe une marge non nulle ($\approx 19\%$) qui borne le produit authenticité$\times$confidentialité — incarnant le paradoxe.
+	 
+	 \subsection{Trouvez expérimentalement la valeur de $\hbar_{\text{num}}$ pour votre système}
+	 
+	 La relation d'incertitude proposée :
+	 \[
+	 \Delta A \cdot \Delta C \geq \frac{\hbar_{\text{num}}}{2} 
+	 \quad \Rightarrow \quad 
+	 \hbar_{\text{num}} \leq 2 \, \Delta A \, \Delta C
+	 \quad \text{(on peut estimer } \hbar_{\text{num}} \approx 2 \Delta A \Delta C \text{)}.
+	 \]
+	 
+	 \subsubsection*{Choix d'incertitudes plausibles}
+	 (On suppose ces $\Delta$ proviennent d'une campagne de mesures répétées / évaluations inter-experts)
+	 
+	 \begin{table}[h]
+	 	\centering
+	 	\begin{tabular}{lcccc}
+	 		\hline
+	 		\textbf{Système} & $\Delta A$ & $\Delta C$ & $2 \Delta A \Delta C$ & $\hbar_{\text{num, est}}$ \\
+	 		\hline
+	 		Papier & 0.03 & 0.04 & $2 \cdot 0.03 \cdot 0.04 = 0.0024$ & 0.0024 \\
+	 		Hash+TSA & 0.02 & 0.03 & $2 \cdot 0.02 \cdot 0.03 = 0.0012$ & 0.0012 \\
+	 		ZK-NR & 0.025 & 0.02 & $2 \cdot 0.025 \cdot 0.02 = 0.0010$ & 0.0010 \\
+	 		\hline
+	 	\end{tabular}
+	 \end{table}
+	 
+	 Si $\hbar_{\text{num}}$ est une « constante fondamentale » du modèle (indépendante du système), pour garantir la borne $\Delta A \Delta C \geq \hbar_{\text{num}}/2$ pour tous les systèmes, on doit prendre :
+	 \[
+	 \hbar_{\text{num}} \leq 2 \min_P (\Delta A \, \Delta C)
+	 \quad \text{où la borne la plus restrictive vient du plus petit produit}.
+	 \]
+	 
+	 Mais si on veut choisir une $\hbar_{\text{num}}$ qui tienne pour tous (i.e. telle que l'inégalité soit vraie partout), il faut prendre :
+	 \[
+	 \hbar_{\text{num}} = 2 \cdot \max_P (\Delta A \, \Delta C)
+	 \quad \text{(détermination conservative)}.
+	 \]
+	 
+	 Ici $\max (2 \Delta A \Delta C) = 0.0024$ (système papier), donc prendre $\hbar_{\text{num}} \approx 0.0024$.
+	 
+	 \subsubsection*{Interprétation pratique}
+	 Avec nos hypothèses d'incertitude, la constante numérique effective est de l'ordre de $10^{-3}$ — très petite, mais non nulle.
+	 
+	 \subsubsection*{Procédure expérimentale recommandée}
+	 \begin{itemize}
+	 	\item Définir métriques observables pour $A$ et $C$ (par ex. score d'authenticité = probabilité d'acceptation par un panel d'experts ; score confidentialité = fraction d'information révélée).
+	 	\item Campagne de mesures : pour chaque système, faire $n$ évaluations indépendantes (autres experts/occasions, tests automatisés, attaques simulées).
+	 	\item Calculer : $\bar{A}$, $\bar{C}$ (moyennes) et $\Delta A$, $\Delta C$ (écarts-types empiriques ou intervalle de confiance).
+	 	\item Estimer $\hbar_{\text{num}}$ : calculer $2 \Delta A \Delta C$ pour chaque système ; prendre la valeur compatible avec l'hypothèse (min, max, médiane) selon la sémantique voulue.
+	 	\item Validation : répéter pour différents scénarios (divers niveaux d'adversaire, de contraintes légales) pour tester l'invariance de $\hbar_{\text{num}}$.
+	 \end{itemize}
+	 
+	 \subsubsection*{Table récapitulative finale}
+	 \begin{table}[h]
+	 	\centering
+	 	\begin{tabular}{lccccccc}
+	 		\hline
+	 		\textbf{Système} & $A$ & $C$ & $O$ & $A \cdot C$ & $\Delta A$ & $\Delta C$ & $\hbar_{\text{num,est}} = 2 \Delta A \Delta C$ \\
+	 		\hline
+	 		Papier & 0.95 & 0.20 & 0.90 & 0.1900 & 0.03 & 0.04 & 0.0024 \\
+	 		Hash+TSA & 0.90 & 0.60 & 0.85 & 0.5400 & 0.02 & 0.03 & 0.0012 \\
+	 		ZK-NR & 0.85 & 0.95 & 0.80 & 0.8075 & 0.025 & 0.02 & 0.0010 \\
+	 		\hline
+	 	\end{tabular}
+	 \end{table}
+	 
+	 \[
+	 \max_P A \cdot C = 0.8075 \quad \Rightarrow \quad \delta_{\min} = 1 - 0.8075 = 0.1925.
+	 \]
+	 
+	 Choix pratique : $\delta \simeq 0.19$ vérifie $A \cdot C \leq 1 - \delta$ pour les trois systèmes.
+	 
+	 Constante numérique effective (conservative) : $\hbar_{\text{num}} \approx 0.0024$ (ordre $10^{-3}$) d'après les incertitudes choisies.
+	 
+	 \subsubsection*{Conclusion \& limites}
+	 \begin{itemize}
+	 	\item \textbf{Conclusion :} la formalisation tient — nos estimations montrent qu'il existe une marge $\delta > 0$ ($\approx 0.19$) séparant le produit authenticité$\times$confidentialité de 1. L'« incertitude quantique » numérique $\hbar_{\text{num}}$ peut être estimée expérimentalement via la variabilité (écarts-types) des indices $A$ et $C$ ; pour nos hypothèses elle est de l'ordre $10^{-3}$.
+	 	
+	 	\item \textbf{Limites :} valeurs initiales subjectives ; $\Delta A$, $\Delta C$ doivent être mesurées rigoureusement (panel d'experts, tests adversariaux). La signification physique / juridique de $\hbar_{\text{num}}$ dépend entièrement de la façon dont $A$ et $C$ sont définis et mesurés — ici c'est un paramètre empirico-modélisé, pas une constante physique universelle.
+	 \end{itemize}
+	 \section{Implémentation Simplifiée ZK-NR}
+	 \subsection{Création un proof-of-concept en Python simulant ZK-NR}
+	 
+	 \subsubsection{Principe}
+	 Le protocole ZK-NR combine trois mécanismes :
+	 \begin{itemize}
+	 	\item \textbf{Confidentialité} : engagement de Pedersen $C = g^m h^r \pmod{p}$ masquant le message $m$ par un aléa $r$.
+	 	\item \textbf{Vérifiabilité sans divulgation} : preuve à divulgation nulle (ZK) de connaissance de l'ouverture $(m,r)$ via un schéma de type Fiat--Shamir.
+	 	\item \textbf{Non-répudiation (NR)} : signature de Schnorr sur l'engagement $C$, garantissant que le producteur ne peut nier avoir généré la preuve.
+	 \end{itemize}
+	 
+	 \subsubsection{Expérimentation}
+	 Un prototype Python a été développé avec un module de 512 bits, 
+	 120 itérations et trois modes de vérification :
+	 \begin{enumerate}
+	 	\item \textbf{Révélation complète} ($m,r$ révélés) ;
+	 	\item \textbf{ZK seul} (preuve ZK + signature) ;
+	 	\item \textbf{Révélation partielle} (seuls quelques bits de $m$ révélés).
+	 \end{enumerate}
+	 
+	 \subsubsection{Résultats}
+	 Les temps moyens observés sont les suivants (en secondes) :
+	 
+	 \begin{center}
+	 	\begin{tabular}{|l|c|}
+	 		\hline
+	 		Opération & Temps moyen \\
+	 		\hline
+	 		Engagement Pedersen & 0.0017 \\
+	 		Preuve ZK (génération) & 0.0020 \\
+	 		Preuve ZK (vérification) & 0.0028 \\
+	 		Signature (Schnorr) & 0.0011 \\
+	 		Vérification signature & 0.0017 \\
+	 		\hline
+	 	\end{tabular}
+	 \end{center}
+	 
+	 \subsection{Compromis Confidentialité--Vérifiabilité}
+	 \begin{center}
+	 	\begin{tabular}{|l|c|c|}
+	 		\hline
+	 		Mode & Vérifiabilité & Fuite d'information \\
+	 		\hline
+	 		Révélation complète & Forte (triviale) & 100\% \\
+	 		ZK seul & Forte (preuve + signature) & 0\% \\
+	 		Révélation partielle (8/64 bits) & Moyenne (ambiguë) & 12.5\% \\
+	 		\hline
+	 	\end{tabular}
+	 \end{center}
+	 
+	 \begin{center}
+	 	\includegraphics[width=0.9\textwidth]{document.pdf}
+	 \end{center}
+	 
+	 \subsection{Analyse}
+	 \begin{itemize}
+	 	\item La \textbf{preuve ZK seule} assure une vérifiabilité solide tout en préservant intégralement la confidentialité du message.
+	 	\item La \textbf{révélation complète} maximise la vérifiabilité mais supprime la confidentialité.
+	 	\item La \textbf{révélation partielle} introduit un compromis : vérification possible avec ambiguïtés et fuite proportionnelle de bits.
+	 	\item L'\textbf{overhead computationnel} est de l'ordre de 1--3 ms par opération, comparable à une signature classique, et donc négligeable pour des volumes modestes.
+	 \end{itemize}
+	 
+	 Ce proof-of-concept démontre la faisabilité pratique d'un protocole
+	 ZK-NR. L'approche permet de concilier confidentialité et opposabilité
+	 juridique, en introduisant un coût computationnel modeste et mesurable.
+	 ```
+	 
+\end{document}
