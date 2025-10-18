@@ -1,0 +1,316 @@
+\documentclass[12pt, a4em]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{fontawesome5}
+\usepackage{eso-pic}
+\usepackage{amsmath, amssymb}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[nottoc]{tocbibind}
+\usepackage{pgfplots}
+\usepackage{fancyhdr}
+\pgfplotsset{compat=1.18}
+
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=gray!150,
+	filecolor=magenta,
+	urlcolor=cyan,
+	pdftitle={rapport groupe 1},
+	bookmarks=true,
+	%linktoc=all
+}
+
+\titleformat{\section}{\normalfont\Large\bfseries\centering}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+\usetikzlibrary{calc}
+
+\pagestyle{fancy}
+\fancyhf{}  
+\fancyfoot[C]{
+	%\begin{center}
+	\begin{tikzpicture}
+		\draw[black!80, line width=2pt] (1,0) -- (1\textwidth,0);
+	\end{tikzpicture}
+	%\end{center}\\
+	\textbf{\color{black!80}\small{ Investigation Numerique}\hspace{4cm} \thepage \hspace{5cm} ENSPY}
+}
+
+\fancyhead[R]{
+	\textbf{\color{black!80} Investigation}
+}
+\geometry{top=2cm,bottom=2cm,left=1.5cm,right=2cm}
+\begin{document}
+	\begin{titlepage}
+		
+		\AddToShipoutPictureBG*{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\draw[black, line width=2pt]
+				($(current page.north west) + (0.5cm,-0.5cm)$) --
+				($(current page.north east) + (-0.5cm,-0.5cm)$) --
+				($(current page.south east) + (-0.5cm,0.5cm)$) --
+				($(current page.south west) + (0.5cm,0.5cm)$) --
+				cycle;
+			\end{tikzpicture}%
+		}
+		
+		%=== EN-TÊTE ===
+		%\noindent
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{p{7.5cm}c p{7.1cm}}
+				% --- Bloc gauche (Français) ---
+				\centering
+				\textbf{RÉPUBLIQUE DU CAMEROUN}\\
+				Paix-Travail-Patrie\\
+				**********\\[0.2cm]
+				\textbf{UNIVERSITÉ DE YAOUNDÉ I}\\
+				**************\\[0.2cm]
+				\textbf{ÉCOLE NATIONALE SUPÉRIEURE POLYTECHNIQUE DE YAOUNDÉ}\\
+				%\textbf{POLYTECHNIQUE DE YAOUNDÉ}\\
+				******************\\[0.2cm]
+				\textbf{DÉPARTEMENT DE GÉNIE}\\
+				\textbf{INFORMATIQUE}\\
+				**********************
+				
+				&
+				
+				% --- Logos au centre ---
+				\raisebox{-1.2\height}{\includegraphics[width=2.8cm]{yde1.png}}
+				
+				&
+				
+				% --- Bloc droit (Anglais) ---
+				\centering
+				\textbf{REPUBLIC OF CAMEROON}\\
+				Peace-Work-Fatherland\\ 
+				********\\[0.2cm]
+				\textbf{UNIVERSITY OF YAOUNDÉ I}\\
+				************\\[0.2cm]
+				\textbf{NATIONAL ADVANCED SCHOOL OF ENGINEERING OF YAOUNDÉ}\\
+				%\textbf{OF ENGINEERING OF YAOUNDÉ}\\
+				******************\\[0.2cm]
+				\textbf{DEPARTMENT OF COMPUTER ENGINEERING}\\
+				%\textbf{ENGINEERING}\\
+				********************
+			\end{tabular}
+		\end{table}
+		
+		\vspace{2cm}
+		% --- Titre principal ---
+		\begin{center}
+			\rule{14cm}{1pt} \\[0.1cm]
+			{\Large \bfseries INVESTIGATIONS NUMÉRIQUE DU BINÔME: TAPA KEMEGNE Loïc Brayan} \\[0.0001cm] 
+			\rule{14cm}{1pt} \\[2cm]
+		\end{center}
+		
+		\begin{center}
+			\textbf{NOM ET PRÉNOM}\\
+			AYONNEME TIOBOU Varese\\[0.5cm]
+			\textbf{MATRICULE}\\
+			22P045\\[0.5cm]
+			\textbf{SPÉCIALITÉ}\\
+			HN-4 CIN
+		\end{center}
+		
+		\vspace{2cm}
+		
+		% --- Examinateur et année ---
+		\begin{flushleft}
+			\textbf{EXAMINATEUR :} Mr MINKA Thierry
+		\end{flushleft}
+		
+		\begin{flushright}
+			\textbf{Année Académique :} 2025/2026
+		\end{flushright}
+		
+		\vfill
+		%\vspace{0.1cm}
+		
+		% --- Pied de page ---
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[black, line width=2pt] (0,0) -- (1\textwidth,0);
+			\end{tikzpicture}
+			\\[0.05cm]
+			\textbf{\color{black}INVESTIGATION NUMERIQUE \hspace{1cm} \faIcon{graduation-cap} \hspace{5cm} ENSPY}
+		\end{center}
+	\end{titlepage}
+	
+	\pagenumbering{roman}
+	\tableofcontents
+	\renewcommand{\contentsname}{SOMMAIRE}
+	\addcontentsline{toc}{section}{\contentsname}
+	
+	\pagebreak
+	\pagenumbering{arabic}
+	\section*{Introduction}
+	\addcontentsline{toc}{section}{INTRODUCTION}
+	
+	Dans un contexte marqué par la digitalisation croissante des activités humaines, la présence en ligne d’un individu devient un élément essentiel de son identité numérique. Cette étude s’inscrit dans cette dynamique et vise à analyser la visibilité numérique de \textbf{M. TAPA KEMEGNE Loïc Brayan} à travers une investigation méthodique sur Internet et les réseaux sociaux. L’objectif principal est de comprendre la nature, l’étendue et la fiabilité des informations accessibles publiquement à son sujet. Pour ce faire, une approche combinant recherches sur le moteur de recherche Google et exploration des principales plateformes sociales a été adoptée, afin de confronter les données obtenues aux connaissances personnelles déjà disponibles. Cette démarche permet ainsi d’appréhender l’impact de la présence numérique sur la perception identitaire et la gestion de l’information personnelle dans l’espace virtuel.
+	
+	\pagebreak
+	\section{Connaissance actuelle à propos du sujet}
+	
+	\subsection{Origine}
+	
+	Le sujet de cette étude, \textbf{TAPA KEMEGNE Loïc Brayan}, est originaire de \textbf{Bafoussam}, chef-lieu de la région de l’Ouest du \textbf{Cameroun}. Issu d’une famille profondément enracinée dans la culture bafoussam, il est le fils de parents tous deux originaires de cette même localité. 
+	Bien que la date exacte de sa naissance ne soit pas précisée, il a grandi dans un environnement familial où les valeurs traditionnelles, le respect, la discipline et l’amour du travail bien fait occupent une place essentielle. 
+	Ces fondements culturels et moraux ont largement contribué à façonner sa personnalité et son sens du devoir.
+	
+	\subsection{Parcours scolaire et universitaire}
+	
+	TAPA KEMEGNE Loïc Brayan a effectué l’ensemble de son parcours scolaire primaire et secondaire dans la ville de \textbf{Bafoussam}. 
+	Élève assidu et curieux, il s’est distingué par son sérieux et son goût prononcé pour les sciences exactes, ce qui l’a conduit à obtenir son \textbf{Baccalauréat série C} (Mathématiques et Sciences physiques).
+	
+	Animé par le désir de servir son pays et de participer activement à la protection des citoyens, il décide par la suite de se présenter au \textbf{concours de recrutement de la Police nationale camerounaise}, qu’il réussit avec succès. 
+	À l’issue de sa formation à l’\textbf{École de Police}, il obtient son diplôme et est \textbf{promu au grade d’inspecteur de police}, fonction qu’il exerce avec rigueur et professionnalisme.
+	
+	Néanmoins, sa curiosité intellectuelle et son intérêt croissant pour les technologies numériques le poussent à envisager une reconversion académique dans le domaine des sciences et techniques du numérique. 
+	Ainsi, en \textbf{2022}, il présente avec succès le \textbf{concours d’entrée à l’École Nationale Supérieure Polytechnique de Yaoundé (ENSPY)}, où il est admis dans la filière \textbf{Humanités Numériques}, option \textbf{Cybersécurité et Investigation numérique}. 
+	
+	Il y poursuit actuellement ses études en \textbf{quatrième année du cycle ingénieur}, sous le \textbf{matricule 22P108}, avec la volonté ferme d’allier ses compétences en sécurité publique à une expertise technologique de pointe.
+	
+	\subsection{Vie sociale et professionnelle}
+	
+	Sur le plan social, \textbf{TAPA KEMEGNE Loïc Brayan} est une personne équilibrée et sociable. 
+	Il est \textbf{célibataire} et \textbf{sans enfant}. 
+	Titulaire d’un \textbf{permis de conduire de catégorie B}, il se déplace aisément pour ses obligations professionnelles et personnelles. 
+	
+	Attaché à ses racines et à la tradition, il n’hésite pas à retourner régulièrement dans son village natal afin de se recueillir auprès de ses ancêtres et de participer aux activités coutumières. 
+	Ce lien fort avec sa culture traduit un profond respect pour les valeurs héritées de ses aïeux.
+	
+	Sur le plan professionnel, il met ses compétences et son temps au service de la \textbf{Police camerounaise}, où il exerce avec loyauté et dévouement. 
+	Sa rigueur, son sens du devoir et sa discrétion lui valent l’estime de ses supérieurs et de ses collègues. 
+	Parallèlement, il s’intéresse aux enjeux contemporains de la cybersécurité, convaincu que la protection numérique des citoyens constitue le prolongement moderne de la sécurité publique.
+	
+	\subsection{État religieux et moral}
+	
+	Sur le plan religieux, \textbf{TAPA KEMEGNE Loïc Brayan} a grandi dans une famille chrétienne et continue de pratiquer cette foi, suivant ainsi l’exemple de ses parents. 
+	Il participe régulièrement aux activités religieuses et considère la spiritualité comme un guide moral dans sa vie quotidienne.
+	
+	D’un point de vue éthique, il se distingue par une \textbf{moralité exemplaire}, une \textbf{intégrité irréprochable} et un profond \textbf{respect des valeurs humaines}. 
+	Son éducation familiale, axée sur la discipline et la droiture, se reflète dans ses comportements aussi bien personnels que professionnels. 
+	Sa personnalité concilie humilité, sens du devoir et respect d’autrui, faisant de lui un individu respecté et digne de confiance.
+	
+	 
+	\section{Méthodologie d’investigation en ligne}
+	
+	Dans le cadre de cette étude portant sur la présence numérique de \textbf{M. TAPA KEMEGNE Loïc Brayan}, plusieurs démarches méthodologiques ont été entreprises afin de collecter, d’analyser et d’interpréter les informations disponibles en ligne. 
+	L’objectif principal de cette phase d’investigation était de comprendre son empreinte numérique et de déterminer la nature des données accessibles à son sujet sur Internet.
+	
+	\subsection{Utilisation du moteur de recherche Google}
+	
+	La première étape de cette investigation a consisté à effectuer des recherches approfondies à l’aide du moteur de recherche \textbf{Google}. 
+	L’objectif était de recueillir un ensemble d’informations générales disponibles publiquement sur Internet. 
+	Pour ce faire, le nom complet \og TAPA KEMEGNE Loïc Brayan \fg{} a été saisi dans la barre de recherche du navigateur \textbf{Google Chrome}, en variant parfois l’ordre des mots et l’orthographe afin d’obtenir des résultats plus précis. 
+	Les liens obtenus ont ensuite été examinés avec attention, en privilégiant les sources fiables telles que les plateformes institutionnelles, les profils professionnels ou encore les articles d’actualité.
+	
+	\subsection{Analyse du profil Facebook}
+	
+	La seconde étape de l’investigation a porté sur le réseau social \textbf{Facebook}, dans le but d’identifier la présence numérique de l’individu sur cette plateforme. 
+	Une recherche minutieuse a été menée en saisissant successivement différentes combinaisons de son nom et de ses pseudonymes possibles. 
+	Cette approche a permis de localiser un profil correspondant à l’identité recherchée. 
+	L’analyse du contenu public du profil (photographies, publications, commentaires et informations personnelles partagées) a ensuite été réalisée afin d’extraire des éléments pertinents sur sa vie sociale, ses centres d’intérêt et son activité en ligne, tout en respectant les limites de la confidentialité et de l’éthique numérique.
+	
+	\subsection{Exploration d’autres réseaux sociaux}
+	
+	Dans la continuité de l’investigation, des recherches similaires ont été effectuées sur d’autres réseaux sociaux, notamment \textbf{Instagram}, \textbf{Snapchat}, \textbf{LinkedIn} et \textbf{TikTok}. 
+	L’objectif était de vérifier la présence éventuelle de M. TAPA KEMEGNE Loïc Brayan sur ces plateformes et d’évaluer la cohérence des informations obtenues avec celles issues de Facebook et de Google. 
+	Cette démarche a permis de retrouver certains profils confirmant son identité numérique, tandis que d’autres recherches se sont révélées infructueuses en raison de l’absence de compte ou de paramètres de confidentialité restreignant l’accès aux données publiques.
+	
+	L’ensemble de ces méthodes a permis de dresser une vue d’ensemble de la présence en ligne du sujet, tout en respectant les principes d’éthique, de neutralité et de confidentialité inhérents à toute démarche d’investigation numérique.
+	
+	
+	\section{Résultats obtenus}
+	
+	\subsection{Résultats issus de Google}
+	
+	Les différentes recherches effectuées à l’aide du moteur de recherche \textbf{Google} ont permis de recenser plusieurs informations publiques relatives à \textbf{M. TAPA KEMEGNE Loïc Brayan}. 
+	Ces résultats sont issus de sources officielles, notamment des communiqués ministériels et des plateformes d’information publique. 
+	Les principales découvertes se présentent comme suit :
+	
+	\begin{itemize}
+		\item Il a été découvert qu’il a été déclaré \textbf{éligible aux examens du permis de conduire, session N°1}, au sous-centre de \textbf{Yaoundé}, selon un communiqué du \textbf{Ministère des Transports}.
+		  \begin{figure}[h]
+		 			\centering
+		 			\includegraphics[width=0.85\textwidth]{eligible.png}
+		 			\caption{communiquer d'éligibilité}
+		 		\end{figure}
+		
+		\item Il a également été constaté qu’il a été \textbf{admis à la phase théorique du permis de conduire} au centre de Yaoundé lors de la \textbf{session du 27 janvier 2024}, d’après un communiqué officiel du même ministère.
+		\vspace{2cm}
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.85\textwidth]{admis.png}
+			\caption{communiquer d'admissibilité de la phase théorique}
+		\end{figure}
+		\item Un autre communiqué, émanant cette fois du \textbf{Ministère de l’Enseignement Supérieur}, le déclare \textbf{admis au concours d’entrée à l’École Nationale Supérieure Polytechnique de Yaoundé (ENSPY)}, dans la filière \textbf{Humanités Numériques – Cursus Sciences de l’Ingénieur}.
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.55\textwidth]{poly.png}
+			\caption{resultat concours polytechnique 2022}
+		\end{figure}
+	\end{itemize}
+	
+	Ces informations confirment la véracité de son parcours académique et administratif, déjà connu à travers les données personnelles recueillies.
+	
+	\subsection{Résultats issus de Facebook}
+	
+	L’exploration du réseau social \textbf{Facebook} a permis de localiser un profil appartenant à \textbf{TAPA KEMEGNE Loïc Brayan}, créé depuis \textbf{juin 2018}. 
+	L’analyse du profil public a révélé les éléments suivants :
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.85\textwidth]{fac.png}
+		\caption{profil facebook}
+	\end{figure}
+	
+	\begin{itemize}
+		\item Le profil mentionne comme lieu de résidence \textbf{Yaoundé, Cameroun}, mais affiche également une localisation secondaire à \textbf{Washington, Caroline du Nord}. Cette dualité peut suggérer soit une erreur volontaire ou technique, soit une volonté de préserver partiellement son identité numérique.
+		\item Le profil indique qu’il est de \textbf{sexe masculin}, ce qui correspond à la réalité. En revanche, la \textbf{profession n'étant pas affichée}, cela soulève des interrogations quant à la stratégie de dissimulation d’informations personnelles.
+		\item Il a été observé que le sujet \textbf{ne publie presque rien sur son profil} depuis sa création. Cette absence d’activité visible témoigne d’une attitude discrète et réservée sur les réseaux sociaux, probablement motivée par des raisons professionnelles ou personnelles.
+	\end{itemize}
+	
+	\subsection{Résultats issus des autres réseaux sociaux}
+	
+	Les investigations menées sur d’autres réseaux sociaux, notamment \textbf{Instagram} et \textbf{Snapchat}, ont permis d’identifier des profils correspondant au nom du sujet. 
+	Cependant, ces comptes sont \textbf{dépourvus de publications} ou d’informations personnelles exploitables, rendant leur analyse limitée. 
+	Aucune trace n’a été trouvée sur \textbf{LinkedIn} ni sur \textbf{TikTok}, ce qui confirme une utilisation restreinte des réseaux sociaux par l’individu concerné.
+	
+	\section{Comparaison des connaissances personnelles et des résultats d’investigation}
+	
+	L’analyse croisée entre les informations obtenues par investigation en ligne et les connaissances personnelles recueillies à propos de \textbf{M. TAPA KEMEGNE Loïc Brayan} met en évidence une correspondance globalement satisfaisante entre les deux sources. En effet, les recherches menées confirment son origine de bafoussam et son attachement à la région de l’Ouest du Cameroun, tels que rapportés initialement. Son admission à l’École Nationale Supérieure Polytechnique de Yaoundé, dans la filière Humanités Numériques, a également été vérifiée par un communiqué officiel du Ministère de l’Enseignement Supérieur, ce qui atteste de la fiabilité des informations personnelles connues à ce sujet.  
+	
+	Sur le plan professionnel, aucune trace directe de sa fonction d’inspecteur de police n’a été retrouvée sur les plateformes publiques, ainsi que dans le moteur de recherche.  
+	
+	Par ailleurs, les informations issues des réseaux sociaux confirment sa résidence à Yaoundé, tout en affichant de façon surprenante une localisation secondaire à Washington (Caroline du Nord), pouvant traduire soit un paramétrage aléatoire, soit une stratégie de dissimulation partielle. L’analyse générale de son activité en ligne démontre une grande discrétion : ses profils Facebook, Instagram et Snapchat sont peu actifs, sans publication significative, ce qui rejoint les observations personnelles selon lesquelles il s’agit d’un individu réservé et prudent dans la gestion de son image numérique.  
+	
+	En somme, les résultats d’investigation en ligne sont en étroit correspondances en grande partie avec les connaissances personnelles disponibles, tout en apportant des précisions complémentaires sur certains aspects administratifs et numériques du sujet. Les divergences observées demeurent mineures et traduisent davantage une volonté de confidentialité qu’une incohérence d’information.
+	
+	
+	\pagebreak
+	
+	\section*{Conclusion}
+	\addcontentsline{toc}{section}{CONCLUSION}
+	
+	Au terme de cette investigation, il ressort que \textbf{M. TAPA KEMEGNE Loïc Brayan} présente une empreinte numérique relativement limitée, marquée par une forte discrétion sur les réseaux sociaux. Les recherches effectuées sur Google et Facebook ont permis de confirmer plusieurs éléments liés à son parcours académique et administratif, tout en révélant quelques incohérences mineures concernant certaines données personnelles. L’analyse comparative entre les informations en ligne et les connaissances personnelles met en évidence une cohérence globale, témoignant d’une maîtrise de son image numérique. Ces résultats soulignent l’importance pour tout individu de gérer activement sa présence sur Internet, afin d’assurer la protection de son identité tout en préservant la fiabilité des informations qui y sont diffusées.
+	
+\end{document}
