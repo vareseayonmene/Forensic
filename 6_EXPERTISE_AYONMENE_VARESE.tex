@@ -1,0 +1,252 @@
+\documentclass[12pt, a4em]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{fontawesome5}
+\usepackage{eso-pic}
+\usepackage{amsmath, amssymb}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[nottoc]{tocbibind}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=gray!150,
+	filecolor=magenta,
+	urlcolor=cyan,
+	pdftitle={rapport groupe 1},
+	bookmarks=true,
+	%linktoc=all
+}
+
+\titleformat{\section}{\normalfont\Large\bfseries\centering}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{1em}{}
+\usetikzlibrary{calc}
+\geometry{top=2cm,bottom=2cm,left=1.5cm,right=2cm}
+\begin{document}
+	\begin{titlepage}
+		
+		\AddToShipoutPictureBG*{%
+			\begin{tikzpicture}[remember picture, overlay]
+				\draw[black, line width=2pt]
+				($(current page.north west) + (0.5cm,-0.5cm)$) --
+				($(current page.north east) + (-0.5cm,-0.5cm)$) --
+				($(current page.south east) + (-0.5cm,0.5cm)$) --
+				($(current page.south west) + (0.5cm,0.5cm)$) --
+				cycle;
+			\end{tikzpicture}%
+		}
+		
+		%=== EN-TÊTE ===
+		%\noindent
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{p{7.5cm}c p{7.1cm}}
+				% --- Bloc gauche (Français) ---
+				\centering
+				\textbf{RÉPUBLIQUE DU CAMEROUN}\\
+				Paix-Travail-Patrie\\
+				**********\\[0.2cm]
+				\textbf{UNIVERSITÉ DE YAOUNDÉ I}\\
+				**************\\[0.2cm]
+				\textbf{ÉCOLE NATIONALE SUPÉRIEURE POLYTECHNIQUE DE YAOUNDÉ}\\
+				%\textbf{POLYTECHNIQUE DE YAOUNDÉ}\\
+				******************\\[0.2cm]
+				\textbf{DÉPARTEMENT DE GÉNIE}\\
+				\textbf{INFORMATIQUE}\\
+				**********************
+				
+				&
+				
+				% --- Logos au centre ---
+				\raisebox{-1.2\height}{\includegraphics[width=2.8cm]{yde1.png}}
+				
+				&
+				
+				% --- Bloc droit (Anglais) ---
+				\centering
+				\textbf{REPUBLIC OF CAMEROON}\\
+				Peace-Work-Fatherland\\ 
+				********\\[0.2cm]
+				\textbf{UNIVERSITY OF YAOUNDÉ I}\\
+				************\\[0.2cm]
+				\textbf{NATIONAL ADVANCED SCHOOL OF ENGINEERING OF YAOUNDÉ}\\
+				%\textbf{OF ENGINEERING OF YAOUNDÉ}\\
+				******************\\[0.2cm]
+				\textbf{DEPARTMENT OF COMPUTER ENGINEERING}\\
+				%\textbf{ENGINEERING}\\
+				********************
+			\end{tabular}
+		\end{table}
+		
+		\vspace{2cm}
+		% --- Titre principal ---
+		\begin{center}
+			\rule{14cm}{1pt} \\[0.1cm]
+			{\Large \bfseries RAPPORT D'EXPERTISE D'INVESTIGATION NUMERIQUE} \\[0.0001cm] 
+			\rule{14cm}{1pt} \\[2cm]
+		\end{center}
+		
+		\begin{center}
+			\textbf{NOM ET PRÉNOM}\\
+			AYONNEME TIOBOU Varese\\[0.5cm]
+			\textbf{MATRICULE}\\
+			22P045\\[0.5cm]
+			\textbf{SPÉCIALITÉ}\\
+			HN-4 CIN
+		\end{center}
+		
+		\vspace{2cm}
+		
+		% --- Examinateur et année ---
+		\begin{flushleft}
+			\textbf{EXAMINATEUR :} Mr MINKA Thierry
+		\end{flushleft}
+		
+		\begin{flushright}
+			\textbf{Année Académique :} 2025/2026
+		\end{flushright}
+		
+		\vfill
+		%\vspace{0.1cm}
+		
+		% --- Pied de page ---
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[black, line width=2pt] (0,0) -- (1\textwidth,0);
+			\end{tikzpicture}
+			\\[0.05cm]
+			\textbf{\color{black}INVESTIGATION NUMERIQUE \hspace{1cm} \faIcon{graduation-cap} \hspace{5cm} ENSPY}
+		\end{center}
+	\end{titlepage}
+	
+	\tableofcontents
+	\addcontentsline{toc}{section}{\contentsname}
+	
+	\pagebreak
+	
+	\section*{INTRODUCTION}
+	\addcontentsline{toc}{section}{INTRODUCTION}
+	
+	Ce travail consiste a l'analyse de l'ordonnance de renvoi N$^o$:015/ORD/JLNZIE/TMY de l'ans deux mille vingt-quatre et le 29 du mois de février du tribunal militaire de Yaounde  pour faire ressortir tout les points qui on attrait a de l'investigation numérique.
+	
+	\pagebreak
+	
+	\section*{RÉSULTATS DE L'ANALYSE}
+	\addcontentsline{toc}{section}{RÉSULTATS DE L'ANALYSE}
+	
+	\section*{Exploitation des données de géolocalisation téléphonique}
+	\begin{itemize}[leftmargin=*]
+		\item Utilisées pour \textbf{retracer les déplacements} des suspects et des victimes.
+		\item Exemples :
+		\begin{itemize}
+			\item Localisation de \textbf{TONGUE NANA}, \textbf{DAOUDA} et \textbf{LAMFU JOHNSON} à \textbf{EBOGO le 23 janvier 2023 vers 23h01}, peu après le départ du premier commando.
+			\item Vérification des déclarations de \textbf{SAVOM MARTIN} (initialement absent selon ses dires, mais présent à Yaoundé selon les données).
+			\item Confrontation des alibis (ex. : LAMFU JOHNSON prétendait être à l'hôpital avec sa femme, mais les données le placent sur les lieux du crime).
+		\end{itemize}
+	\end{itemize}
+	
+	\section*{Exploitation des listings d'appels et messages}
+	\begin{itemize}[leftmargin=*]
+		\item Analyse des \textbf{historiques d'appels} du téléphone de \textbf{Martinez Zogo} :
+		\begin{itemize}
+			\item Appel à \textbf{SAVOM MARTIN} peu avant son enlèvement.
+			\item Preuve que \textbf{Martinez Zogo} et \textbf{SAVOM MARTIN} étaient en contact la nuit des faits.
+		\end{itemize}
+		\item Communication entre \textbf{ARTHUR ESSOMBA} et \textbf{AMOUGOU BELINGA} immédiatement après la rencontre avec Martinez Zogo.
+		\item Échanges WhatsApp utilisés pour transmettre des \textbf{fiches de géolocalisation} (ex. : entre SAÏWANG YVES et DANWE JUSTIN).
+	\end{itemize}
+	
+	\section*{Fiches de géolocalisation et techniques}
+	\begin{itemize}[leftmargin=*]
+		\item Fournies par :
+		\begin{itemize}
+			\item \textbf{SAÏWANG YVES} (fiche de localisation)
+			\item \textbf{HEUDJI GUY SERGE} (fiche technique)
+		\end{itemize}
+		\item Ces documents ont été transmis \textbf{sans autorisation hiérarchique} et ont \textbf{facilité le repérage et l'enlèvement} de la victime.
+		\item Rémunération : 20 000 FCFA pour SAÏWANG YVES, 15 000 FCFA pour HEUDJI GUY SERGE.
+	\end{itemize}
+	
+	\section*{Données téléphoniques sous scellés}
+	\begin{itemize}[leftmargin=*]
+		\item Extraction et analyse du téléphone de \textbf{Martinez Zogo} :
+		\begin{itemize}
+			\item Découverte de messages évoquant des documents \textbf{« BOMBES »} remis par ARTHUR ESSOMBA.
+			\item Confirmation qu'il détenait des documents compromettants sur des personnalités.
+		\end{itemize}
+		\item Téléphone de \textbf{ARTHUR ESSOMBA} :
+		\begin{itemize}
+			\item Preuve de son rôle d'intermédiaire et de sa communication avec AMOUGOU BELINGA.
+		\end{itemize}
+	\end{itemize}
+	
+	\section*{Vidéosurveillance urbaine}
+	\begin{itemize}[leftmargin=*]
+		\item Images de surveillance à Yaoundé :
+		\begin{itemize}
+			\item Montrent le véhicule de \textbf{BIDZONGO MBEDE ALBERT (ARTHUR ESSOMBA)} arrivant au siège de \textbf{« Ambitude FM »}.
+			\item Confirment que \textbf{Martinez Zogo} est monté dans son véhicule peu avant son enlèvement.
+		\end{itemize}
+	\end{itemize}
+	
+	\section*{Données bancaires et transactions}
+	\begin{itemize}[leftmargin=*]
+		\item Relevés bancaires de \textbf{SAVOM MARTIN} :
+		\begin{itemize}
+			\item Retrait d'argent la nuit du crime à un guichet automatique près de l'Hôtel de Ville.
+			\item Concordance avec la distribution d'argent aux membres du commando par DANWE JUSTIN après l'opération.
+		\end{itemize}
+	\end{itemize}
+	
+	\section*{Preuves numériques administratives}
+	\begin{itemize}[leftmargin=*]
+		\item Note de service n°00646/DGRE/CAB du 12 novembre 2021 :
+		\begin{itemize}
+			\item Utilisée pour contester la régularité de l'opération.
+			\item Montre que DANWE JUSTIN a contourné la chaîne de commandement.
+		\end{itemize}
+		\item Captures d'écran et thermocopies des historiques d'appels versées au dossier.
+	\end{itemize}
+	
+	\section*{Rôle des communications dans la préparation du crime}
+	\begin{itemize}[leftmargin=*]
+		\item Utilisation de \textbf{WhatsApp} pour :
+		\begin{itemize}
+			\item Transmettre des ordres (ex. : message de DANWE JUSTIN à TONGUE NANA).
+			\item Envoyer des fiches de localisation.
+		\end{itemize}
+		\item Coordination par appels et SMS entre les différents acteurs avant, pendant et après les faits.
+	\end{itemize}
+	
+	\section*{Synthèse des différents intervention de l'investigation numérique}
+	\begin{itemize}[leftmargin=*]
+		\item \textbf{Vérification des alibis} et des déclarations des suspects.
+		\item \textbf{Établissement de la chronologie} des événements.
+		\item \textbf{Lien entre les différents acteurs} via leurs communications.
+		\item \textbf{Preuves matérielles} de la préparation et de l'exécution du crime.
+		\item \textbf{Confirmation des mobiles} (documents compromettants, menaces préalables).
+	\end{itemize}
+
+	\pagebreak
+	\section*{CONCLUSION}
+	
+	La convergence des preuves numériques -- géolocalisation, communications, vidéosurveillance et transactions financières -- a créé un faisceau d'indices concordants et irréfutables. Cette approche pluridisciplinaire a non seulement confirmé la matérialité des faits, mais aussi éclairé les motivations et les responsabilités de chaque intervenant dans la chaîne criminelle. Cette affaire souligne l'importance cruciale de l'investigation numérique dans la justice moderne, où les traces digitales deviennent souvent les témoins silencieux les plus fiables des actions criminelles.
+	\addcontentsline{toc}{section}{CONCLUSION}
+\end{document}
